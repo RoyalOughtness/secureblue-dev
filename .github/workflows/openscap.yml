@@ -1,0 +1,124 @@
+name: openscap
+
+on: 
+    push:
+    workflow_dispatch:
+    
+env:
+    IMAGE_NAME: ghcr.io/secureblue/silverblue-main-userns-hardened:latest
+    
+jobs:
+  scap:
+    permissions:
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+    runs-on: ubuntu-latest
+    container:
+      image: alpine:3.20.3
+      env:
+        SCAP_SECURITY_GUIDE_VERSION: "0.1.74"
+        MICROSOFT_SARIF_MULTITOOL_VERSION: "4.5.4"
+        MITRE_SAF_VERSION: "1.4.15"
+        SSG_DIR: "ssg"
+    steps:
+      - name: Install prerequisites
+        run: |
+          # shellcheck shell=sh
+          set -eu
+          apk add curl docker openscap-docker npm gcompat unzip
+          npm install -g "@microsoft/sarif-multitool@${MICROSOFT_SARIF_MULTITOOL_VERSION}"
+          npm install -g "@mitre/saf@${MITRE_SAF_VERSION}"
+          mkdir -p "${SSG_DIR}"
+          curl "https://github.com/ComplianceAsCode/content/releases/download/v${SCAP_SECURITY_GUIDE_VERSION}/scap-security-guide-${SCAP_SECURITY_GUIDE_VERSION}.zip" -Lso "${SSG_DIR}/ssg.zip"
+          unzip "${SSG_DIR}/ssg.zip" -d "${SSG_DIR}"
+      - name: Pull the docker image to scan
+        run: |
+          # shellcheck shell=sh
+          set -eu
+          # oscap-docker requires the image to have been pulled
+          docker pull "${IMAGE_NAME}"
+      - name: Run openscap
+        run: |
+          # shellcheck shell=sh
+          set -eu
+          # extract /etc/os-release
+          container_id=$(docker create "${IMAGE_NAME}")
+          if ! docker export "${container_id}" | tar -tvf - | grep -E '\setc/os-release( ->.*)?$' > /dev/null 2>&1 ; then
+          >&2 echo "The operating system used by ${IMAGE_NAME} could not be detected."
+          >&2 echo "Images that are not based on an operating system (such as distroless images) cannot be scanned by SCAP."
+          exit 1
+          fi
+          docker cp -L "$container_id:/etc/os-release" .
+          docker rm "$container_id"
+          unset container_id
+          # determine which ssg to use based on /etc/os-release
+          # see https://www.freedesktop.org/software/systemd/man/os-release.html
+          version_id=$(awk -F= '$1=="VERSION_ID" { print $2 ;}' os-release | sed 's/"//g')
+          id=$(awk -F= '$1=="ID" { print $2 ;}' os-release | sed 's/"//g')
+          ssg="scap-security-guide-${SCAP_SECURITY_GUIDE_VERSION}/ssg-fedora-ds.xml"
+
+          # Select the profile to use. The first profile that exists in the ssg is used.
+          for profile in xccdf_org.ssgproject.content_profile_cis_level2_server xccdf_org.ssgproject.content_profile_cis xccdf_org.ssgproject.content_profile_standard; do
+          if oscap info --profiles "${SSG_DIR}/${ssg}" | grep -qF "${profile}:"; then
+              echo "Selected profile: ${profile}"
+              break;
+          fi
+          done
+  
+          set +e
+          oscap-docker image "${IMAGE_NAME}" xccdf eval --verbose ERROR --fetch-remote-resources --profile "${profile}" --results "openscap-report.xml" --report "openscap-report.html" "${SSG_DIR}/${ssg}"
+          OSCAP_EXIT_CODE=$?
+          set -e
+  
+          case "${OSCAP_EXIT_CODE}" in
+          0)
+              echo "All rules passed"
+          ;;
+          1)
+              >&2 echo "An error occurred during evaluation"
+              exit 2
+          ;;
+          2)
+              echo "There is at least one rule with either fail or unknown result"
+          ;;
+          *)
+              >&2 echo "openscap returned an unexpected exit status of $OSCAP_EXIT_CODE"
+              exit "$OSCAP_EXIT_CODE"
+          ;;
+          esac
+      - name: Convert xml to hdf
+        run: |
+          # shellcheck shell=sh
+          set -eu
+          saf convert xccdf_results2hdf -i "openscap-report.xml" -o openscap-report.hdf
+      - name: Convert hdf to sarif
+        run: |
+          # shellcheck shell=sh
+          set -eu
+          DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 sarif-multitool convert -t Hdf -o openscap-report.sarif openscap-report.hdf.json
+      - name: filter results that shouldn't be GitHub security alerts
+        # Hopefully GitHub adds support for SARIF's "kind" eliminating the need for this step: https://github.com/orgs/community/discussions/65477
+        run: |
+          # shellcheck shell=sh
+          set -eu
+          jq 'del(.runs[].results[] | select(.kind == "notApplicable" or .kind == "pass" or .kind == "informational" ))' openscap-report.sarif > filtered.sarif
+          mv filtered.sarif openscap-report.sarif
+      - name: Upload reports
+        if: success() || failure() # always run even if the previous step fails
+        uses: actions/upload-artifact@v4
+        with:
+          name: openscap-reports
+          path: |
+            openscap-report.html
+            openscap-report.xml
+            openscap-report.hdf.json
+            openscap-report.sarif
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        # Results are generated only on a success or failure
+        # this is required since GitHub by default won't run the next step
+        # when the previous one has failed. Security checks that do not pass will 'fail'.
+        # An alternative is to add `continue-on-error: true` to the previous step
+        if: success() || failure()
+        with:
+          sarif_file: openscap-report.sarif
