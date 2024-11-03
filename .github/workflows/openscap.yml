@@ -21,6 +21,8 @@ jobs:
         MITRE_SAF_VERSION: "1.4.15"
         SSG_DIR: "ssg"
     steps:
+      - name: Maximize build space
+        uses: ublue-os/remove-unwanted-software@v6
       - name: Install prerequisites
         run: |
           # shellcheck shell=sh
