@@ -13,13 +13,11 @@ jobs:
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
       actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
     runs-on: ubuntu-latest
-    container:
-      image: alpine:3.20.3
-      env:
-        SCAP_SECURITY_GUIDE_VERSION: "0.1.74"
-        MICROSOFT_SARIF_MULTITOOL_VERSION: "4.5.4"
-        MITRE_SAF_VERSION: "1.4.15"
-        SSG_DIR: "ssg"
+    env:
+      SCAP_SECURITY_GUIDE_VERSION: "0.1.74"
+      MICROSOFT_SARIF_MULTITOOL_VERSION: "4.5.4"
+      MITRE_SAF_VERSION: "1.4.15"
+      SSG_DIR: "ssg"
     steps:
       - name: Maximize build space
         uses: ublue-os/remove-unwanted-software@v6
@@ -27,7 +25,7 @@ jobs:
         run: |
           # shellcheck shell=sh
           set -eu
-          apk add curl docker openscap-docker npm gcompat unzip
+          apt-get install curl docker openscap-docker npm gcompat unzip
           npm install -g "@microsoft/sarif-multitool@${MICROSOFT_SARIF_MULTITOOL_VERSION}"
           npm install -g "@mitre/saf@${MITRE_SAF_VERSION}"
           mkdir -p "${SSG_DIR}"
