@@ -25,7 +25,7 @@ jobs:
         run: |
           # shellcheck shell=sh
           set -eu
-          apt-get install curl docker openscap-docker npm gcompat unzip
+          sudo apt-get install curl docker openscap-docker npm gcompat unzip
           npm install -g "@microsoft/sarif-multitool@${MICROSOFT_SARIF_MULTITOOL_VERSION}"
           npm install -g "@mitre/saf@${MITRE_SAF_VERSION}"
           mkdir -p "${SSG_DIR}"
