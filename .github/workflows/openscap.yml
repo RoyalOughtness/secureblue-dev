@@ -5,7 +5,7 @@ on:
     workflow_dispatch:
     
 env:
-    IMAGE_NAME: ghcr.io/secureblue/silverblue-main-userns-hardened:latest
+    IMAGE_NAME: ghcr.io/secureblue/silverblue-main-userns-hardened:40
     
 jobs:
   scap:
