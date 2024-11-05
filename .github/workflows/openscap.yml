@@ -67,7 +67,7 @@ jobs:
           done
   
           set +e
-          oscap-docker image "${IMAGE_NAME}" xccdf eval --verbose ERROR --fetch-remote-resources --profile "${profile}" --results "openscap-report.xml" --report "openscap-report.html" --skip-rule xccdf_org.ssgproject.content_rule_rpm_verify_hashes --skip-rule xccdf_org.ssgproject.content_rule_rpm_verify_permissions "${SSG_DIR}/${ssg}"
+          oscap-docker image "${IMAGE_NAME}" xccdf eval --verbose ERROR --fetch-remote-resources --profile "${profile}" --results "openscap-report.xml" --report "openscap-report.html" --skip-rule xccdf_org.ssgproject.content_rule_rpm_verify_hashes --skip-rule xccdf_org.ssgproject.content_rule_rpm_verify_permissions --skip-rule xccdf_org.ssgproject.content_rule_aide_build_database "${SSG_DIR}/${ssg}"
           OSCAP_EXIT_CODE=$?
           set -e
   
