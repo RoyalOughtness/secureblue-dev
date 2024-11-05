@@ -5,7 +5,7 @@ on:
     workflow_dispatch:
     
 env:
-    IMAGE_NAME: ghcr.io/secureblue/silverblue-main-userns-hardened:40
+    IMAGE_NAME: ghcr.io/secureblue/silverblue-main-userns-hardened:latest
     
 jobs:
   scap:
@@ -67,6 +67,7 @@ jobs:
           done
   
           set +e
+          oscap --version
           sudo oscap-docker image "${IMAGE_NAME}" xccdf eval --verbose ERROR --fetch-remote-resources --profile "xccdf_org.ssgproject.content_profile_cusp_fedora" --results "openscap-report.xml" --report "openscap-report.html" --skip-rule xccdf_org.ssgproject.content_rule_rpm_verify_hashes --skip-rule xccdf_org.ssgproject.content_rule_rpm_verify_permissions --skip-rule xccdf_org.ssgproject.content_rule_aide_build_database "${SSG_DIR}/${ssg}"
           OSCAP_EXIT_CODE=$?
           set -e
