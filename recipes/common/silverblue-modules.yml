@@ -27,7 +27,6 @@ modules:
         - evince-djvu
         - gutenprint-cups
         - libcupsfilters
-        - gdal-libs
         - evince-previewer
         - hplip
         - bluez-cups
