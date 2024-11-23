@@ -8,18 +8,14 @@ modules:
         - gnome-tweaks
         - thunar
       remove:
-        - poppler
-        - poppler-utils
         - libppd
         - cups-filters-driverless
         - cups
         - tracker-miners
         - liblouisutdml-utils
-        - nautilus
         - cups-browsed
         - evince-libs
         - gnome-classic-session
-        - poppler-cpp
         - evince-thumbnailer
         - braille-printer-app
         - cups-filters
