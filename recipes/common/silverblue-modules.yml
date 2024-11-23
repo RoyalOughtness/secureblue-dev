@@ -8,6 +8,18 @@ modules:
         - gnome-tweaks
         - thunar
       remove:
+        - NetworkManager-vpnc
+        - NetworkManager-vpnc-gnome
+        - NetworkManager-adsl
+        - NetworkManager-openconnect
+        - NetworkManager-openconnect-gnome
+        - NetworkManager-ssh
+        - NetworkManager-ssh-gnome
+        - NetworkManager-pptp
+        - NetworkManager-pptp-gnome
+        - NetworkManager-wwan
+        - NetworkManager-ppp
+        - NetworkManager-bluetooth
         - cups-client
         - cups-ipptool
         - python3-cups
