@@ -8,6 +8,16 @@ modules:
         - gnome-tweaks
         - thunar
       remove:
+        - flite
+        - apr-util-openssl
+        - apr-util-lmdb
+        - apr-util
+        - apr
+        - httpd-tools
+        - avahi-gobject
+        - avahi-tools
+        - cifs-utils
+        - cifs-utils-info
         - gvfs-afc
         - gvfs-afp
         - gvfs-archive
@@ -93,7 +103,6 @@ modules:
         - nautilus
         - nautilus-extensions
         - ModemManager
-        - mozilla-filesystem
         - gnome-browser-connector
         - evince-libs
         - gnome-classic-session
