@@ -112,6 +112,13 @@ modules:
         - hplip-libs
         - sudo
         - sudo-python-plugin
+        - ImageMagick-libs
+        - ImageMagick
+        - libspectre
+        - libgs
+        - ghostscript
+        - ghostscript-tools-fonts
+        - ghostscript-tools-printing
         - urw-base35-bookman-fonts
         - urw-base35-c059-fonts
         - urw-base35-d050000l-fonts
