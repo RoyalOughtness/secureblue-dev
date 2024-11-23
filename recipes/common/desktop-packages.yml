@@ -3,23 +3,12 @@ repos:
   - https://copr.fedorainfracloud.org/coprs/secureblue/bubblejail/repo/fedora-%OS_VERSION%/secureblue-bubblejail-fedora-%OS_VERSION%.repo
   - https://copr.fedorainfracloud.org/coprs/secureblue/hardened-chromium/repo/fedora-%OS_VERSION%/secureblue-hardened-chromium-fedora-%OS_VERSION%.repo
 install:
-  - headsetcontrol
   - hardened-chromium
   - hardened-chromium-subresource-filter
-  - mediainfo
-  - bubblejail
-  - usbguard-notifier
   - usbguard
-  - setroubleshoot
-  - setools
   - fscrypt
-  - vim
-  - alsa-firmware
   
   # yubikey enablement
-  - pam-u2f
-  - pam_yubico
-  - pamu2fcfg
   - yubikey-manager
 
   # ensure universal font coverage
