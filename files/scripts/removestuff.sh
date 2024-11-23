@@ -9,6 +9,7 @@ rpm-ostree override remove qemu-guest-agent qemu-user-static qemu-user-static-aa
 rpm-ostree override remove gvfs-afc gvfs-afp gvfs-archive gvfs-fuse gvfs-gphoto2 gvfs-mtp gvfs-smb
 rpm-ostree override remove ImageMagick-libs ImageMagick libspectre libgs ghostscript ghostscript-tools-fonts ghostscript-tools-printing
 rpm-ostree override remove orca speech-dispatcher speech-dispatcher-espeak-ng speech-dispatcher-libs speech-dispatcher-utils espeak-ng 
-rpm-ostree override remove flite apr-util-openssl apr-util-lmdb apr-util apr httpd-tools avahi-gobject avahi-tools cifs-utils cifs-utils-info fprintd fprintd-pam spice-webdavd spice-vdagent 
+rpm-ostree override remove flite apr-util-openssl apr-util-lmdb apr-util apr httpd-tools avahi-gobject avahi-tools
+rpm-ostree override remove cifs-utils cifs-utils-info fprintd fprintd-pam spice-webdavd spice-vdagent 
 rpm-ostree override remove sane-backends sane-backends-drivers-cameras sane-backends-drivers-scanners sane-backends-libs sane-airscan samba-client libsane-hpaio hplip-libs sudo sudo-python-plugin
 rpm-ostree override remove NetworkManager-vpnc NetworkManager-vpnc-gnome NetworkManager-adsl NetworkManager-openconnect NetworkManager-openconnect-gnome NetworkManager-ssh NetworkManager-ssh-gnome NetworkManager-pptp NetworkManager-pptp-gnome NetworkManager-ppp 
