@@ -8,6 +8,17 @@ modules:
         - gnome-tweaks
         - thunar
       remove:
+        - cups-client
+        - cups-ipptool
+        - python3-cups
+        - bluez
+        - gnome-bluetooth
+        - gutenprint
+        - system-config-printer-udev
+        - system-config-printer-libs
+        - freerdp-libs
+        - bluez-obexd
+        - NetworkManager-bluetooth
         - libppd
         - cups-filters-driverless
         - cups
