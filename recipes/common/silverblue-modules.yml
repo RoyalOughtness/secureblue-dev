@@ -33,7 +33,7 @@ modules:
         - gnome-tour
         - yelp
         - yelp-libs
-        - yelp-xslc
+        - yelp-xsl
         - gnome-user-share
         - mod_lua
         - httpd
