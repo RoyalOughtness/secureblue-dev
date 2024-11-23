@@ -8,6 +8,16 @@ modules:
         - gnome-tweaks
         - thunar
       remove:
+        - gvfs-afc
+        - gvfs-afp
+        - gvfs-archive
+        - gvfs-fuse
+        - gvfs-gphoto2
+        - gvfs-mtp
+        - gvfs-smb
+        - fprintd
+        - fprintd-pam
+        - espeak-ng
         - qemu-guest-agent
         - qemu-user-static
         - qemu-user-static-aarch64
@@ -81,6 +91,10 @@ modules:
         - liblouisutdml-utils
         - cups-browsed
         - nautilus
+        - nautilus-extensions
+        - ModemManager
+        - mozilla-filesystem
+        - gnome-browser-connector
         - evince-libs
         - gnome-classic-session
         - evince-thumbnailer
