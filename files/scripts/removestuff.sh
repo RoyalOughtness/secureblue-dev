@@ -4,7 +4,7 @@
 set -oue pipefail
 
 rpm-ostree override remove NetworkManager-bluetooth cups-client cups-ipptool python3-cups bluez gnome-bluetooth gutenprint system-config-printer-udev system-config-printer-libs freerdp-libs bluez-obexd libppd cups-filters-driverless cups liblouisutdml-utils cups-browsed ModemManager evince-libs gnome-classic-session evince-thumbnailer braille-printer-app cups-filters evince-djvu gutenprint-cups libcupsfilters evince-previewer hplip bluez-cups NetworkManager-wwan
-rpm-ostree override remove totem-pl-parser qt5-qtbase qt5-qtxmlpatterns qt5-qtx11extras gstreamer1-plugins-good-qt qt5-qtwayland qt5-qtbase-gui qt5-qtsvg qadwaitadecorations-qt5 qt5-qtdeclarative qt5-qtbase-common 
+rpm-ostree override remove qt5-qtbase qt5-qtxmlpatterns qt5-qtx11extras gstreamer1-plugins-good-qt qt5-qtwayland qt5-qtbase-gui qt5-qtsvg qadwaitadecorations-qt5 qt5-qtdeclarative qt5-qtbase-common 
 rpm-ostree override remove qemu-guest-agent qemu-user-static qemu-user-static-aarch64 qemu-user-static-alpha qemu-user-static-arm qemu-user-static-cris qemu-user-static-hexagon qemu-user-static-hppa qemu-user-static-loongarch64 qemu-user-static-m68k qemu-user-static-microblaze qemu-user-static-mips qemu-user-static-or1k qemu-user-static-ppc qemu-user-static-riscv qemu-user-static-s390x qemu-user-static-sh4 qemu-user-static-sparc qemu-user-static-x86 qemu-user-static-xtensa
 rpm-ostree override remove gvfs-afc gvfs-afp gvfs-archive gvfs-fuse gvfs-gphoto2 gvfs-mtp gvfs-smb fprintd fprintd-pam 
 rpm-ostree override remove ImageMagick-libs ImageMagick libspectre libgs ghostscript ghostscript-tools-fonts ghostscript-tools-printing
