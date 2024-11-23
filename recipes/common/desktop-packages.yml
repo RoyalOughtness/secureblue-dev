@@ -15,6 +15,7 @@ remove:
   - firefox
   - firefox-langpacks
   - mozilla-filesystem
+  - gnome-browser-connector
   - fuse
   - fedora-chromium-config
   - fedora-flathub-remote

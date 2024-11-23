@@ -108,7 +108,6 @@ modules:
       - nautilus
       - nautilus-extensions
       - ModemManager
-      - gnome-browser-connector
       - evince-libs
       - gnome-classic-session
       - evince-thumbnailer
