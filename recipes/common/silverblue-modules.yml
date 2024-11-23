@@ -10,7 +10,6 @@ modules:
       remove:
         - poppler
         - poppler-utils
-        - poppler-glib
         - libppd
         - cups-filters-driverless
         - cups
