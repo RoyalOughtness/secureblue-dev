@@ -6,9 +6,35 @@ modules:
         - adw-gtk3-theme
         - gnome-epub-thumbnailer
         - gnome-tweaks
+        - thunar
       remove:
+        - poppler
+        - poppler-utils
+        - poppler-glib
+        - libppd
+        - cups-filters-driverless
+        - cups
+        - tracker-miners
+        - liblouisutdml-utils
+        - nautilus
+        - cups-browsed
+        - evince-libs
+        - gnome-classic-session
+        - poppler-cpp
+        - evince-thumbnailer
+        - braille-printer-app
+        - cups-filters
+        - evince-djvu
+        - gutenprint-cups
+        - libcupsfilters
+        - gdal-libs
+        - evince-previewer
+        - hplip
+        - bluez-cups
         - gnome-tour
         - yelp
+        - yelp-libs
+        - yelp-xslc
         - gnome-user-share
         - mod_lua
         - httpd
