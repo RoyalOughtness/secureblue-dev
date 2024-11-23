@@ -30,7 +30,6 @@ modules:
         - qemu-user-static-xtensa
         - spice-webdavd
         - spice-vdagent
-        - stix-fonts
         - speech-dispatcher
         - speech-dispatcher-espeak-ng
         - speech-dispatcher-libs
