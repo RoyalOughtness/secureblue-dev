@@ -11,8 +11,6 @@ install:
   # yubikey enablement
   - yubikey-manager
 
-  # ensure universal font coverage
-  - google-noto-fonts-all
 remove:
   - firefox
   - firefox-langpacks
