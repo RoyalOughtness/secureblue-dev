@@ -119,6 +119,9 @@ modules:
         - ghostscript
         - ghostscript-tools-fonts
         - ghostscript-tools-printing
+        - langpacks-fonts-en
+        - langpacks-core-en
+        - langpacks-en
         - urw-base35-bookman-fonts
         - urw-base35-c059-fonts
         - urw-base35-d050000l-fonts
