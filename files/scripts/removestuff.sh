@@ -18,13 +18,13 @@ rpm-ostree override remove  gspell mtr low-memory-monitor uresourced kasumi-comm
 rpm-ostree override remove  vazirmatn-vf-fonts openssh-server m17n-db m17n-lib
 rpm-ostree override remove httpd-filesystem xfsprogs exiv2  gamemode  man-db  gst-editing-services  audit mcelog 
 
-systemctl disable --now switcheroo-control.service
-systemctl mask --now switcheroo-control.service
-systemctl disable --now flatpak-system-helper.service
-systemctl mask --now flatpak-system-helper.service
-systemctl disable --now  mdmonitor.service
-systemctl mask --now  mdmonitor.service
-systemctl disable --now  systemd-rfkill.service
-systemctl mask --now  systemd-rfkill.service
-systemctl disable --now  dm-event.service
-systemctl mask --now  dm-event.service
+systemctl disable  switcheroo-control.service
+systemctl mask  switcheroo-control.service
+systemctl disable  flatpak-system-helper.service
+systemctl mask  flatpak-system-helper.service
+systemctl disable   mdmonitor.service
+systemctl mask   mdmonitor.service
+systemctl disable   systemd-rfkill.service
+systemctl mask   systemd-rfkill.service
+systemctl disable   dm-event.service
+systemctl mask   dm-event.service
