@@ -17,3 +17,10 @@ rpm-ostree override remove ibus-anthy ibus-anthy-python ibus-chewing ibus-gtk4 i
 rpm-ostree override remove  gspell mtr low-memory-monitor uresourced kasumi-common kasumi-unicode julietaula-montserrat-fonts jomolhari-fonts default-fonts-bo rygel gupnp-dlna gupnp-av gnome-software gnome-user-docs gnome-menus  gnome-app-list epiphany-runtime  gnome-shell-extension-apps-menu gnome-shell-extension-background-logo gnome-shell-extension-launch-new-instance gnome-shell-extension-places-menu  gnome-shell-extension-window-list default-fonts-fa default-fonts-ml default-fonts-ne lvm2 lvm2-libs texlive-lib tcl usb_modeswitch usb_modeswitch-data stix-fonts  sshpass sil-padauk-fonts default-fonts-my qpdf-libs realmd vpnc-script pptp vpnc paktype-naskh-basic-fonts libcamera libcamera-ipa pipewire-plugin-libcamera default-fonts-ur
 rpm-ostree override remove  vazirmatn-vf-fonts default-fonts-fa openssh-server m17n-db m17n-lib
 rpm-ostree override remove httpd-filesystem xfsprogs exiv2  gamemode  man-db  gst-editing-services rygel audit
+
+systemctl disable --now switcheroo-control
+systemctl mask --now switcheroo-control
+systemctl disable --now flatpak-system-helper
+systemctl mask --now flatpak-system-helper
+systemctl disable --now  mdmonitor
+systemctl mask --now  mdmonitor
