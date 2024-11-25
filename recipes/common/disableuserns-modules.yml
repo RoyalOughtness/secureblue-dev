@@ -4,4 +4,5 @@ modules:
         - distrobox
     - type: script
       scripts:
+        - replaceselinuxpolicy.sh
         - disableuserns.sh
