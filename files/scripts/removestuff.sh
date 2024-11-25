@@ -30,8 +30,6 @@ systemctl disable   systemd-rfkill.service
 systemctl mask   systemd-rfkill.service
 systemctl disable   dm-event.service
 systemctl mask   dm-event.service
-systemctl disable   accounts-daemon.service
-systemctl mask   accounts-daemon.service
 systemctl disable   rc-local.service
 systemctl mask   rc-local.service
 systemctl disable grub2-systemd-integration.service    
