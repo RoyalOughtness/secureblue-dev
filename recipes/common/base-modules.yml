@@ -10,62 +10,62 @@ modules:
         - cups-client
         - cups-filters
         - cups-filters-driverless
-        - cups-ipptool
-        - gutenprint
-        - gutenprint-cups
-        - hplip
-        - hplip-libs
-        - libcupsfilters
-        - libppd
-        - libsane-hpaio
-        - sane-airscan
-        - sane-backends
-        - sane-backends-drivers-cameras
-        - sane-backends-drivers-scanners
-        - sane-backends-libs
-        - ntfs-3g
-        - ntfs-3g-libs
-        - ntfs-3g-system-compression
-        - ntfsprogs
-        - mozilla-filesystem
-        - antiword
-        - avahi-tools
-        - avahi-gobject
-        - spice-webdavd
-        - liblouisutdml-utils
-        - spice-vdagent
-        - ibus-typing-booster
-        - fuse-libs
-        - fuse-overlayfs
-        - gamemode 
-        - system-config-printer-udev
-        - system-config-printer-libs
-        - sssd-kcm 
-        - sssd-krb5-common
-        - sssd-nfs-idmap 
-        - sssd-client
-        - sshpass
-        - qemu-guest-agent 
-        - qemu-user-static-aarch64 
-        - sssd-common
-        - malcontent-control
-        - malcontent-ui-libs
-        - lvm2
-        - lvm2-libs
-        - hyperv-daemons
-        - hyperv-daemons-license
-        - hypervfcopyd
-        - hypervkvpd
-        - hypervvssd
-        - hfsplus-tools
-        - hplip-common
-        - ibus-anthy 
-        - ibus-anthy-python
-        - ibus-chewing
-        - ibus-gtk4 
-        - ibus-hangul 
-        - ibus-libpinyin
-        - ibus-m17n
+         - cups-ipptool
+        # - gutenprint
+        # - gutenprint-cups
+        # - hplip
+        # - hplip-libs
+        # - libcupsfilters
+        # - libppd
+        # - libsane-hpaio
+        # - sane-airscan
+        # - sane-backends
+        # - sane-backends-drivers-cameras
+        # - sane-backends-drivers-scanners
+        # - sane-backends-libs
+        # - ntfs-3g
+        # - ntfs-3g-libs
+        # - ntfs-3g-system-compression
+        # - ntfsprogs
+        # - mozilla-filesystem
+        # - antiword
+        # - avahi-tools
+        # - avahi-gobject
+        # - spice-webdavd
+        # - liblouisutdml-utils
+        # - spice-vdagent
+        # - ibus-typing-booster
+        # - fuse-libs
+        # - fuse-overlayfs
+        # - gamemode 
+        # - system-config-printer-udev
+        # - system-config-printer-libs
+        # - sssd-kcm 
+        # - sssd-krb5-common
+        # - sssd-nfs-idmap 
+        # - sssd-client
+        # - sshpass
+        # - qemu-guest-agent 
+        # - qemu-user-static-aarch64 
+        # - sssd-common
+        # - malcontent-control
+        # - malcontent-ui-libs
+        # - lvm2
+        # - lvm2-libs
+        # - hyperv-daemons
+        # - hyperv-daemons-license
+        # - hypervfcopyd
+        # - hypervkvpd
+        # - hypervvssd
+        # - hfsplus-tools
+        # - hplip-common
+        # - ibus-anthy 
+        # - ibus-anthy-python
+        # - ibus-chewing
+        # - ibus-gtk4 
+        # - ibus-hangul 
+        # - ibus-libpinyin
+        # - ibus-m17n
 
     - type: script
       scripts:
