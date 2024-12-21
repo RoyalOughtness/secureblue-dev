@@ -16,6 +16,7 @@ install:
 remove:
   - firefox
   - firefox-langpacks
+  - mozilla-filesystem
   - fuse
   - fedora-chromium-config
   - fedora-flathub-remote

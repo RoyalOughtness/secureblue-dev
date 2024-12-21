@@ -41,22 +41,22 @@ modules:
         - ntfs-3g-libs
         - ntfs-3g-system-compression
         - ntfsprogs
-        - mozilla-filesystem
         - avahi-tools
         - avahi-gobject
         - spice-webdavd
-        # - liblouisutdml-utils
+        - liblouisutdml-utils
         - spice-vdagent
         # - ibus-typing-booster
         
         - system-config-printer-udev
         - system-config-printer-libs
-        # - sssd-kcm 
-        # - sssd-krb5-common
-        # - sssd-nfs-idmap 
+        - sssd-kcm 
+        - sssd-krb5-common
+        - sssd-nfs-idmap 
         - sssd-client
         # - sshpass
         - qemu-guest-agent 
+        - qemu-user-static
         - qemu-user-static-aarch64 
         - sssd-common
         # - malcontent-control
