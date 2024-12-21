@@ -3,14 +3,6 @@ modules:
       scripts:
         - installproprietarypackages.sh
     - type: rpm-ostree
-      install:
-      - ffmpeg
-      - ffmpeg-libs
-      - ffmpegthumbnailer
-      - pipewire-libs-extra
-      - libfdk-aac
-      - gstreamer1-plugins-ugly  
-
       remove:
       - gstreamer1-plugins-ugly-free
       - fdk-aac-free
