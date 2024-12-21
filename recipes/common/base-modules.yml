@@ -70,7 +70,7 @@ modules:
 
     - type: script
       scripts:
-        basefromdnf5.sh
+        - basefromdnf5.sh
     - type: gschema-overrides
       include:
         - zz1-secureblue.gschema.override
