@@ -6,25 +6,14 @@ install:
   - headsetcontrol
   - hardened-chromium
   - hardened-chromium-subresource-filter
-  - mediainfo
-  - bubblejail
-  - usbguard-notifier
   - usbguard
-  - setroubleshoot
-  - setools
   - fscrypt
-  - vim
-  - wl-clipboard
-  - alsa-firmware
   
   # yubikey enablement
   - pam-u2f
   - pam_yubico
   - pamu2fcfg
   - yubikey-manager
-
-  # ensure universal font coverage
-  - google-noto-fonts-all
 remove:
   - firefox
   - firefox-langpacks
