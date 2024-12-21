@@ -9,13 +9,14 @@ modules:
         - cups-browsed
         - cups-client
         - cups-filters
+        - cups-filters-driverless
         - gutenprint
         - gutenprint-cups
         - hplip
         - hplip-libs
         - libcupsfilters
         - libppd
-        # - libsane-hpaio
+        - libsane-hpaio
         # - sane-airscan
         # - sane-backends
         # - sane-backends-drivers-cameras
