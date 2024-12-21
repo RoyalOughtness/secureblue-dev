@@ -4,7 +4,6 @@ modules:
         - installproprietarypackages.sh
     - type: rpm-ostree
       install:
-      - heif-pixbuf-loader
       - ffmpeg
       - ffmpeg-libs
       - ffmpegthumbnailer
