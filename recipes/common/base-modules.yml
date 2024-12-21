@@ -35,7 +35,6 @@ modules:
         - cups-filters
         - cups-filters-driverless
         - cups-ipptool
-        - gnome-software
         - gutenprint
         - gutenprint-cups
         - hplip
@@ -57,7 +56,6 @@ modules:
         - ntfs-3g-system-compression
         - ntfsprogs
         - mozilla-filesystem
-        - gnome-browser-connector
         - antiword
         - apr
         - apr-util
@@ -87,7 +85,6 @@ modules:
         - qemu-guest-agent 
         - qemu-user-static-aarch64 
         - sssd-common
-        - gnome-epub-thumbnailer
         - malcontent-control
         - malcontent-ui-libs
         - lvm2
