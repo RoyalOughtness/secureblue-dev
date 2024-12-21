@@ -32,7 +32,6 @@ modules:
         - avahi-tools
         - avahi-gobject
         - spice-webdavd
-        - httpd-tools
         - liblouisutdml-utils
         - spice-vdagent
         - ibus-typing-booster
