@@ -11,12 +11,12 @@ modules:
         - cups-filters
         # - cups-filters-driverless
         #  - cups-ipptool
-        # - gutenprint
-        # - gutenprint-cups
+         - gutenprint
+         - gutenprint-cups
         # - hplip
         # - hplip-libs
-        # - libcupsfilters
-        # - libppd
+         - libcupsfilters
+         - libppd
         # - libsane-hpaio
         # - sane-airscan
         # - sane-backends
