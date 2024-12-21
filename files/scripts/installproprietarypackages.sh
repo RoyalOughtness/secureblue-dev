@@ -26,4 +26,4 @@ rpm-ostree override replace \
     gstreamer1-plugin-vaapi 
 
 
-dnf5 install -y --setopt=install_weak_deps=False ffmpeg ffmpeg-libs ffmpegthumbnailer pipewire-libs-extra libfdk-aac
+dnf5 install -y --setopt=install_weak_deps=False rar ffmpeg ffmpeg-libs ffmpegthumbnailer pipewire-libs-extra libfdk-aac
