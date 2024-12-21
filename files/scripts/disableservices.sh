@@ -7,12 +7,6 @@ set -oue pipefail
 
 systemctl disable switcheroo-control.service  
 systemctl mask switcheroo-control.service  
-systemctl disable mcelog  
-systemctl mask mcelog  
-systemctl disable uresourced  
-systemctl mask uresourced  
-systemctl disable low-memory-monitor  
-systemctl mask low-memory-monitor  
 systemctl disable systemd-rfkill  
 systemctl disable systemd-rfkill.socket  
 systemctl mask systemd-rfkill  

@@ -46,7 +46,6 @@ modules:
         - spice-webdavd
         - liblouisutdml-utils
         - spice-vdagent
-        # - ibus-typing-booster
         
         - system-config-printer-udev
         - system-config-printer-libs
@@ -71,6 +70,9 @@ modules:
         - ibus-hangul 
         - ibus-libpinyin
         - ibus-m17n
+        - mcelog
+        - uresourced
+        - low-memory-monitor
 
     - type: script
       scripts:
@@ -81,3 +83,4 @@ modules:
     - type: script
       scripts:
         - removedkmshelper.sh
+        - disableservices.sh
