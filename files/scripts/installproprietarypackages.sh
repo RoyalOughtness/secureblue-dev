@@ -9,7 +9,6 @@ sed -i '0,/enabled=1/{s/enabled=1/enabled=1\npriority=90/}' /etc/yum.repos.d/neg
 rpm-ostree override replace \
   --experimental \
   --from repo='fedora-multimedia' \
-    x265-libs \
     libheif \
     libva \
     libva-intel-media-driver \
@@ -25,5 +24,3 @@ rpm-ostree override replace \
     gstreamer1-plugin-libav \
     gstreamer1-plugin-vaapi 
 
-
-dnf5 install -y --setopt=install_weak_deps=False rar ffmpeg ffmpeg-libs ffmpegthumbnailer pipewire-libs-extra libfdk-aac

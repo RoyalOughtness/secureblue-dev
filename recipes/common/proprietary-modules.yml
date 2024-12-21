@@ -1,18 +1,28 @@
 modules:
-    - type: rpm-ostree
-      remove:
-      - gstreamer1-plugins-ugly-free
-      - fdk-aac-free
-      - ffmpeg-free
-      - libavcodec-free  
-      - libavdevice-free
-      - libavfilter-free
-      - libavformat-free  
-      - libavutil-free  
-      - libpostproc-free  
-      - libswresample-free  
-      - libswscale-free  
     - type: script
       scripts:
         - installproprietarypackages.sh
+    - type: rpm-ostree
+      install:
+        - ffmpeg
+        - ffmpeg-libs
+        - ffmpegthumbnailer
+        - pipewire-libs-extra
+        - libfdk-aac
+        - gstreamer1-plugins-ugly
+        - rar
+      remove:
+        - gstreamer1-plugins-ugly-free
+        - fdk-aac-free
+        - ffmpeg-free
+        - libavcodec-free  
+        - libavdevice-free
+        - libavfilter-free
+        - libavformat-free  
+        - libavutil-free  
+        - libpostproc-free  
+        - libswresample-free  
+        - libswscale-free  
+    - type: script
+      scripts:
         - removeunusedrepos.sh
