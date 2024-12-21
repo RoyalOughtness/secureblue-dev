@@ -1,6 +1,7 @@
 modules:
     - type: script
       scripts:
+        - installrpmfusion.sh
         - installproprietarypackages.sh
     - type: rpm-ostree
       install:
@@ -10,7 +11,6 @@ modules:
         - pipewire-libs-extra
         - libfdk-aac
         - gstreamer1-plugins-ugly
-        - rar
       remove:
         - gstreamer1-plugins-ugly-free
         - fdk-aac-free
