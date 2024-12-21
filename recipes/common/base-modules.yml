@@ -56,7 +56,7 @@ modules:
         - sssd-client
         # - sshpass
         - qemu-guest-agent 
-        - qemu-user-static
+        # - qemu-user-static
         - qemu-user-static-aarch64 
         - sssd-common
         # - malcontent-control
