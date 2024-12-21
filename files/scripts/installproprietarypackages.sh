@@ -10,7 +10,7 @@ dnf5 install -y --setopt=install_weak_deps=False ffmpeg ffmpeg-libs ffmpegthumbn
 rpm-ostree override replace \
   --experimental \
   --from repo='fedora-multimedia' \
-    x265-libs \ 
+    x265-libs \
     libheif \
     libva \
     libva-intel-media-driver \
