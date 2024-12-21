@@ -59,8 +59,6 @@ modules:
         - antiword
         - avahi-tools
         - avahi-gobject
-        - bluez-obexd
-        - bluez
         - spice-webdavd
         - httpd-tools
         - liblouisutdml-utils
