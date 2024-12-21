@@ -1,7 +1,4 @@
 modules:
-    - type: script
-      scripts:
-        - installproprietarypackages.sh
     - type: rpm-ostree
       remove:
       - gstreamer1-plugins-ugly-free
@@ -17,4 +14,5 @@ modules:
       - libswscale-free  
     - type: script
       scripts:
+        - installproprietarypackages.sh
         - removeunusedrepos.sh
