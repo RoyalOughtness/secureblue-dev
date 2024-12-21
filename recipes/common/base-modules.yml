@@ -1,29 +1,5 @@
 modules:
     - type: rpm-ostree
-      install:
-        - adw-gtk3-theme
-        - gnome-tweaks
-        - gnome-shell
-        - gdm
-        - mesa-dri-drivers
-        - mesa-libEGL
-        - mesa-vulkan-drivers
-        - systemd-oomd-defaults
-        - tracker
-        - tracker-miners
-        - plymouth-system-theme
-        - polkit
-        - nautilus
-        - ptyxis
-        - gnome-session-wayland-session
-        - gnome-color-manager
-        - gnome-control-center
-        - dconf
-        - adobe-source-code-pro-fonts
-        - NetworkManager-openvpn-gnome
-        - gnome-settings-daemon
-        - papirus-icon-theme
-
       remove:
         - NetworkManager-config-connectivity-fedora
         - NetworkManager-bluetooth
@@ -84,7 +60,6 @@ modules:
         - hypervvssd
         - hfsplus-tools
         - hplip-common
-        - httpd-filesystem
         - ibus-anthy 
         - ibus-anthy-python
         - ibus-chewing
@@ -93,7 +68,9 @@ modules:
         - ibus-libpinyin
         - ibus-m17n
 
-
+    - type: script
+      scripts:
+        basefromdnf5.sh
     - type: gschema-overrides
       include:
         - zz1-secureblue.gschema.override
