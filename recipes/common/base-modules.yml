@@ -61,15 +61,16 @@ modules:
         - sssd-common
         # - malcontent-control
         # - malcontent-ui-libs
-        # - lvm2
-        # - lvm2-libs
-        # - ibus-anthy 
-        # - ibus-anthy-python
-        # - ibus-chewing
-        # - ibus-gtk4 
-        # - ibus-hangul 
-        # - ibus-libpinyin
-        # - ibus-m17n
+        - lvm2
+        - lvm2-libs
+        - ibus-typing-booster
+        - ibus-anthy 
+        - ibus-anthy-python
+        - ibus-chewing
+        - ibus-gtk4 
+        - ibus-hangul 
+        - ibus-libpinyin
+        - ibus-m17n
 
     - type: script
       scripts:
