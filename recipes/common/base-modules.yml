@@ -27,7 +27,6 @@ modules:
       remove:
         - NetworkManager-config-connectivity-fedora
         - NetworkManager-bluetooth
-        - NetworkManager-wwan
         - bluez-cups
         - braille-printer-app
         - cups
@@ -59,7 +58,6 @@ modules:
         - ntfsprogs
         - mozilla-filesystem
         - gnome-browser-connector
-        - NetworkManager-bluetooth
         - antiword
         - apr
         - apr-util
