@@ -4,6 +4,7 @@ modules:
         - createautostartdir.sh
     - type: script
       scripts:
+        - installrpmfusion.sh
         - unprotectsudo.sh
         - addimageinfo.sh
     - from-file: common/common-packages.yml
