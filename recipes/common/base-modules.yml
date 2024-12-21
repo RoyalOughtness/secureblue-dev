@@ -1,15 +1,20 @@
 modules:
     - type: rpm-ostree
       remove:
+        - ModemManager
+        - NetworkManager-wwan
+        - antiword
         - NetworkManager-config-connectivity-fedora
         - NetworkManager-bluetooth
         - bluez-cups
+        - bluez
         - braille-printer-app
         - cups
         - cups-browsed
         - cups-client
         - cups-filters
         - cups-filters-driverless
+        - cups-ipptool
         - gutenprint
         - gutenprint-cups
         - hplip
@@ -17,47 +22,47 @@ modules:
         - libcupsfilters
         - libppd
         - libsane-hpaio
-        # - sane-airscan
-        # - sane-backends
-        # - sane-backends-drivers-cameras
-        # - sane-backends-drivers-scanners
-        # - sane-backends-libs
-        # - ntfs-3g
-        # - ntfs-3g-libs
-        # - ntfs-3g-system-compression
-        # - ntfsprogs
-        # - mozilla-filesystem
-        # - antiword
-        # - avahi-tools
-        # - avahi-gobject
-        # - spice-webdavd
+        - hplip-common
+        - gamemode 
+        - fuse-libs
+        - fuse-overlayfs
+        - hfsplus-tools
+        - hyperv-daemons
+        - hyperv-daemons-license
+        - hypervfcopyd
+        - hypervkvpd
+        - hypervvssd
+        - sane-airscan
+        - sane-backends
+        - sane-backends-drivers-cameras
+        - sane-backends-drivers-scanners
+        - sane-backends-libs
+        - ntfs-3g
+        - ntfs-3g-libs
+        - ntfs-3g-system-compression
+        - ntfsprogs
+        - mozilla-filesystem
+        - avahi-tools
+        - avahi-gobject
+        - spice-webdavd
         # - liblouisutdml-utils
-        # - spice-vdagent
+        - spice-vdagent
         # - ibus-typing-booster
-        # - fuse-libs
-        # - fuse-overlayfs
-        # - gamemode 
-        # - system-config-printer-udev
-        # - system-config-printer-libs
+        
+        - system-config-printer-udev
+        - system-config-printer-libs
         # - sssd-kcm 
         # - sssd-krb5-common
         # - sssd-nfs-idmap 
-        # - sssd-client
+        - sssd-client
         # - sshpass
-        # - qemu-guest-agent 
-        # - qemu-user-static-aarch64 
-        # - sssd-common
+        - qemu-guest-agent 
+        - qemu-user-static-aarch64 
+        - sssd-common
         # - malcontent-control
         # - malcontent-ui-libs
         # - lvm2
         # - lvm2-libs
-        # - hyperv-daemons
-        # - hyperv-daemons-license
-        # - hypervfcopyd
-        # - hypervkvpd
-        # - hypervvssd
-        # - hfsplus-tools
-        # - hplip-common
         # - ibus-anthy 
         # - ibus-anthy-python
         # - ibus-chewing
