@@ -13,3 +13,7 @@ install:
   - distrobox
   - toolbox
   - podman
+
+  - open-vm-tools
+  - open-vm-tools-desktop
+  - virtualbox-guest-additions
