@@ -61,6 +61,7 @@ optional_policy(`
 		type systemd_resolved_var_run_t;
 		type tmp_t;
 		type tmpfs_t;
+		type user_fonts_t;
 		type user_fonts_cache_t;
 		type user_fonts_config_t;
 		type user_home_t;
