@@ -100,7 +100,7 @@ optional_policy(`
 	allow chromium_t tmp_t:lnk_file { create unlink };
 	allow chromium_t tmp_t:sock_file { create getattr unlink };
 	allow chromium_t tmpfs_t:file { create getattr open read unlink write map };
-	allow chromium_t user_fonts_cache_t:file { map geattr open read };
+	allow chromium_t user_fonts_cache_t:file { map getattr open read };
 	allow chromium_t user_fonts_config_t:file { getattr open read };
 	allow chromium_t user_fonts_t:dir read;
 	allow chromium_t user_fonts_t:file { open map };
