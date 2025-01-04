@@ -69,9 +69,8 @@ miscfiles_read_all_certs(chromium_t)
 miscfiles_read_localization(chromium_t)
 
 optional_policy(`
-	# Communicate via dbusd.
-	dbus_system_bus_unconfined($1)
-	dbus_unconfined($1)
+	dbus_system_bus_unconfined(chromium_t)
+	dbus_unconfined(chromium_t)
 ')
 
 optional_policy(`
