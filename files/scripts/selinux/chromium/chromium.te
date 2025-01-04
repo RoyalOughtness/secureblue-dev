@@ -36,14 +36,7 @@ allow chromium_t self:dir rw_dir_perms;
 
 allow chromium_t self:socket_class_set create_socket_perms;
 
-
-allow chromium_t proc_type:{ file } ~entrypoint;
-allow chromium_t proc_type:dir ~map;
-allow chromium_t proc_type:lnk_file *;
-
-allow chromium_t sysctl_type:{ file } ~entrypoint;
-allow chromium_t sysctl_type:dir ~map;
-allow chromium_t sysctl_type:lnk_file *;
+kernel_unconfined(chromium_t)
 
 allow chromium_t port_type:tcp_socket { send_msg recv_msg name_connect };
 allow chromium_t port_type:udp_socket { send_msg recv_msg };
