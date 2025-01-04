@@ -40,6 +40,8 @@ kernel_unconfined(chromium_t)
 corenet_unconfined(chromium_t)
 dev_unconfined(chromium_t)
 
+allow chromium_t data_home_t:file { read write };
+
 files_list_home(chromium_t)
 files_search_home(chromium_t)
 files_read_usr_files(chromium_t)
