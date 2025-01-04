@@ -37,15 +37,8 @@ allow chromium_t self:dir rw_dir_perms;
 allow chromium_t self:socket_class_set create_socket_perms;
 
 kernel_unconfined(chromium_t)
-
-allow chromium_t port_type:tcp_socket { send_msg recv_msg name_connect };
-allow chromium_t port_type:udp_socket { send_msg recv_msg };
-allow chromium_t port_type:{ tcp_socket udp_socket } name_bind;
-allow chromium_t node_type:{ tcp_socket udp_socket } node_bind;
-
-allow chromium_t device_node:{ blk_file lnk_file } *;
-allow chromium_t device_node:{ file chr_file } ~{ execmod entrypoint };
-allow chromium_t mtrr_device_t:file ~{ execmod entrypoint };
+corenet_unconfined(chromium_t)
+dev_unconfined(chromium_t)
 
 files_list_home(chromium_t)
 files_search_home(chromium_t)
