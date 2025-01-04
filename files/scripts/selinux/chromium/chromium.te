@@ -51,7 +51,7 @@ optional_policy(`
 		type hwdata_t;
 		type init_t;
 		type net_conf_t;
-		type proc_ts;
+		type proc_t;
 		type root_t;
 		type session_dbusd_tmp_t;
 		type shell_exec_t;
