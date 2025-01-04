@@ -57,7 +57,6 @@ allow chromium_t mtrr_device_t:file ~{ execmod entrypoint };
 files_list_home(chromium_t)
 files_search_home(chromium_t)
 files_read_usr_files(chromium_t)
-files_map_usr_files(chromium_t)
 files_read_etc_files(chromium_t)
 files_watch_etc_dirs(chromium_t)
 files_dontaudit_getattr_all_dirs(chromium_t)
