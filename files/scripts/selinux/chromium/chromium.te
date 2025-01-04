@@ -16,8 +16,74 @@ application_domain(chromium_t, chromium_exec_t)
 
 role chromium_roles types chromium_t;
 
+allow chromium_t self:process { execmem getcap getsched setcap setrlimit setsched sigkill signal signull };
+allow chromium_t self:dir { add_name write };
+allow chromium_t self:file create;
+allow chromium_t self:fifo_file rw_fifo_file_perms;
+allow chromium_t self:sem create_sem_perms;
+allow chromium_t self:netlink_kobject_uevent_socket client_stream_socket_perms;
 allow chromium_t self:user_namespace create;
-unconfined_domain_noaudit(chromium_t)
+
+allow chromium_t self:cap_userns { sys_admin sys_chroot sys_ptrace };
+
+allow chromium_t self:capability { dac_read_search sys_admin sys_chroot sys_ptrace };
+allow chromium_t self:fifo_file { manage_fifo_file_perms relabelfrom relabelto };
+
+allow chromium_t self:process { dyntransition transition };
+
+allow chromium_t self:file manage_file_perms;
+allow chromium_t self:dir rw_dir_perms;
+
+allow chromium_t self:socket_class_set create_socket_perms;
+
+
+allow chromium_t proc_type:{ file } ~entrypoint;
+allow chromium_t proc_type:dir ~map;
+allow chromium_t proc_type:lnk_file *;
+
+allow chromium_t sysctl_type:{ file } ~entrypoint;
+allow chromium_t sysctl_type:dir ~map;
+allow chromium_t sysctl_type:lnk_file *;
+
+allow chromium_t port_type:tcp_socket { send_msg recv_msg name_connect };
+allow chromium_t port_type:udp_socket { send_msg recv_msg };
+allow chromium_t port_type:{ tcp_socket udp_socket } name_bind;
+allow chromium_t node_type:{ tcp_socket udp_socket } node_bind;
+
+allow chromium_t device_node:{ blk_file lnk_file } *;
+allow chromium_t device_node:{ file chr_file } ~{ execmod entrypoint };
+allow chromium_t mtrr_device_t:file ~{ execmod entrypoint };
+
+files_list_home(chromium_t)
+files_search_home(chromium_t)
+files_read_usr_files(chromium_t)
+files_map_usr_files(chromium_t)
+files_read_etc_files(chromium_t)
+files_watch_etc_dirs(chromium_t)
+files_dontaudit_getattr_all_dirs(chromium_t)
+
+fs_dontaudit_getattr_xattr_fs(chromium_t)
+fs_getattr_tmpfs(chromium_t)
+fs_search_cgroup_dirs(chromium_t)
+
+miscfiles_read_all_certs(chromium_t)
+miscfiles_read_localization(chromium_t)
+
+optional_policy(`
+	# Communicate via dbusd.
+	dbus_system_bus_unconfined($1)
+	dbus_unconfined($1)
+')
+
+optional_policy(`
+	pulseaudio_tmpfs_content(chromium_t)
+	pulseaudio_stream_connect(chromium_t)
+')
+
+optional_policy(`
+	cups_read_config(chromium_t)
+	cups_stream_connect(chromium_t)
+')
 
 optional_policy(`
 	gen_require(`
