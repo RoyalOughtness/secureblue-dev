@@ -103,7 +103,7 @@ optional_policy(`
 	allow chromium_t net_conf_t:lnk_file { getattr read };
 	allow chromium_t passwd_file_t:file { getattr open read };
 	allow chromium_t pcscd_t:unix_stream_socket connectto;
-	allow chromium_t pcscd_var_tun_t:sock_file { getattr write };
+	allow chromium_t pcscd_var_run_t:sock_file { getattr write };
 	allow chromium_t pulseaudio_home_t:file { lock open read };
 	allow chromium_t proc_t:filesystem associate;
 	allow chromium_t root_t:dir watch;
