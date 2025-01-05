@@ -46,6 +46,7 @@ gen_require(`
 	type bin_t;
 	type cache_home_t;
 	type cert_t;
+	type chrome_sandbox_home_t;
 	type config_home_t;
 	type etc_t;
 	type hwdata_t;
@@ -83,6 +84,10 @@ allow chromium_t cache_home_t:file { lock getattr open read write map };
 allow chromium_t cache_home_t:dir { add_name create write };
 allow chromium_t cert_t:file map;
 allow chromium_t chromium_exec_t:file execute_no_trans;
+allow chromium_t chrome_sandbox_home_t:dir { add_name create read remove_name rmdir write };
+allow chromium_t chrome_sandbox_home_t:file { append create execute getattr ioctl lock open read rename unlink write };
+allow chromium_t chrome_sandbox_home_t:file map;
+allow chromium_t chrome_sandbox_home_t:lnk_file { create read unlink };
 allow chromium_t config_home_t:file { getattr open read write append create ioctl lock rename unlink map };
 allow chromium_t config_home_t:lnk_file { create unlink };
 allow chromium_t config_home_t:dir { add_name create read remove_name rename rmdir write };
