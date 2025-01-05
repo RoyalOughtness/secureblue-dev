@@ -92,8 +92,7 @@ optional_policy(`
 	allow chromium_t config_home_t:lnk_file { create unlink };
 	allow chromium_t config_home_t:dir { add_name create read remove_name rename rmdir write };
 	allow chromium_t data_home_t:dir { add_name read write };
-	allow chromium_t data_home_t:file create_socket_perms;
-	allow chromium_t data_home_t:file { create ioctl };
+	allow chromium_t data_home_t:file { create ioctl create_socket_perms };
 	allow chromium_t data_home_t:lnk_file { read };
 	allow chromium_t etc_t:file map;
 	allow chromium_t hwdata_t:file { getattr open read };
