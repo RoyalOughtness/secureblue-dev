@@ -62,7 +62,7 @@ optional_policy(`
 		type tmp_t;
 		type tmpfs_t;
 		type unconfined_t;
-		type unconfined_dbus_t;
+		type unconfined_dbusd_t;
 		type user_fonts_t;
 		type user_fonts_cache_t;
 		type user_fonts_config_t;
