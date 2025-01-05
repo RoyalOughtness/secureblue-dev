@@ -37,9 +37,6 @@ allow chromium_t self:dir rw_dir_perms;
 
 allow chromium_t self:socket_class_set create_socket_perms;
 
-kernel_unconfined(chromium_t)
-corenet_unconfined(chromium_t)
-dev_unconfined(chromium_t)
 
 gen_require(`
 	type data_home_t;
@@ -123,8 +120,6 @@ allow chromium_t tmp_t:sock_file { create getattr unlink };
 allow chromium_t tmpfs_t:file { create getattr open read unlink write map };
 allow chromium_t unconfined_dbusd_t:unix_stream_socket connectto;
 allow chromium_t unconfined_t:unix_stream_socket connectto;
-allow chromium_t unconfined_t:dir search;
-allow chromium_t unconfined_t:file { open read };
 allow chromium_t user_fonts_cache_t:file { map getattr open read };
 allow chromium_t user_fonts_config_t:file { getattr open read };
 allow chromium_t user_fonts_t:dir read;
@@ -151,11 +146,6 @@ fs_search_cgroup_dirs(chromium_t)
 
 miscfiles_read_all_certs(chromium_t)
 miscfiles_read_localization(chromium_t)
-
-optional_policy(`
-	dbus_system_bus_unconfined(chromium_t)
-	dbus_unconfined(chromium_t)
-')
 
 optional_policy(`
 	pulseaudio_tmpfs_content(chromium_t)
