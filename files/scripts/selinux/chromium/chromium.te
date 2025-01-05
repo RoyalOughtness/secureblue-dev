@@ -51,6 +51,7 @@ optional_policy(`
 		type hwdata_t;
 		type init_t;
 		type net_conf_t;
+		type passwd_file_t;
 		type proc_t;
 		type root_t;
 		type session_dbusd_tmp_t;
@@ -86,6 +87,7 @@ optional_policy(`
 	allow chromium_t init_t:dir search;
 	allow chromium_t net_conf_t:file { getattr open read };
 	allow chromium_t net_conf_t:lnk_file { getattr read };
+	allow chromium_t passwd_file_t:file { getattr open red };
 	allow chromium_t proc_t:filesystem associate;
 	allow chromium_t root_t:dir watch;
 	allow chromium_t self:netlink_route_socket nlmsg_read;
