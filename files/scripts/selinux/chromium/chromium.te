@@ -61,6 +61,8 @@ optional_policy(`
 		type systemd_resolved_var_run_t;
 		type tmp_t;
 		type tmpfs_t;
+		type unconfined_t;
+		type unconfined_dbus_t;
 		type user_fonts_t;
 		type user_fonts_cache_t;
 		type user_fonts_config_t;
@@ -100,6 +102,8 @@ optional_policy(`
 	allow chromium_t tmp_t:lnk_file { create unlink };
 	allow chromium_t tmp_t:sock_file { create getattr unlink };
 	allow chromium_t tmpfs_t:file { create getattr open read unlink write map };
+	allow chromium_t unconfined_dbusd_t:unix_stream_socket connectto;
+	allow chromium_t unconfined_t:unix_stream_socket connectto;
 	allow chromium_t user_fonts_cache_t:file { map getattr open read };
 	allow chromium_t user_fonts_config_t:file { getattr open read };
 	allow chromium_t user_fonts_t:dir read;
