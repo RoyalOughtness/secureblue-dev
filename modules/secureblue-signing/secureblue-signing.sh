@@ -23,9 +23,7 @@ if ! [ -d "/etc/pki/containers" ]; then
     mkdir -p "/etc/pki/containers"
 fi
 
-if ! [ -f "$CONTAINER_DIR/policy.json" ]; then
-    cp "$MODULE_DIRECTORY/signing/policy.json" "$CONTAINER_DIR/policy.json"
-fi
+cp "$MODULE_DIRECTORY/secureblue-signing/policy.json" "$CONTAINER_DIR/policy.json"
 
 cp "/etc/pki/containers/$IMAGE_NAME.pub" "/etc/pki/containers/$IMAGE_REGISTRY_TITLE.pub"
 rm "/etc/pki/containers/$IMAGE_NAME.pub"
