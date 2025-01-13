@@ -147,7 +147,6 @@ files_watch_etc_dirs(chromium_t)
 files_dontaudit_getattr_all_dirs(chromium_t)
 
 dbus_system_bus_client(chromium_t)
-dbus_all_session_bus_client(chromium_t)
 unconfined_dbus_chat(chromium_t)
 devicekit_dbus_chat_disk(chromium_t)
 devicekit_dbus_chat_power(chromium_t)
