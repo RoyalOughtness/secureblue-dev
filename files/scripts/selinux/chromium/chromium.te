@@ -80,7 +80,7 @@ gen_require(`
     type user_tmp_t;
     type var_lib_t;
     type chromium_t;
-`)
+')
 
 allow chromium_t alsa_etc_rw_t:file { getattr };
 allow chromium_t bin_t:file { execute execute_no_trans map };
