@@ -79,7 +79,6 @@ gen_require(`
     type user_home_t;
     type user_tmp_t;
     type var_lib_t;
-    type chromium_t;
 ')
 
 allow chromium_t alsa_etc_rw_t:file { getattr };
