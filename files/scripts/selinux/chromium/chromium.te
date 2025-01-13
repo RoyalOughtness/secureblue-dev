@@ -101,7 +101,7 @@ allow chromium_t config_home_t:file { getattr open read write append create ioct
 allow chromium_t data_home_t:dir { add_name getattr open read search watch write };
 allow chromium_t data_home_t:file { create ioctl read write getattr open map };
 allow chromium_t data_home_t:lnk_file { read };
-allow chromium_t dma_device_t:chr_file { getattr map ioctl open read write  };
+allow chromium_t dma_device_t:chr_file { getattr map ioctl open read write };
 allow chromium_t dri_device_t:chr_file { getattr map ioctl open read write };
 allow chromium_t etc_t:file map;
 allow chromium_t fs_t:filesystem { associate getattr };
