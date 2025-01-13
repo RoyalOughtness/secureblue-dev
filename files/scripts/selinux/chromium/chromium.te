@@ -53,7 +53,7 @@ gen_require(`
 	type hwdata_t;
 	type http_port_t;
 	type init_t;
-	type init_var_run_t
+	type init_var_run_t;
 	type locale_t;
 	type net_conf_t;
 	type passwd_file_t;
