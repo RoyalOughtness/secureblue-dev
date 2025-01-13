@@ -5,8 +5,8 @@ repos:
   - https://copr.fedorainfracloud.org/coprs/secureblue/branding/repo/fedora-%OS_VERSION%/secureblue-branding-fedora-%OS_VERSION%.repo
 install:
   - headsetcontrol
-  - trivalent
-  - trivalent-subresource-filter
+  - hardened-chromium
+  - hardened-chromium-subresource-filter
   - secureblue-logos
   - mediainfo
   - bubblejail
