@@ -37,62 +37,72 @@ allow chromium_t self:dir rw_dir_perms;
 
 allow chromium_t self:socket_class_set create_socket_perms;
 
-
 gen_require(`
-	type data_home_t;
-	type bin_t;
-	type cache_home_t;
-	type cert_t;
-	type chrome_sandbox_home_t;
-	type config_home_t;
-	type etc_t;
-	type hwdata_t;
-	type init_t;
-	type locale_t;
-	type net_conf_t;
-	type passwd_file_t;
-	type pcscd_t;
-	type pcscd_var_run_t;
-	type pulseaudio_home_t;
-	type proc_t;
-	type root_t;
-	type session_dbusd_tmp_t;
-	type shell_exec_t;
-	type sysfs_t;
-	type system_dbusd_t;
-	type system_dbusd_var_run_t;
-	type systemd_resolved_var_run_t;
-	type tmp_t;
-	type tmpfs_t;
-	type unconfined_t;
-	type unconfined_dbusd_t;
-	type user_fonts_t;
-	type user_fonts_cache_t;
-	type user_fonts_config_t;
-	type user_home_dir_t;
-	type user_home_t;
-	type user_tmp_t;
-	type var_lib_t;
-')
+    type alsa_etc_rw_t;
+    type bin_t;
+    type cache_home_t;
+    type cert_t;
+    type chrome_sandbox_home_t;
+    type config_home_t;
+    type data_home_t;
+    type dri_device_t;
+    type etc_t;
+    type fs_t;
+    type gconf_home_t;
+    type hwdata_t;
+    type http_port_t;
+    type init_t;
+    type locale_t;
+    type net_conf_t;
+    type passwd_file_t;
+    type pcscd_t;
+    type pcscd_var_run_t;
+    type proc_t;
+    type root_t;
+    type session_dbusd_tmp_t;
+    type shell_exec_t;
+    type sysfs_t;
+    type system_dbusd_t;
+    type system_dbusd_var_run_t;
+    type systemd_hostnamed_t;
+    type systemd_logind_t;
+    type systemd_resolved_var_run_t;
+    type tmp_t;
+    type tmpfs_t;
+    type unconfined_dbusd_t;
+    type unconfined_t;
+    type user_devpts_t;
+    type user_fonts_cache_t;
+    type user_fonts_config_t;
+    type user_fonts_t;
+    type user_home_dir_t;
+    type user_home_t;
+    type user_tmp_t;
+    type var_lib_t;
+    type chromium_t;
+`)
 
-allow chromium_t data_home_t:file { read write getattr open map };
+allow chromium_t alsa_etc_rw_t:file { getattr };
 allow chromium_t bin_t:file { execute execute_no_trans map };
-allow chromium_t cache_home_t:file { lock getattr open read write map };
-allow chromium_t cache_home_t:dir { add_name create write };
+allow chromium_t cache_home_t:dir { add_name create getattr search write };
+allow chromium_t cache_home_t:file { create lock getattr open read write map };
 allow chromium_t cert_t:file map;
-allow chromium_t chromium_exec_t:file execute_no_trans;
-allow chromium_t chrome_sandbox_home_t:dir { add_name create read remove_name rmdir write };
-allow chromium_t chrome_sandbox_home_t:file { append create execute getattr ioctl lock open read rename unlink write };
-allow chromium_t chrome_sandbox_home_t:file map;
+allow chromium_t chrome_sandbox_home_t:dir { add_name create read remove_name rmdir write getattr open rename search };
+allow chromium_t chrome_sandbox_home_t:file { append create execute getattr ioctl lock map open read rename unlink write };
 allow chromium_t chrome_sandbox_home_t:lnk_file { create read unlink };
-allow chromium_t config_home_t:file { getattr open read write append create ioctl lock rename unlink map };
+allow chromium_t config_home_t:dir { add_name create getattr open read remove_name rename rmdir search watch write };
 allow chromium_t config_home_t:lnk_file { create unlink };
-allow chromium_t config_home_t:dir { add_name create read remove_name rename rmdir write };
-allow chromium_t data_home_t:dir { add_name read write };
-allow chromium_t data_home_t:file { create ioctl };
+allow chromium_t config_home_t:file { getattr open read write append create ioctl lock rename unlink map };
+allow chromium_t data_home_t:dir { add_name getattr open read search watch write };
+allow chromium_t data_home_t:file { create ioctl read write getattr open map };
 allow chromium_t data_home_t:lnk_file { read };
+allow chromium_t dri_device_t:chr_file { getattr map ioctl open read write };
 allow chromium_t etc_t:file map;
+allow chromium_t fs_t:filesystem { associate getattr };
+allow chromium_t gconf_home_t:dir { search };
 allow chromium_t hwdata_t:file { getattr open read };
+allow chromium_t hwdata_t:dir { search };
+allow chromium_t http_port_t:tcp_socket { name_connect };
 allow chromium_t init_t:dir search;
 allow chromium_t locale_t:dir { watch };
 allow chromium_t net_conf_t:file { getattr open read };
@@ -100,26 +110,24 @@ allow chromium_t net_conf_t:lnk_file { getattr read };
 allow chromium_t passwd_file_t:file { getattr open read };
 allow chromium_t pcscd_t:unix_stream_socket connectto;
 allow chromium_t pcscd_var_run_t:sock_file { getattr write };
-allow chromium_t pulseaudio_home_t:file { lock open read };
 allow chromium_t proc_t:filesystem associate;
+allow chromium_t proc_t:dir { read };
+allow chromium_t proc_t:file { read open getattr };
+allow chromium_t pulseaudio_home_t:file { lock open read };
 allow chromium_t root_t:dir watch;
 allow chromium_t self:netlink_route_socket nlmsg_read;
-allow chromium_t session_dbusd_tmp_t:sock_file write;
-allow chromium_t shell_exec_t:file map;
-allow chromium_t shell_exec_t:file { execute execute_no_trans };
+allow chromium_t shell_exec_t:file { map execute execute_no_trans };
 allow chromium_t sysfs_t:dir read;
 allow chromium_t sysfs_t:file { getattr open read };
 allow chromium_t sysfs_t:lnk_file { read getattr };
-allow chromium_t system_dbusd_t:unix_stream_socket connectto;
-allow chromium_t system_dbusd_var_run_t:sock_file write;
+allow chromium_t systemd_hostnamed_t:dbus { send_msg };
 allow chromium_t systemd_resolved_var_run_t:dir { read watch };
 allow chromium_t tmp_t:dir { add_name create read remove_name rmdir write };
 allow chromium_t tmp_t:lnk_file { create unlink };
 allow chromium_t tmp_t:file { create open unlink write };
 allow chromium_t tmp_t:sock_file { create getattr unlink };
 allow chromium_t tmpfs_t:file { create getattr open read unlink write map };
-allow chromium_t unconfined_dbusd_t:unix_stream_socket connectto;
-allow chromium_t unconfined_t:unix_stream_socket connectto;
+allow chromium_t user_devpts_t:chr_file { getattr ioctl read write };
 allow chromium_t user_fonts_cache_t:file { map getattr open read };
 allow chromium_t user_fonts_config_t:file { getattr open read };
 allow chromium_t user_fonts_t:dir read;
@@ -127,11 +135,10 @@ allow chromium_t user_fonts_t:file { open map };
 allow chromium_t user_home_dir_t:dir { add_name create remove_name write };
 allow chromium_t user_home_dir_t:file { append create getattr lock open read setattr unlink write };
 allow chromium_t user_home_t:dir read;
-allow chromium_t user_tmp_t:sock_file write;
 allow chromium_t user_tmp_t:dir read;
+allow chromium_t user_tmp_t:sock_file write;
 allow chromium_t var_lib_t:dir read;
-allow chromium_t var_lib_t:file { getattr open read };
-allow chromium_t var_lib_t:file map;
+allow chromium_t var_lib_t:file { getattr open map read };
 
 files_list_home(chromium_t)
 files_search_home(chromium_t)
@@ -140,6 +147,14 @@ files_read_etc_files(chromium_t)
 files_watch_etc_dirs(chromium_t)
 files_dontaudit_getattr_all_dirs(chromium_t)
 
+dbus_all_session_bus_client(chromium_t)
+dbus_system_bus_client(chromium_t)
+unconfined_dbus_chat(chromium_t)
+devicekit_dbus_chat_disk(chromium_t)
+devicekit_dbus_chat_power(chromium_t)
+systemd_dbus_chat_hostnamed(chromium_t)
+
+
 fs_dontaudit_getattr_xattr_fs(chromium_t)
 fs_getattr_tmpfs(chromium_t)
 fs_search_cgroup_dirs(chromium_t)
@@ -147,15 +162,10 @@ fs_search_cgroup_dirs(chromium_t)
 miscfiles_read_all_certs(chromium_t)
 miscfiles_read_localization(chromium_t)
 
-optional_policy(`
-	pulseaudio_tmpfs_content(chromium_t)
-	pulseaudio_stream_connect(chromium_t)
-')
-
-optional_policy(`
-	cups_read_config(chromium_t)
-	cups_stream_connect(chromium_t)
-')
+pulseaudio_tmpfs_content(chromium_t)
+pulseaudio_stream_connect(chromium_t)
+cups_read_config(chromium_t)
+cups_stream_connect(chromium_t)
 
 optional_policy(`
 	gen_require(`
