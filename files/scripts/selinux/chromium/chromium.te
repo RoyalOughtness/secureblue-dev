@@ -55,7 +55,7 @@ gen_require(`
 	type init_t;
 	type init_var_run_t;
 	type locale_t;
-    type mount_var_run_t;
+	type mount_var_run_t;
 	type net_conf_t;
 	type passwd_file_t;
 	type pcscd_t;
