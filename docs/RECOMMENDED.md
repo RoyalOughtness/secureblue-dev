@@ -4,3 +4,14 @@
 GNOME is the only desktop that secures privileged wayland protocols like screencopy. This means that on non-GNOME systems, applications can access screen content of the entire desktop. This implicitly includes the content of other applications. It's primarily for this reason that GNOME images are recommended. KDE has [plans](https://invent.kde.org/plasma/xdg-desktop-portal-kde/-/issues/7) to fix this.
 
 GNOME also provides [thumbnailer sandboxing](https://gitlab.gnome.org/GNOME/gnome-desktop/-/issues/213) in Gnome Files, which mitigates attacks [via thumbnailers](https://scarybeastsecurity.blogspot.com/2016/11/0day-exploit-compromising-linux-desktop.html).
+
+
+| DE / WM   | Image status | Restricted privileged wayland protocols | Thumbnailer sandboxing | Memory-safety |
+|-----------------|---------------|-------------------------|
+| `GNOME`         | Stable        | Yes                     |
+| `KDE`           | Stable        | No     |  
+| `COSMIC`        | Experimental  | No       |  No  |  Yes |
+| `Sway`          | Stable/Beta   | Yes       |  No  |  No |
+| `Hyprland`      | Beta          | No       |  No  |  No |
+| `River`         | Beta          | Yes       |  No  |  No |
+| `Wayfire`       | Beta          | Yes       |  No  |  No |
