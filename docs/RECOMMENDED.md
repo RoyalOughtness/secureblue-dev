@@ -8,8 +8,8 @@ GNOME also provides [thumbnailer sandboxing](https://gitlab.gnome.org/GNOME/gnom
 
 | DE / WM   | Image status | Restricted privileged wayland protocols | Thumbnailer sandboxing | Memory-safety |
 |-----------------|---------------|-------------------------|
-| `GNOME`         | Stable        | Yes                     |
-| `KDE`           | Stable        | No     |  
+| `GNOME`         | Stable        | Yes     | Yes | No |
+| `KDE`           | Stable        | No     |  No |  No |
 | `COSMIC`        | Experimental  | No       |  No  |  Yes |
 | `Sway`          | Stable/Beta   | Yes       |  No  |  No |
 | `Hyprland`      | Beta          | No       |  No  |  No |
