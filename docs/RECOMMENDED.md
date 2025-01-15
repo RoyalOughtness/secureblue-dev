@@ -7,7 +7,7 @@ GNOME also provides [thumbnailer sandboxing](https://gitlab.gnome.org/GNOME/gnom
 
 
 | DE / WM   | Image status | Restricted privileged wayland protocols | Thumbnailer sandboxing | Memory-safety |
-|-----------------|---------------|-------------------------|
+|-----------------|---------------|-------------------------|--|---|
 | `GNOME`         | Stable        | Yes     | Yes | No |
 | `KDE`           | Stable        | No     |  No |  No |
 | `COSMIC`        | Experimental  | No       |  No  |  Yes |
