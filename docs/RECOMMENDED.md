@@ -11,7 +11,7 @@ GNOME also provides [thumbnailer sandboxing](https://gitlab.gnome.org/GNOME/gnom
 | `GNOME`         | Stable        | Yes     | Yes | No |
 | `KDE`           | Stable        | No     |  No |  No |
 | `COSMIC`        | Experimental  | No       |  No  |  Yes |
-| `Sway`          | Stable/Beta   | Yes       |  No  |  No |
+| `Sway`          | Stable/Beta   | No       |  No  |  No |
 | `Hyprland`      | Beta          | No       |  No  |  No |
 | `River`         | Beta          | Yes       |  No  |  No |
-| `Wayfire`       | Beta          | Yes       |  No  |  No |
+| `Wayfire`       | Beta          | No       |  No  |  No |
