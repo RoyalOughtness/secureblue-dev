@@ -118,6 +118,11 @@ allow chromium_t data_home_t:dir { add_name getattr open read search watch write
 allow chromium_t data_home_t:file { create ioctl read write getattr open map };
 allow chromium_t data_home_t:lnk_file { read };
 
+# read access to /sys
+allow chromium_t sysfs_t:dir read;
+allow chromium_t sysfs_t:file { getattr open read };
+allow chromium_t sysfs_t:lnk_file { read getattr };
+
 # allow gpu access
 allow chromium_t dri_device_t:chr_file { getattr map ioctl open read write };
 
