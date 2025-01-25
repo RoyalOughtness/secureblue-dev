@@ -18,6 +18,9 @@ role chromium_roles types chromium_t;
 
 gen_require(`
 	type chrome_sandbox_home_t;
+	type unconfined_dbusd_t;
+	type unconfined_service_t;
+	type unconfined_t;
 	type user_home_t;
 	type user_home_dir_t;
 ')
