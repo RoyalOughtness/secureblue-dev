@@ -64,6 +64,7 @@ allow chromium_t tmp_t:file { create open unlink write };
 allow chromium_t tmp_t:lnk_file { create unlink };
 allow chromium_t tmp_t:sock_file { create unlink };
 allow chromium_t tmpfs_t:file { create execute unlink map };
+allow chromium_t user_tmp_t:file { open };
 
 # need further investigation
 allow chromium_t unconfined_dbusd_t:dir { getattr search };
