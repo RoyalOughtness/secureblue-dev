@@ -100,6 +100,10 @@ allow chromium_t unconfined_dbusd_t:unix_stream_socket { connectto };
 allow chromium_t unconfined_t:unix_stream_socket { connectto getattr ioctl read write };
 allow chromium_t system_dbusd_t:dir getattr;
 
+# read access to systemd dirs
+allow chromium_t init_var_run_t:dir { search };
+allow chromium_t init_t:dir { search getattr };
+
 # access to ~/.cache
 allow chromium_t cache_home_t:dir { add_name create getattr search write };
 allow chromium_t cache_home_t:file { create lock getattr open read write map };
@@ -116,6 +120,12 @@ allow chromium_t data_home_t:lnk_file { read };
 
 # allow gpu access
 allow chromium_t dri_device_t:chr_file { getattr map ioctl open read write };
+
+# allow dma device access
+allow chromium_t dma_device_t:chr_file { getattr map ioctl open read write };
+
+# allow listing dirs in /
+allow chromium_t root_t:dir watch;
 
 # access to ~/.local/state
 allow chromium_t gconf_home_t:dir { search };
@@ -181,6 +191,9 @@ allow chromium_t usb_device_t:chr_file { read write };
 
 # networking
 allow chromium_t unreserved_port_t:tcp_socket name_connect;
+
+# allow read access to /run/mount
+allow chromium_t mount_var_run_t:dir search;
 
 # fonts
 allow chromium_t user_fonts_cache_t:file { map getattr open read };
