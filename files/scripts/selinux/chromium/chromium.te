@@ -18,6 +18,8 @@ role chromium_roles types chromium_t;
 
 gen_require(`
 	type chrome_sandbox_home_t;
+	type user_home_t;
+	type user_home_dir_t;
 ')
 
 # internal
@@ -43,6 +45,12 @@ allow chromium_t chrome_sandbox_home_t:file { append create execute getattr ioct
 allow chromium_t chrome_sandbox_home_t:lnk_file { create read unlink };
 allow chromium_t self:netlink_route_socket nlmsg_read;
 
+
+# unrestricted homedir access
+allow chromium_t user_home_dir_t:dir { read add_name create remove_name write getattr search };
+allow chromium_t user_home_dir_t:file { append create getattr lock open read setattr unlink write };
+allow chromium_t user_home_t:dir { read add_name search getattr write remove_name };
+allow chromium_t user_home_t:file { create open read write rename unlink setattr };
 
 files_list_home(chromium_t)
 files_search_home(chromium_t)
@@ -95,7 +103,6 @@ gnome_manage_generic_cache_files(chromium_t)
 gnome_manage_home_config(chromium_t)
 gnome_manage_home_config_dirs(chromium_t)
 
-userdom_manage_home_role(chromium_t)
 userdom_dontaudit_write_home_certs(chromium_t)
 
 auth_read_passwd_file(chromium_t)
