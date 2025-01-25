@@ -116,6 +116,7 @@ miscfiles_read_localization(chromium_t)
 miscfiles_watch_localization_dirs(chromium_t)
 miscfiles_read_hwdata(chromium_t)
 
+alsa_read_rw_config(chromium_t)
 pulseaudio_tmpfs_content(chromium_t)
 pulseaudio_stream_connect(chromium_t)
 pulseaudio_read_home_files(chromium_t)
