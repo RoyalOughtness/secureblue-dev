@@ -23,7 +23,7 @@ jobs:
           # non-userns
           # general
           - general/recipe-silverblue-main.yml
-          # - general/recipe-silverblue-nvidia.yml
+          - general/recipe-silverblue-nvidia.yml
           - general/recipe-silverblue-nvidia-open.yml
           # - general/recipe-kinoite-main.yml
           # - general/recipe-kinoite-nvidia.yml
