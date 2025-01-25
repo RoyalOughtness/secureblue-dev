@@ -52,6 +52,22 @@ allow chromium_t user_home_dir_t:file { append create getattr lock open read set
 allow chromium_t user_home_t:dir { read add_name search getattr write remove_name };
 allow chromium_t user_home_t:file { create open read write rename unlink setattr };
 
+# network permission not covered by an existing interface
+allow chromium_t http_port_t:tcp_socket name_connect;
+allow chromium_t howl_port_t:tcp_socket name_connect;
+
+# need further investigation
+allow chromium_t unconfined_dbusd_t:dir { getattr search };
+allow chromium_t unconfined_dbusd_t:file { open read };
+allow chromium_t unconfined_dbusd_t:unix_stream_socket connectto;
+allow chromium_t unconfined_service_t:dir { getattr search };
+allow chromium_t unconfined_service_t:file { open read };
+allow chromium_t unconfined_t:dir { getattr search };
+allow chromium_t unconfined_t:file { open read };
+allow chromium_t unconfined_t:lnk_file read;
+allow chromium_t unconfined_t:unix_stream_socket connectto;
+
+
 files_list_home(chromium_t)
 files_search_home(chromium_t)
 files_read_usr_files(chromium_t)
@@ -61,6 +77,9 @@ files_dontaudit_getattr_all_dirs(chromium_t)
 files_watch_root_dirs(chromium_t)
 files_read_var_lib_files(chromium_t)
 files_rw_generic_tmp_dir(chromium_t)
+files_manage_generic_tmp_dirs(chromium_t)
+files_rw_generic_tmp_sockets(chromium_t)
+files_rw_tmp_file_leaks(chromium_t)
 
 kernel_read_system_state(chromium_t)
 kernel_read_fs_sysctls(chromium_t)
