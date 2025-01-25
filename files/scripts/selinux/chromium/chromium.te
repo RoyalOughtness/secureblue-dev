@@ -52,9 +52,6 @@ allow chromium_t user_home_dir_t:file { append create getattr lock open read set
 allow chromium_t user_home_t:dir { read add_name search getattr write remove_name };
 allow chromium_t user_home_t:file { create open read write rename unlink setattr };
 
-# network permission not covered by an existing interface
-allow chromium_t http_port_t:tcp_socket name_connect;
-allow chromium_t howl_port_t:tcp_socket name_connect;
 
 # need further investigation
 allow chromium_t unconfined_dbusd_t:dir { getattr search };
