@@ -96,6 +96,7 @@ fs_dontaudit_getattr_xattr_fs(chromium_t)
 fs_getattr_tmpfs(chromium_t)
 fs_rw_tmpfs_files(chromium_t)
 fs_search_cgroup_dirs(chromium_t)
+fs_associate_proc(chromium_t)
 
 miscfiles_read_all_certs(chromium_t)
 miscfiles_read_localization(chromium_t)
