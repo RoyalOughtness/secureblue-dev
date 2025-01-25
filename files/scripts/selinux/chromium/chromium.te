@@ -16,28 +16,6 @@ application_domain(chromium_t, chromium_exec_t)
 
 role chromium_roles types chromium_t;
 
-allow chromium_t self:process { execmem getcap getsched setcap setrlimit setsched sigkill signal signull };
-allow chromium_t self:dir { add_name create read remove_name rmdir write };
-allow chromium_t self:file { append create execute getattr ioctl lock map open read rename unlink write };
-allow chromium_t self:lnk_file { create read unlink };
-allow chromium_t self:fifo_file rw_fifo_file_perms;
-allow chromium_t self:sem create_sem_perms;
-allow chromium_t self:netlink_kobject_uevent_socket client_stream_socket_perms;
-allow chromium_t self:user_namespace create;
-allow chromium_t self:unix_stream_socket connectto;
-
-allow chromium_t self:cap_userns { sys_admin sys_chroot sys_ptrace };
-
-allow chromium_t self:capability { dac_read_search sys_admin sys_chroot sys_ptrace };
-allow chromium_t self:fifo_file { manage_fifo_file_perms relabelfrom relabelto };
-
-allow chromium_t self:process { dyntransition transition };
-
-allow chromium_t self:file manage_file_perms;
-allow chromium_t self:dir rw_dir_perms;
-
-allow chromium_t self:socket_class_set create_socket_perms;
-
 gen_require(`
 	type alsa_etc_rw_t;
 	type bin_t;
@@ -91,79 +69,132 @@ gen_require(`
 	type var_lib_t;
 ')
 
-allow chromium_t alsa_etc_rw_t:file { getattr };
-allow chromium_t bin_t:file { execute execute_no_trans map };
-allow chromium_t cache_home_t:dir { add_name create getattr search write };
-allow chromium_t cache_home_t:file { create lock getattr open read write map };
+# internal
+allow chromium_t self:process { execmem getcap getsched setcap setrlimit setsched sigkill signal signull };
+allow chromium_t self:dir { add_name create read remove_name rmdir write };
+allow chromium_t self:file { append create execute getattr ioctl lock map open read rename unlink write };
+allow chromium_t self:lnk_file { create read unlink };
+allow chromium_t self:fifo_file rw_fifo_file_perms;
+allow chromium_t self:sem create_sem_perms;
+allow chromium_t self:netlink_kobject_uevent_socket client_stream_socket_perms;
+allow chromium_t self:user_namespace create;
+allow chromium_t self:unix_stream_socket connectto;
+allow chromium_t self:cap_userns { sys_admin sys_chroot sys_ptrace };
+allow chromium_t self:capability { dac_read_search sys_admin sys_chroot sys_ptrace };
+allow chromium_t self:fifo_file { manage_fifo_file_perms relabelfrom relabelto };
+allow chromium_t self:process { dyntransition transition };
+allow chromium_t self:file manage_file_perms;
+allow chromium_t self:dir rw_dir_perms;
+allow chromium_t self:socket_class_set create_socket_perms;
 allow chromium_t chromium_exec_t:file execute_no_trans;
-allow chromium_t cert_t:file map;
 allow chromium_t chrome_sandbox_home_t:dir { add_name create read remove_name rmdir write getattr open rename search };
 allow chromium_t chrome_sandbox_home_t:file { append create execute getattr ioctl lock map open read rename unlink write };
 allow chromium_t chrome_sandbox_home_t:lnk_file { create read unlink };
+allow chromium_t self:netlink_route_socket nlmsg_read;
+
+
+# permit executing system binaries
+allow chromium_t bin_t:file { execute execute_no_trans map };
+
+# access to ~/.cache
+allow chromium_t cache_home_t:dir { add_name create getattr search write };
+allow chromium_t cache_home_t:file { create lock getattr open read write map };
+
+# access to ~/.config
 allow chromium_t config_home_t:dir { add_name create getattr open read remove_name rename rmdir search watch write };
 allow chromium_t config_home_t:lnk_file { create unlink read };
 allow chromium_t config_home_t:file { getattr open read write append create ioctl lock rename unlink map };
+
+# access to ~/.local/share
 allow chromium_t data_home_t:dir { add_name getattr open read search watch write };
 allow chromium_t data_home_t:file { create ioctl read write getattr open map };
 allow chromium_t data_home_t:lnk_file { read };
-allow chromium_t dma_device_t:chr_file { getattr map ioctl open read write };
+
+# allow gpu access
 allow chromium_t dri_device_t:chr_file { getattr map ioctl open read write };
-allow chromium_t fs_t:filesystem { associate getattr };
+
+# access to ~/.local/state
 allow chromium_t gconf_home_t:dir { search };
+
+# access to ~/.pki
 allow chromium_t home_cert_t:file write;
+
+# read access to /usr/share/hwdata/
 allow chromium_t hwdata_t:file { getattr open read };
 allow chromium_t hwdata_t:dir { search };
+
+# networking
 allow chromium_t http_port_t:tcp_socket { name_connect };
+
+# read access to systemd dirs
 allow chromium_t init_var_run_t:dir { search };
-allow chromium_t init_t:dir search;
+allow chromium_t init_t:dir { search getattr };
+
+# read locale and timezone info
 allow chromium_t locale_t:dir { watch };
-allow chromium_t mount_var_run_t:dir search;
+
+# read access to net conf like /etc/hosts and /etc/resolv.conf
 allow chromium_t net_conf_t:file { getattr open read };
 allow chromium_t net_conf_t:lnk_file { getattr read };
+
+# read access to /etc/group and /etc/passwd
 allow chromium_t passwd_file_t:file { getattr open read };
+
+# allow interfacing with pcscd
 allow chromium_t pcscd_t:dir getattr;
 allow chromium_t pcscd_t:unix_stream_socket connectto;
 allow chromium_t pcscd_var_run_t:sock_file { getattr write };
 allow chromium_t pcscd_var_run_t:dir { search };
+
+
 allow chromium_t proc_t:filesystem associate;
 allow chromium_t proc_t:dir { read };
 allow chromium_t proc_t:file { read open getattr };
+
+# allow reading the pulseaudio authn cookie
 allow chromium_t pulseaudio_home_t:file { lock open read };
-allow chromium_t root_t:dir watch;
-allow chromium_t self:netlink_route_socket nlmsg_read;
+
+# allow unrestricted dbus socket writes
 allow chromium_t session_dbusd_tmp_t:sock_file write;
+
+# allow opening a new shell
 allow chromium_t shell_exec_t:file { map execute execute_no_trans };
+
+# allow reading sysctls
 allow chromium_t sysctl_dev_t:dir search;
 allow chromium_t sysctl_fs_t:dir search;
 allow chromium_t sysctl_fs_t:file { read getattr open };
-allow chromium_t sysfs_t:dir read;
-allow chromium_t sysfs_t:file { getattr open read };
-allow chromium_t sysfs_t:lnk_file { read getattr };
-allow chromium_t system_dbusd_t:dir getattr;
+
+# allow interfacing with systemd_hostnamed and systemd_resolved
 allow chromium_t systemd_hostnamed_t:dbus { send_msg };
 allow chromium_t systemd_resolved_var_run_t:dir { read watch };
+
+# unrestricted access to /tmp
 allow chromium_t tmp_t:dir { add_name create read remove_name rmdir write };
 allow chromium_t tmp_t:lnk_file { create unlink };
 allow chromium_t tmp_t:file { create open unlink write map };
 allow chromium_t tmp_t:sock_file { create getattr unlink write };
 allow chromium_t tmpfs_t:file { create getattr open read unlink write map };
-allow chromium_t udev_var_run_t:dir { search };
+
+# allow access to usb devices (necessary for security key support)
 allow chromium_t usb_device_t:chr_file { read write };
-allow chromium_t unconfined_dbusd_t:unix_stream_socket { connectto };
-allow chromium_t unconfined_t:unix_stream_socket { connectto getattr ioctl read write };
+
+# networking
 allow chromium_t unreserved_port_t:tcp_socket name_connect;
-allow chromium_t user_devpts_t:chr_file { getattr ioctl read write };
+
+# fonts
 allow chromium_t user_fonts_cache_t:file { map getattr open read };
 allow chromium_t user_fonts_config_t:file { getattr open read };
 allow chromium_t user_fonts_t:dir read;
 allow chromium_t user_fonts_t:file { open map };
+
+# unrestricted homedir access
 allow chromium_t user_home_dir_t:dir { read add_name create remove_name write getattr search };
 allow chromium_t user_home_dir_t:file { append create getattr lock open read setattr unlink write };
 allow chromium_t user_home_t:dir { read add_name search getattr write remove_name };
 allow chromium_t user_home_t:file { create open read write rename unlink setattr };
-allow chromium_t user_tmp_t:dir { read search getattr open };
-allow chromium_t user_tmp_t:file { create open read write rename unlink setattr };
-allow chromium_t user_tmp_t:sock_file write;
+
+# allow loading from /var/lib
 allow chromium_t var_lib_t:dir read;
 allow chromium_t var_lib_t:file { getattr open map read };
 
@@ -179,7 +210,6 @@ unconfined_dbus_chat(chromium_t)
 devicekit_dbus_chat_disk(chromium_t)
 devicekit_dbus_chat_power(chromium_t)
 systemd_dbus_chat_hostnamed(chromium_t)
-
 
 fs_dontaudit_getattr_xattr_fs(chromium_t)
 fs_getattr_tmpfs(chromium_t)
