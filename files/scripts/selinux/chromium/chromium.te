@@ -92,6 +92,13 @@ allow chromium_t chrome_sandbox_home_t:file { append create execute getattr ioct
 allow chromium_t chrome_sandbox_home_t:lnk_file { create read unlink };
 allow chromium_t self:netlink_route_socket nlmsg_read;
 
+# allow chromium to run system executables
+allow chromium_t bin_t:file { execute execute_no_trans map };
+
+# needed for wayland access
+allow chromium_t unconfined_dbusd_t:unix_stream_socket { connectto };
+allow chromium_t unconfined_t:unix_stream_socket { connectto getattr ioctl read write };
+allow chromium_t system_dbusd_t:dir getattr;
 
 # access to ~/.cache
 allow chromium_t cache_home_t:dir { add_name create getattr search write };
