@@ -64,7 +64,6 @@ allow chromium_t tmp_t:file { create open unlink write };
 allow chromium_t tmp_t:lnk_file { create unlink };
 allow chromium_t tmp_t:sock_file { create unlink };
 allow chromium_t tmpfs_t:file { create execute unlink map };
-allow chromium_t user_tmp_t:sock_file write;
 
 # need further investigation
 allow chromium_t unconfined_dbusd_t:dir { getattr search };
@@ -147,6 +146,8 @@ gnome_manage_data(chromium_t)
 gnome_map_generic_data_home_files(chromium_t)
 gnome_manage_gstreamer_home_files(chromium_t)
 
+userdom_write_user_tmp_sockets(chromium_t)
+userdom_read_inherited_user_tmp_files(chromium_t)
 userdom_manage_home_certs(chromium_t)
 userdom_use_user_terminals(chromium_t)
 term_search_ptys(chromium_t)
