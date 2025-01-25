@@ -90,7 +90,7 @@ cups_read_config(chromium_t)
 cups_stream_connect(chromium_t)
 
 corecmd_exec_shell(chromium_t)
-corecmd_exec_bin(bin_t)
+corecmd_exec_bin(chromium_t)
 
 dev_read_sysfs(chromium_t)
 dev_rw_dma_dev(chromium_t)
