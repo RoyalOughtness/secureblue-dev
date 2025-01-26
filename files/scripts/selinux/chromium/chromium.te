@@ -14,6 +14,8 @@ type chromium_exec_t;
 type chromium_script_exec_t;
 domain_type(chromium_t, chromium_exec_t)
 application_domain(chromium_t, chromium_exec_t)
+domain_type(chromium_t, chromium_script_exec_t)
+application_domain(chromium_t, chromium_script_exec_t)
 
 role chromium_roles types chromium_t;
 
