@@ -67,15 +67,15 @@ allow chromium_t tmpfs_t:file { create execute unlink map };
 allow chromium_t user_tmp_t:file { open };
 
 # need further investigation
-allow chromium_t unconfined_dbusd_t:dir { getattr search };
-allow chromium_t unconfined_dbusd_t:file { open read };
-allow chromium_t unconfined_dbusd_t:unix_stream_socket connectto;
-allow chromium_t unconfined_service_t:dir { getattr search };
-allow chromium_t unconfined_service_t:file { open read };
-allow chromium_t unconfined_t:dir { getattr search };
-allow chromium_t unconfined_t:file { open read };
-allow chromium_t unconfined_t:lnk_file read;
-allow chromium_t unconfined_t:unix_stream_socket connectto;
+# allow chromium_t unconfined_dbusd_t:dir { getattr search };
+# allow chromium_t unconfined_dbusd_t:file { open read };
+# allow chromium_t unconfined_dbusd_t:unix_stream_socket connectto;
+# allow chromium_t unconfined_service_t:dir { getattr search };
+# allow chromium_t unconfined_service_t:file { open read };
+# allow chromium_t unconfined_t:dir { getattr search };
+# allow chromium_t unconfined_t:file { open read };
+# allow chromium_t unconfined_t:lnk_file read;
+# allow chromium_t unconfined_t:unix_stream_socket connectto;
 
 
 # xwayland/nvidia
