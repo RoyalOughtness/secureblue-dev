@@ -167,6 +167,7 @@ init_search_pid_dirs(chromium_t)
 init_read_state(chromium_t)
 
 corenet_tcp_connect_generic_port(chromium_t)
+corenet_tcp_bind_generic_node(chromium_t)
 corenet_udp_bind_generic_node(chromium_t)
 
 optional_policy(`
