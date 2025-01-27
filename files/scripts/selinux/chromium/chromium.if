@@ -43,3 +43,4 @@ interface(`chromium_run',`
     chromium_domtrans($1)
     roleattribute $2 chromium_roles;
 ')
+
