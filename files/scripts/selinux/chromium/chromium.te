@@ -62,6 +62,10 @@ allow chromium_t tmp_t:sock_file { create unlink };
 allow chromium_t tmpfs_t:file { create execute unlink map };
 allow chromium_t user_tmp_t:file { open };
 
+# access to ~/Downloads
+allow chromium_t download_home_t:dir { add_name read remove_name write };
+allow chromium_t download_home_t:file { create getattr open read rename setattr unlink write };
+
 
 # xwayland/nvidia
 xserver_exec(chromium_t)
