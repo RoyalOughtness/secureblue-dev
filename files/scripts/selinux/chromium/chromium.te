@@ -178,7 +178,7 @@ optional_policy(`
 		role unconfined_r;
 	')
 
-	chromium_run(unconfined_t, unconfined_r)
+	chromium_run(chromium_script_t, unconfined_r)
 ')
 
 optional_policy(`
