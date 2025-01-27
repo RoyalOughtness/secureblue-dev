@@ -14,17 +14,6 @@ type chromium_exec_t;
 domain_type(chromium_t, chromium_exec_t)
 application_domain(chromium_t, chromium_exec_t)
 
-
-attribute_role chromium_script_roles;
-roleattribute object_r chromium_script_roles;
-
-type chromium_script_t;
-type chromium_script_exec_t;
-domain_type(chromium_script_t, chromium_script_exec_t)
-application_domain(chromium_script_t, chromium_script_exec_t)
-
-role chromium_script_roles types chromium_script_t;
-
 type download_home_t;
 userdom_user_home_content(download_home_t)
 ubac_constrained(download_home_t);
@@ -131,9 +120,6 @@ pulseaudio_read_home_files(chromium_t)
 cups_read_config(chromium_t)
 cups_stream_connect(chromium_t)
 
-corecmd_exec_shell(chromium_script_t)
-corecmd_exec_bin(chromium_script_t)
-
 dev_read_sysfs(chromium_t)
 dev_rw_dma_dev(chromium_t)
 dev_rw_dri(chromium_t)
@@ -179,13 +165,4 @@ optional_policy(`
 	')
 
 	chromium_run(chromium_script_t, unconfined_r)
-')
-
-optional_policy(`
-	gen_require(`
-		type unconfined_t;
-		role unconfined_r;
-	')
-
-	chromium_script_run(unconfined_t, unconfined_r)
 ')
