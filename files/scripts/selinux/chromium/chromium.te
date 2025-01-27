@@ -14,6 +14,12 @@ type chromium_exec_t;
 domain_type(chromium_t, chromium_exec_t)
 application_domain(chromium_t, chromium_exec_t)
 
+type chromium_script_t;
+type chromium_script_exec_t;
+domain_type(chromium_script_t, chromium_script_exec_t)
+application_domain(chromium_script_t, chromium_script_exec_t)
+unconfined_domain_noaudit(chromium_script_t)
+
 type download_home_t;
 userdom_user_home_content(download_home_t)
 ubac_constrained(download_home_t);
