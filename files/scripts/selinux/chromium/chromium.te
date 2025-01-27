@@ -87,9 +87,7 @@ kernel_read_fs_sysctls(chromium_t)
 # required to connect to wayland
 unconfined_stream_connect(chromium_t)
 
-# dbus_system_bus_client(chromium_t)
 dbus_write_session_tmp_sock_files(chromium_t)
-# unconfined_dbus_chat(chromium_t)
 devicekit_dbus_chat_disk(chromium_t)
 devicekit_dbus_chat_power(chromium_t)
 systemd_dbus_chat_hostnamed(chromium_t)
