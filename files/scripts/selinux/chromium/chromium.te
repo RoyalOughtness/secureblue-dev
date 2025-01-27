@@ -54,14 +54,6 @@ allow chromium_t chrome_sandbox_home_t:file { append create execute getattr ioct
 allow chromium_t chrome_sandbox_home_t:lnk_file { create read unlink };
 allow chromium_t self:netlink_route_socket nlmsg_read;
 
-
-# unrestricted homedir access
-allow chromium_t user_home_dir_t:dir { read add_name create remove_name write getattr search };
-allow chromium_t user_home_dir_t:file { append create getattr lock open read setattr unlink write };
-allow chromium_t user_home_t:dir { read add_name search getattr write remove_name };
-allow chromium_t user_home_t:file { create open read write rename unlink setattr };
-
-
 # not covered by interfaces
 allow chromium_t http_port_t:tcp_socket { name_connect };
 allow chromium_t tmp_t:file { create open unlink write };
@@ -144,6 +136,7 @@ userdom_write_user_tmp_sockets(chromium_t)
 userdom_read_inherited_user_tmp_files(chromium_t)
 userdom_manage_home_certs(chromium_t)
 userdom_use_user_terminals(chromium_t)
+userdom_list_user_home_dirs(chromium_t)
 term_search_ptys(chromium_t)
 
 corecmd_exec_shell(chromium_t)
