@@ -22,6 +22,7 @@ gen_require(`
 	type unconfined_service_t;
 	type unconfined_t;
 	type http_port_t;
+	type http_cache_port_t;
 	type user_home_t;
 	type user_home_dir_t;
 	type xserver_misc_device_t;
