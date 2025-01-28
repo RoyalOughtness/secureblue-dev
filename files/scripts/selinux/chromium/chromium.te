@@ -167,6 +167,4 @@ optional_policy(`
 	')
 
 	chromium_run(unconfined_t, unconfined_r)
-	flatpak_run(chromium_t, unconfined_r)
-	nautilus_run(chromium_t, unconfined_r)
 ')
