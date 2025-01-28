@@ -52,6 +52,7 @@ allow chromium_t self:netlink_route_socket nlmsg_read;
 
 # not covered by interfaces
 allow chromium_t http_port_t:tcp_socket { name_connect };
+allow chromium_t http_cache_port_t:tcp_socket { name_connect };
 allow chromium_t tmp_t:file { create open unlink write };
 allow chromium_t tmp_t:lnk_file { create unlink };
 allow chromium_t tmp_t:sock_file { create unlink };
