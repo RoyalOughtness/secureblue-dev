@@ -163,6 +163,9 @@ userdom_list_user_home_dirs(trivalent_t)
 
 auth_read_passwd_file(trivalent_t)
 
+# needed to be able to xdg-open, which is bin_t
+corecmd_exec_bin(trivalent_script_t)
+
 sysnet_read_config(trivalent_t)
 pcscd_stream_connect(trivalent_t)
 xserver_use_user_fonts(trivalent_t)
