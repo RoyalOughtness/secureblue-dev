@@ -44,3 +44,48 @@ interface(`chromium_run',`
     roleattribute $2 chromium_roles;
 ')
 
+
+
+########################################
+## <summary>
+##	Execute chromium script in the chromium domain.
+## </summary>
+## <param name="domain">
+## <summary>
+##	Domain allowed to transition.
+## </summary>
+## </param>
+#
+interface(`chromium_script_domtrans',`
+	gen_require(`
+		type chromium_script_t, chromium_script_exec_t;
+	')
+
+	domtrans_pattern($1, chromium_script_exec_t, chromium_script_t)
+')
+
+
+########################################
+## <summary>
+##	Execute chromium script in the chromium domain.
+## </summary>
+## <param name="domain">
+## <summary>
+##	Domain allowed to transition.
+## </summary>
+## </param>
+## <param name="role">
+##	<summary>
+##	Role allowed access.
+##	</summary>
+## </param>
+#
+interface(`chromium_script_run',`
+	gen_require(`
+		type chromium_script_t;
+        attribute_role chromium_script_roles;
+	')
+
+    chromium_script_domtrans($1)
+    roleattribute $2 chromium_script_roles;
+')

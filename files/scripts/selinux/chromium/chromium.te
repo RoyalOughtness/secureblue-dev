@@ -6,6 +6,7 @@ policy_module(chromium, 1.0.0)
 # Declarations
 #
 
+# trivalent executable
 attribute_role chromium_roles;
 roleattribute object_r chromium_roles;
 
@@ -15,6 +16,17 @@ domain_type(chromium_t, chromium_exec_t)
 application_domain(chromium_t, chromium_exec_t)
 
 role chromium_roles types chromium_t;
+
+# trivalent script
+attribute_role chromium_script_roles;
+roleattribute object_r chromium_script_roles;
+
+type chromium_script_t;
+type chromium_script_exec_t;
+domain_type(chromium_script_t, chromium_script_exec_t)
+application_domain(chromium_script_t, chromium_script_exec_t)
+
+role chromium_script_roles types chromium_script_t;
 
 gen_require(`
 	type chrome_sandbox_home_t;
@@ -167,5 +179,10 @@ optional_policy(`
 		role unconfined_r;
 	')
 
-	chromium_run(unconfined_t, unconfined_r)
+	chromium_run(chromium_script_t, object_r)
+	chromium_script_run(unconfined_t, unconfined_r)
 ')
+
+
+corecmd_exec_shell(chromium_script_t)
+corecmd_exec_bin(chromium_script_t)
