@@ -18,6 +18,8 @@ application_domain(trivalent_t, trivalent_exec_t)
 
 role trivalent_roles types { trivalent_t trivalent_home_t };
 
+userdom_user_home_content(trivalent_home_t)
+
 # trivalent script
 attribute_role trivalent_script_roles;
 roleattribute object_r trivalent_script_roles;
@@ -183,6 +185,7 @@ optional_policy(`
 
 	trivalent_run(trivalent_script_t, unconfined_r)
 	trivalent_script_run(unconfined_t, unconfined_r)
+	trivalent_filetrans_home_content(unconfined_t)
 ')
 
 allow trivalent_script_t config_home_t:dir { getattr search };

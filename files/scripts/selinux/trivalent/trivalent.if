@@ -89,3 +89,25 @@ interface(`trivalent_script_run',`
     trivalent_script_domtrans($1)
     roleattribute $2 trivalent_script_roles;
 ')
+
+########################################
+## <summary>
+##      Create trivalent directory in the user home directory
+##      with an correct label.
+## </summary>
+## <param name="domain">
+##      <summary>
+##      Domain allowed access.
+##      </summary>
+## </param>
+#
+interface(`trivalent_filetrans_home_content',`
+        gen_require(`
+                type trivalent_home_t;
+        ')
+
+        optional_policy(`
+			gnome_config_filetrans($1, trivalent_home_t, dir, "trivalent")
+			gnome_cache_filetrans($1, trivalent_home_t, dir, "trivalent")
+        ')
+')
