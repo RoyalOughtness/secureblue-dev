@@ -11,11 +11,12 @@ attribute_role trivalent_roles;
 roleattribute object_r trivalent_roles;
 
 type trivalent_t;
+type trivalent_home_t;
 type trivalent_exec_t;
 domain_type(trivalent_t, trivalent_exec_t)
 application_domain(trivalent_t, trivalent_exec_t)
 
-role trivalent_roles types trivalent_t;
+role trivalent_roles types { trivalent_t trivalent_home_t };
 
 # trivalent script
 attribute_role trivalent_script_roles;
