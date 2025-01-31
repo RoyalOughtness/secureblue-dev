@@ -1,0 +1,101 @@
+name: Build ISOs
+on:
+  schedule:
+    - cron: "0 0 1 * *" # build on the first of each month
+  workflow_dispatch: # allow manually triggering builds
+
+jobs:
+  build-iso:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        image: 
+          - silverblue-main-hardened
+          - silverblue-nvidia-hardened
+          - silverblue-nvidia-open-hardened
+          - kinoite-main-hardened
+          - kinoite-nvidia-hardened
+          - kinoite-nvidia-open-hardened
+          - sericea-main-hardened
+          - sericea-nvidia-hardened
+          - sericea-nvidia-open-hardened
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
+
+      - name: Set VARIANT env var
+        shell: bash
+        run: |
+          image_type=$(echo "$matrix.image" | cut -d'-' -f1)
+          case "$image_type" in
+            silverblue)
+              VARIANT="silverblue"
+              ;;
+            kinoite)
+              VARIANT="kinoite"
+              ;;
+            sericea)
+              VARIANT="sway-atomic"
+              ;;
+            *)
+            echo "Unknown variant: $image_type"
+            exit 1
+            ;;
+          esac
+          echo "VARIANT=${VARIANT}" >> $GITHUB_ENV
+
+      - name: Build ISO
+        uses: jasonn3/build-container-installer@main
+        id: build 
+        env:
+          ARCH: x86_64
+          IMAGE_REPO: ghcr.io/secureblue
+          IMAGE_TAG: latest
+          VERSION: 41
+          VARIANT:
+        with:
+          arch: ${{ env.ARCH}}
+          image_name: ${{ matrix.image }}
+          image_repo: ${{ env.IMAGE_REPO}}
+          image_tag: ${{ env.IMAGE_TAG }}
+          version: ${{ env.VERSION }}
+          variant: ${{ env.VARIANT }}
+          iso_name: ${{ matrix.image }}.iso
+
+      - name: Move ISOs to Upload Directory
+        id: upload-directory
+        shell: bash
+        run: |
+          ISO_BUILD_DIR=${{ github.workspace }}/${matrix.image}_build
+          ISO_NAME=${matrix.image}.iso
+          ISO_UPLOAD_DIR=${{ github.workspace }}/upload
+          mkdir ${ISO_UPLOAD_DIR}
+          mv ${ISO_BUILD_DIR}/${ISO_NAME} ${ISO_UPLOAD_DIR}
+          mv ${env.ISO_BUILD_DIR}/${env.ISO_NAME}-CHECKSUM ${ISO_UPLOAD_DIR}
+          echo "iso-upload-dir=${ISO_UPLOAD_DIR}" >> $GITHUB_OUTPUT
+
+
+      - name: Upload ISOs and Checksum to R2 to secureblue Bucket
+        if: github.ref_name == 'r2isos' && contains(matrix.base_name,'hardened')
+        shell: bash
+        env:
+          RCLONE_CONFIG_R2_TYPE: s3
+          RCLONE_CONFIG_R2_PROVIDER: Cloudflare
+          RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          RCLONE_CONFIG_R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          RCLONE_CONFIG_R2_REGION: auto
+          RCLONE_CONFIG_R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          SOURCE_DIR: ${{ steps.upload-directory.outputs.iso-upload-dir }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rclone
+          rclone copy $SOURCE_DIR R2:secureblue
