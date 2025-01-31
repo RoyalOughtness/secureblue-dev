@@ -53,7 +53,7 @@ jobs:
           esac
           echo "VARIANT=${VARIANT}" >> $GITHUB_ENV
 
-      - name: Build ISO
+      - name: Build ISOs
         id: build
         uses: centos-workstation/bootc-image-builder-action@main
         with:
