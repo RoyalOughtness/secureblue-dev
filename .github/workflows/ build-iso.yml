@@ -35,7 +35,7 @@ jobs:
       - name: Set VARIANT env var
         shell: bash
         run: |
-          image_type=$(echo "$matrix.image" | cut -d'-' -f1)
+          image_type=$(echo "${{ matrix.image }}" | cut -d '-' -f1)
           case "$image_type" in
             silverblue)
               VARIANT="silverblue"
