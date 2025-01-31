@@ -74,8 +74,8 @@ jobs:
         id: upload-directory
         shell: bash
         run: |
-          ISO_BUILD_DIR=${{ github.workspace }}/${matrix.image}_build
-          ISO_NAME=${matrix.image}.iso
+          ISO_BUILD_DIR=${{ github.workspace }}/${{ matrix.image }}_build
+          ISO_NAME=${{ matrix.image }}.iso
           ISO_UPLOAD_DIR=${{ github.workspace }}/upload
           mkdir ${ISO_UPLOAD_DIR}
           mv ${ISO_BUILD_DIR}/${ISO_NAME} ${ISO_UPLOAD_DIR}
