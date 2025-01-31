@@ -54,27 +54,17 @@ jobs:
           echo "VARIANT=${VARIANT}" >> $GITHUB_ENV
 
       - name: Build ISO
-        uses: jasonn3/build-container-installer@main
-        id: build 
-        env:
-          ARCH: x86_64
-          IMAGE_REPO: ghcr.io/secureblue
-          IMAGE_TAG: latest
-          VERSION: 41
+        id: build
+        uses: centos-workstation/bootc-image-builder-action@main
         with:
-          arch: ${{ env.ARCH}}
-          image_name: ${{ matrix.image }}
-          image_repo: ${{ env.IMAGE_REPO}}
-          image_tag: ${{ env.IMAGE_TAG }}
-          version: ${{ env.VERSION }}
-          variant: ${{ env.VARIANT }}
-          iso_name: ${{ matrix.image }}.iso
+          config-file: ./.github/workflows/config/image-builder-iso.config.yaml
+          image: ghcr.io/secureblue/${{ matrix.image }}
 
       - name: Move ISOs to Upload Directory
         id: upload-directory
         shell: bash
         run: |
-          ISO_BUILD_DIR=${{ github.workspace }}
+          ISO_BUILD_DIR=${{ github.workspace }}/output/bootiso
           ISO_NAME=${{ matrix.image }}.iso
           ISO_UPLOAD_DIR=${{ github.workspace }}/upload
           mkdir ${ISO_UPLOAD_DIR}
