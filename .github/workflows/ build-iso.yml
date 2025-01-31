@@ -79,7 +79,7 @@ jobs:
           ISO_UPLOAD_DIR=${{ github.workspace }}/upload
           mkdir ${ISO_UPLOAD_DIR}
           mv ${ISO_BUILD_DIR}/${ISO_NAME} ${ISO_UPLOAD_DIR}
-          mv ${env.ISO_BUILD_DIR}/${env.ISO_NAME}-CHECKSUM ${ISO_UPLOAD_DIR}
+          mv ${ISO_BUILD_DIR}/${ISO_NAME}-CHECKSUM ${ISO_UPLOAD_DIR}
           echo "iso-upload-dir=${ISO_UPLOAD_DIR}" >> $GITHUB_OUTPUT
 
 
