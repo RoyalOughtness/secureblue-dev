@@ -51,6 +51,7 @@ jobs:
             exit 1
             ;;
           esac
+          echo "VARIANT=${VARIANT}"
           echo "VARIANT=${VARIANT}" >> $GITHUB_ENV
 
       - name: Build ISO
