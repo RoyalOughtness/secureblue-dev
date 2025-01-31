@@ -51,7 +51,6 @@ jobs:
             exit 1
             ;;
           esac
-          echo "VARIANT=${VARIANT}"
           echo "VARIANT=${VARIANT}" >> $GITHUB_ENV
 
       - name: Build ISO
@@ -62,7 +61,6 @@ jobs:
           IMAGE_REPO: ghcr.io/secureblue
           IMAGE_TAG: latest
           VERSION: 41
-          VARIANT:
         with:
           arch: ${{ env.ARCH}}
           image_name: ${{ matrix.image }}
