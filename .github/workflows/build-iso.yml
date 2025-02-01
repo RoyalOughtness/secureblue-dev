@@ -84,7 +84,7 @@ jobs:
 
 
       - name: Upload ISOs and Checksum to R2 to secureblue Bucket
-        if: github.ref_name == 'r2isos' && contains(matrix.image,'hardened')
+        if: github.ref_name == 'r2isos2' && contains(matrix.image,'hardened')
         shell: bash
         env:
           RCLONE_CONFIG_R2_TYPE: s3
