@@ -42,6 +42,7 @@ gen_require(`
 	type http_port_t;
 	type http_cache_port_t;
 	type howl_port_t;
+	type pki_ca_port_t;
 	type setfiles_exec_t;
 	type user_home_t;
 	type user_home_dir_t;
@@ -75,6 +76,7 @@ allow trivalent_t trivalent_home_t:lnk_file { create read unlink };
 allow trivalent_t self:netlink_route_socket nlmsg_read;
 
 # not covered by interfaces
+allow trivalent_t pki_ca_port_t:tcp_socket name_connect;
 allow trivalent_t howl_port_t:udp_socket name_bind;
 allow trivalent_t http_port_t:tcp_socket { name_connect };
 allow trivalent_t http_cache_port_t:tcp_socket { name_connect };
