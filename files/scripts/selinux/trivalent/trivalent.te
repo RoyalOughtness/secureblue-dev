@@ -194,8 +194,11 @@ optional_policy(`
 	trivalent_filetrans_home_content(unconfined_t)
 ')
 
-allow trivalent_script_t config_home_t:dir { getattr search add_name remove_name write };
-allow trivalent_script_t config_home_t:file { getattr write open read };
+allow trivalent_script_t config_home_t:dir { getattr search add_name remove_name write read rmdir };
+allow trivalent_script_t config_home_t:file { getattr write open read create ioctl };
+allow trivalent_script_t cache_home_t:dir { getattr search add_name remove_name write read rmdir };
+allow trivalent_script_t cache_home_t:file { getattr write open read create ioctl };
+allow trivalent_script_t setfiles_exec_t:file { getattr };
 allow trivalent_script_t trivalent_t:dir { getattr };
 allow trivalent_script_t self:dir { add_name write };
 allow trivalent_script_t self:file { create };
