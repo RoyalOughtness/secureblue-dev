@@ -66,6 +66,7 @@ allow trivalent_t self:process { dyntransition transition };
 allow trivalent_t self:file manage_file_perms;
 allow trivalent_t self:dir rw_dir_perms;
 allow trivalent_t self:socket_class_set create_socket_perms;
+allow trivalent_t self:tcp_socket { accept listen };
 allow trivalent_t trivalent_exec_t:file execute_no_trans;
 allow trivalent_t chrome_sandbox_home_t:dir { add_name create read remove_name rmdir write getattr open rename search };
 allow trivalent_t chrome_sandbox_home_t:file { append create execute getattr ioctl lock map open read rename unlink write };
@@ -98,6 +99,8 @@ allow trivalent_t audio_home_t:file { create getattr open read rename setattr un
 
 # xwayland/nvidia
 xserver_exec(trivalent_t)
+dev_rw_xserver_misc(trivalent_t)
+dev_map_xserver_misc(trivalent_t)
 allow trivalent_t xserver_misc_device_t:chr_file { getattr ioctl map open read write };
 
 
@@ -105,6 +108,7 @@ files_list_home(trivalent_t)
 files_search_home(trivalent_t)
 files_read_usr_files(trivalent_t)
 files_read_etc_files(trivalent_t)
+files_read_etc_runtime_files(trivalent_t)
 files_watch_etc_dirs(trivalent_t)
 files_getattr_all_dirs(trivalent_t)
 files_watch_root_dirs(trivalent_t)
@@ -115,6 +119,7 @@ files_rw_generic_tmp_sockets(trivalent_t)
 files_rw_tmp_file_leaks(trivalent_t)
 
 kernel_read_system_state(trivalent_t)
+kernel_read_kernel_sysctls(trivalent_t)
 kernel_read_fs_sysctls(trivalent_t)
 
 # required to connect to wayland
@@ -151,6 +156,11 @@ dev_rw_dri(trivalent_t)
 dev_rw_generic_usb_dev(trivalent_t)
 dev_read_video_dev(trivalent_t)
 dev_read_sound(trivalent_t)
+dev_write_sound(trivalent_t)
+dev_read_urand(trivalent_t)
+dev_read_rand(trivalent_t)
+
+udev_read_pid_files(trivalent_t)
 
 gnome_search_gconf_data_dir(trivalent_t)
 gnome_manage_cache_home_dir(trivalent_t)
@@ -162,6 +172,8 @@ gnome_manage_home_config_dirs(trivalent_t)
 gnome_manage_data(trivalent_t)
 gnome_map_generic_data_home_files(trivalent_t)
 gnome_manage_gstreamer_home_files(trivalent_t)
+gnome_dbus_chat_gconfdefault(trivalent_t)
+gnome_dbus_chat_gkeyringd(trivalent_t)
 
 userdom_write_user_tmp_sockets(trivalent_t)
 userdom_read_inherited_user_tmp_files(trivalent_t)
@@ -174,7 +186,6 @@ auth_read_passwd_file(trivalent_t)
 # needed to be able to xdg-open, which is bin_t
 corecmd_exec_bin(trivalent_t)
 
-sysnet_read_config(trivalent_t)
 pcscd_stream_connect(trivalent_t)
 xserver_use_user_fonts(trivalent_t)
 xserver_map_user_fonts(trivalent_t)
@@ -187,6 +198,11 @@ init_read_state(trivalent_t)
 corenet_tcp_connect_generic_port(trivalent_t)
 corenet_tcp_bind_generic_node(trivalent_t)
 corenet_udp_bind_generic_node(trivalent_t)
+sysnet_read_config(trivalent_t)
+sysnet_dns_name_resolve(trivalent_t)
+networkmanager_dbus_chat(trivalent_t)
+
+storage_getattr_fixed_disk_dev(trivalent_t)
 
 optional_policy(`
 	gen_require(`
@@ -203,7 +219,6 @@ allow trivalent_script_t config_home_t:dir { getattr search add_name remove_name
 allow trivalent_script_t config_home_t:file { getattr write open read create ioctl };
 allow trivalent_script_t cache_home_t:dir { getattr search add_name remove_name write read rmdir };
 allow trivalent_script_t cache_home_t:file { getattr write open read create ioctl };
-allow trivalent_script_t setfiles_exec_t:file { getattr };
 allow trivalent_script_t trivalent_t:dir { getattr };
 allow trivalent_script_t self:dir { add_name write };
 allow trivalent_script_t self:file { create };
@@ -220,3 +235,5 @@ corecmd_exec_shell(trivalent_script_t)
 corecmd_exec_bin(trivalent_script_t)
 files_getattr_all_dirs(trivalent_script_t)
 userdom_list_user_home_dirs(trivalent_script_t)
+kernel_list_proc(trivalent_script_t)
+seutil_exec_setfiles(trivalent_script_t)
