@@ -58,7 +58,7 @@ jobs:
         uses: centos-workstation/bootc-image-builder-action@main
         with:
           config-file: ./.github/workflows/config/image-builder-iso.config.yml
-          image: ghcr.io/secureblue/${{ matrix.image }}
+          image: ghcr.io/secureblue/${{ matrix.image }}:latest
 
       - name: Move ISOs to Upload Directory
         id: upload-directory
