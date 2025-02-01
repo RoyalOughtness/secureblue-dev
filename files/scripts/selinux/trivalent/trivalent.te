@@ -125,9 +125,11 @@ kernel_read_fs_sysctls(trivalent_t)
 # required to connect to wayland
 unconfined_stream_connect(trivalent_t)
 
-dbus_all_session_bus_client(trivalent_t)
-dbus_system_bus_client(trivalent_t)
-unconfined_dbus_chat(trivalent_t)
+optional_policy(`
+	dbus_system_bus_client(trivalent_t)
+	dbus_all_session_bus_client(trivalent_t)
+    unconfined_dbus_chat(trivalent_t)
+')
 
 dbus_write_session_tmp_sock_files(trivalent_t)
 devicekit_dbus_chat_disk(trivalent_t)
