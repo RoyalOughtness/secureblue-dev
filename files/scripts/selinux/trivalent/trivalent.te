@@ -181,13 +181,14 @@ gnome_dbus_chat_gconfdefault(trivalent_t)
 gnome_dbus_chat_gkeyringd(trivalent_t)
 
 userdom_write_user_tmp_sockets(trivalent_t)
-userdom_rw_user_tmp_files(trivalent_t)
+userdom_manage_user_tmp_files(trivalent_t)
 userdom_read_inherited_user_tmp_files(trivalent_t)
 userdom_manage_home_certs(trivalent_t)
 userdom_use_user_terminals(trivalent_t)
 userdom_list_user_home_dirs(trivalent_t)
 
 logging_write_journal_files(trivalent_t)
+logging_write_syslog_pid_socket(trivalent_t)
 
 auth_read_passwd_file(trivalent_t)
 
