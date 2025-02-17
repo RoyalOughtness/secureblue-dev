@@ -76,7 +76,7 @@ if [[ ! -L "$CRYPT_DISK" ]]; then
 fi
 
 if cryptsetup luksDump "$CRYPT_DISK" | grep systemd-fido2 > /dev/null; then
-  KEYSLOT=$(cryptsetup luksDump "$CRYPT_DISK" | sed -n '/systemd-fido2$/,/Keyslot:/p' | grep Keyslot|awk '{print $2}')
+  KEYSLOT=$(cryptsetup luksDump "$CRYPT_DISK" | sed -n '/systemd-tpm2$/,/Keyslot:/p' | grep Keyslot|awk '{print $2}')
   echo "FIDO2 already present in LUKS keyslot $KEYSLOT of $CRYPT_DISK."
   read -p "Wipe it and re-enroll? (y/N): " -n 1 -r
   echo
