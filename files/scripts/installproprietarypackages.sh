@@ -7,7 +7,7 @@ curl -Lo /etc/yum.repos.d/negativo17-fedora-multimedia.repo https://negativo17.o
 sed -i '0,/enabled=1/{s/enabled=1/enabled=1\npriority=90/}' /etc/yum.repos.d/negativo17-fedora-multimedia.repo
 
 
-rpm-ostree override remove \    
+rpm-ostree override remove \
     libva \
     libva-intel-media-driver \
     mesa-dri-drivers \
