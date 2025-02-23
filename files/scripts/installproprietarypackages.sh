@@ -6,6 +6,8 @@ set -oue pipefail
 curl -Lo /etc/yum.repos.d/negativo17-fedora-multimedia.repo https://negativo17.org/repos/fedora-multimedia.repo
 sed -i '0,/enabled=1/{s/enabled=1/enabled=1\npriority=90/}' /etc/yum.repos.d/negativo17-fedora-multimedia.repo
 
+rpm-ostree uninstall mesa-libglapi
+
 rpm-ostree override replace \
   --experimental \
   --from repo='fedora-multimedia' \
@@ -24,4 +26,3 @@ rpm-ostree override replace \
     gstreamer1-plugin-vaapi 
 
 rpm-ostree install unrar
-rpm-ostree uninstall mesa-libglapi
