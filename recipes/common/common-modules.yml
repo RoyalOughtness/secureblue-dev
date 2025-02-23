@@ -19,6 +19,5 @@ modules:
     - type: script
       scripts:
         - enablecommonautoupdate.sh
-        - installrpmfusion.sh
     - type: secureblue-signing
       source: local

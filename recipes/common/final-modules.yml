@@ -4,3 +4,4 @@ modules:
         - removeunusedrepos.sh
         - removesuid.sh
         - regenerateinitramfs.sh
+        - installrpmfusion.sh
