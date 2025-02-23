@@ -1,7 +1,4 @@
 modules:
-    - type: script
-      scripts:
-        - installproprietarypackages.sh
     - type: rpm-ostree
       install:
       - heif-pixbuf-loader
@@ -26,4 +23,5 @@ modules:
       - libswscale-free  
     - type: script
       scripts:
+        - installproprietarypackages.sh
         - removeunusedrepos.sh
