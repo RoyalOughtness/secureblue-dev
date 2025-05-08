@@ -1,0 +1,52 @@
+---
+name: Build ISOs
+
+on:
+  workflow_dispatch:
+  # pull_request:
+  #   branches:
+  #     - live
+  #   paths:
+  #     - './.github/workflows/config/iso.toml'
+  #     - './.github/workflows/config/image.toml'
+  #     - './.github/workflows/iso.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build ISOs
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+    permissions:
+      contents: read
+      packages: read
+      id-token: write
+
+    steps:
+      - name: Maximize build space
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
+
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Build ISO
+        id: build
+        uses: ublue-os/bootc-image-builder-action@main
+        with:
+          use-librepo: true
+          config-file: ./.github/workflows/config/iso.toml
+          image: "ghcr.io/secureblue/silverblue-main-hardened:latest"
+
+      - name: Upload ISOs and Checksum to Job Artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          path: ${{ steps.build.outputs.output-directory }}
+          if-no-files-found: error
+          retention-days: 0
+          compression-level: 0
+          overwrite: true
+      
