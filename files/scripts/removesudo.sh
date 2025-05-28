@@ -4,7 +4,7 @@ set -oue pipefail
 
 SUDO_PACKAGES_TO_REMOVE=('sudo-python-plugin')
 
-if [[ "$IMAGE_NAME" != *"kinoite"* ]]; then
+if [[ "$IMAGE_NAME" != *"kinoite"* && "$IMAGE_NAME" != *"lxqt"* ]]; then
     SUDO_PACKAGES_TO_REMOVE+=('sudo')
 fi
 
