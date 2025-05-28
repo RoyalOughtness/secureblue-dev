@@ -1,6 +1,9 @@
 modules:
     - type: rpm-ostree
+      install:
+        - lxqt-labwc-session
       remove:
         - fedora-flathub-remote
         - fedora-third-party
         - fedora-workstation-repositories
+        - lxqt-sudo
