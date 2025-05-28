@@ -47,6 +47,7 @@ jobs:
           - general/recipe-cosmic-main.yml
           - general/recipe-cosmic-nvidia.yml
           - general/recipe-cosmic-nvidia-open.yml
+          - general/recipe-lxqt-main.yml
           # server
           - securecore/recipe-securecore-main.yml
           - securecore/recipe-securecore-nvidia.yml
