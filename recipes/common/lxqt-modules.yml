@@ -6,4 +6,3 @@ modules:
         - fedora-flathub-remote
         - fedora-third-party
         - fedora-workstation-repositories
-        - lxqt-sudo
