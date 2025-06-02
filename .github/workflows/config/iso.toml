@@ -9,7 +9,7 @@ bootc switch --mutate-in-place --transport registry ghcr.io/secureblue/TARGETIMA
 enable = [
   "org.fedoraproject.Anaconda.Modules.Localization",
   "org.fedoraproject.Anaconda.Modules.Network",
-  "org.fedoraproject.Anaconda.Modules.Storage"
+  "org.fedoraproject.Anaconda.Modules.Storage",
   "org.fedoraproject.Anaconda.Modules.Users",
   "org.fedoraproject.Anaconda.Modules.Subscription",
   "org.fedoraproject.Anaconda.Modules.Timezone" 
