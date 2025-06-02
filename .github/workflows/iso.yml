@@ -71,9 +71,9 @@ jobs:
                 -v ./output:/output \
                 -v ./iso_files:/iso_files \
                 registry.fedoraproject.org/fedora:latest \
-                bash -c 'dnf install -y lorax mkksiso && \
+                bash -c "dnf install -y lorax mkksiso && \
                 mkdir /images && cd /iso_files/product && find . | cpio -c -o | gzip -9cv > /images/product.img && cd / \
-                        && mkksiso --add images --volid secureblue-boot /$ISO_PATH /output/final.iso'
+                        && mkksiso --add images --volid secureblue-boot /${ISO_PATH} /output/final.iso"
 
             mv output/final.iso $ISO_PATH
 
