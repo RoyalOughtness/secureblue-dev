@@ -70,8 +70,8 @@ jobs:
                 --privileged \
                 -v ./output:/output \
                 -v ./iso_files:/iso_files \
-                registry.fedoraproject.org/fedora:latest \
-                bash -c "dnf install -y lorax mkksiso && \
+                quay.io/centos/centos:stream10 \
+                bash -c "dnf install -y lorax && \
                 mkdir /images && cd /iso_files/product && find . | cpio -c -o | gzip -9cv > /images/product.img && cd / \
                         && mkksiso --add images --volid secureblue-boot /${ISO_PATH} /output/final.iso"
 
