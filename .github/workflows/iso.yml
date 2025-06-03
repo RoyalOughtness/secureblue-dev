@@ -83,8 +83,15 @@ jobs:
           # validate signature
 
           curl -O "http://repo.secureblue.dev/secureblue.gpg"
-          gpgv --keyring ./secureblue.gpg "$CHECKSUM_PATH"
-          sha256sum --ignore-missing -c "$CHECKSUM_PATH"
+          if ! gpgv --keyring ./secureblue.gpg "$CHECKSUM_PATH"; then
+              echo "CHECKSUM signature verification FAILED! Exiting..."
+              exit 1
+          fi
+
+          if ! sha256sum --ignore-missing -c "$CHECKSUM_PATH"; then
+              echo "CHECKSUM verification FAILED! Exiting..."
+              exit 1
+          fi
 
           mv $OUTPUT_PATH $OUTPUT_DIRECTORY/$IMAGE_NAME.iso
           mv $CHECKSUM_PATH $OUTPUT_DIRECTORY/$IMAGE_NAME.iso-CHECKSUM
