@@ -76,6 +76,11 @@ jobs:
             echo "SHA256 ($ISO_FILE_NAME) = $HASH"
           } > "$CHECKSUM_PATH"
 
+
+          echo "CHECKSUM contents"
+          cat $CHECKSUM_PATH
+          echo
+           
           echo "${{ secrets.ISO_SIGNING_KEY }}" | gpg --import
 
           gpg --clearsign -u 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41 "$CHECKSUM_PATH"
