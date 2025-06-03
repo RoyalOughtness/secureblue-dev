@@ -80,6 +80,12 @@ jobs:
 
           gpg --clearsign -u 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41 "$CHECKSUM_PATH"
 
+          # validate signature
+
+          curl -O "http://repo.secureblue.dev/secureblue.gpg"
+          gpgv --keyring ./secureblue.gpg "$CHECKSUM_PATH"
+          sha256sum --ignore-missing -c "$CHECKSUM_PATH"
+
           mv $OUTPUT_PATH $OUTPUT_DIRECTORY/$IMAGE_NAME.iso
           mv $CHECKSUM_PATH $OUTPUT_DIRECTORY/$IMAGE_NAME.iso-CHECKSUM
 
