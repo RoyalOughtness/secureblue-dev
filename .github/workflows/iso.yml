@@ -70,7 +70,7 @@ jobs:
         run: |
           HASH=$(cat $CHECKSUM_PATH)
           ISO_SIZE=$(stat -c %s $OUTPUT_PATH)
-          ISO_FILE_NAME=$(basename $OUTPUT_PATH)
+          ISO_FILE_NAME="${IMAGE_NAME}.iso"
           {
             echo "# $ISO_FILE_NAME: $ISO_SIZE bytes"
             echo "SHA256 ($ISO_FILE_NAME) = $HASH"
@@ -80,11 +80,16 @@ jobs:
           echo "CHECKSUM contents"
           cat $CHECKSUM_PATH
           echo
-           
+
           echo "${{ secrets.ISO_SIGNING_KEY }}" | gpg --import
 
+          echo "Signing the ISO"
           gpg --clearsign -u 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41 "$CHECKSUM_PATH"
 
+
+          echo "Signed CHECKSUM contents"
+          cat $CHECKSUM_PATH
+          echo
           # validate signature
 
           curl -O "http://repo.secureblue.dev/secureblue.gpg"
