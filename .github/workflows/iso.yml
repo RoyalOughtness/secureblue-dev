@@ -68,45 +68,53 @@ jobs:
           CHECKSUM_PATH: ${{ steps.iso_build.outputs.checksum-path }}
           IMAGE_NAME: ${{ matrix.image }}
         run: |
+          TARGET_OUTPUT_PATH="$OUTPUT_DIRECTORY/$IMAGE_NAME.iso"
+          TARGET_CHECKSUM_PATH="$OUTPUT_DIRECTORY/$IMAGE_NAME.iso-CHECKSUM"
+
+          mv $OUTPUT_PATH $TARGET_OUTPUT_PATH
+          mv $CHECKSUM_PATH $TARGET_CHECKSUM_PATH
+
           HASH=$(cat $CHECKSUM_PATH)
           ISO_SIZE=$(stat -c %s $OUTPUT_PATH)
           ISO_FILE_NAME="${IMAGE_NAME}.iso"
           {
             echo "# $ISO_FILE_NAME: $ISO_SIZE bytes"
             echo "SHA256 ($ISO_FILE_NAME) = $HASH"
-          } > "$CHECKSUM_PATH"
+          } > "$TARGET_CHECKSUM_PATH"
 
 
           echo "CHECKSUM contents"
-          cat $CHECKSUM_PATH
+          cat $TARGET_CHECKSUM_PATH
           echo
 
           echo "${{ secrets.ISO_SIGNING_KEY }}" | gpg --import
 
+          cd $OUTPUT_DIRECTORY
+
           echo "Signing the ISO"
-          gpg --clearsign -u 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41 "$CHECKSUM_PATH"
-          mv "${CHECKSUM_PATH}.asc" "${CHECKSUM_PATH}"
+          gpg --clearsign -u 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41 "${IMAGE_NAME}.iso-CHECKSUM"
+          mv "${IMAGE_NAME}.iso-CHECKSUM.asc" "${IMAGE_NAME}.iso-CHECKSUM"
 
           echo "Signed CHECKSUM contents"
-          cat $CHECKSUM_PATH
+          cat $TARGET_CHECKSUM_PATH
           echo
-          # validate signature
 
+          # validate signature
           curl -O "https://repo.secureblue.dev/secureblue.gpg"
           gpg --no-default-keyring --keyring ./secureblue-compiled.gpg --import secureblue.gpg
 
-          if ! gpgv --keyring ./secureblue-compiled.gpg "$CHECKSUM_PATH"; then
+          if ! gpgv --keyring ./secureblue-compiled.gpg "${IMAGE_NAME}.iso-CHECKSUM"; then
               echo "CHECKSUM signature verification FAILED! Exiting..."
               exit 1
           fi
 
-          if ! sha256sum --ignore-missing -c "$CHECKSUM_PATH"; then
+          if ! sha256sum --ignore-missing -c "${IMAGE_NAME}.iso-CHECKSUM"; then
               echo "CHECKSUM verification FAILED! Exiting..."
               exit 1
           fi
 
-          mv $OUTPUT_PATH $OUTPUT_DIRECTORY/$IMAGE_NAME.iso
-          mv $CHECKSUM_PATH $OUTPUT_DIRECTORY/$IMAGE_NAME.iso-CHECKSUM
+          cd -
+
 
       - name: Upload ISOs and Checksum to Job Artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
