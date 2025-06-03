@@ -59,7 +59,7 @@ jobs:
           config-file: ./.github/workflows/config/iso.toml
           image: "ghcr.io/secureblue/${{ matrix.image }}:latest"
 
-      - name: Rename ISO
+      - name: Rename ISO and sign CHECKSUM
         id: rename
         shell: bash
         env:
@@ -68,8 +68,25 @@ jobs:
           CHECKSUM_PATH: ${{ steps.iso_build.outputs.checksum-path }}
           IMAGE_NAME: ${{ matrix.image }}
         run: |
+          HASH=$(cat $CHECKSUM_PATH)
+          ISO_SIZE=$(stat -c %s $OUTPUT_PATH)
+          ISO_FILE_NAME=$(basename $OUTPUT_PATH)
+          {
+            echo "# $ISO_FILE_NAME: $ISO_SIZE bytes"
+            echo "SHA256 ($ISO_FILE_NAME) = $HASH"
+          } > "$CHECKSUM_PATH"
+
+          echo "${{ secrets.ISO_SIGNING_KEY }}" | gpg --import
+
+          gpg --clearsign -u 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41 "$CHECKSUM_PATH"
+
           mv $OUTPUT_PATH $OUTPUT_DIRECTORY/$IMAGE_NAME.iso
           mv $CHECKSUM_PATH $OUTPUT_DIRECTORY/$IMAGE_NAME.iso-CHECKSUM
+
+      - name: Sign checksum
+        id: Sign
+        shell: bash
+        run: |
 
       - name: Upload ISOs and Checksum to Job Artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
