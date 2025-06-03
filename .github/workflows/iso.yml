@@ -74,8 +74,8 @@ jobs:
           mv $OUTPUT_PATH $TARGET_OUTPUT_PATH
           mv $CHECKSUM_PATH $TARGET_CHECKSUM_PATH
 
-          HASH=$(cat $CHECKSUM_PATH)
-          ISO_SIZE=$(stat -c %s $OUTPUT_PATH)
+          HASH=$(cat $TARGET_CHECKSUM_PATH)
+          ISO_SIZE=$(stat -c %s $TARGET_OUTPUT_PATH)
           ISO_FILE_NAME="${IMAGE_NAME}.iso"
           {
             echo "# $ISO_FILE_NAME: $ISO_SIZE bytes"
