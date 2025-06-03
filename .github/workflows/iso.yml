@@ -89,11 +89,6 @@ jobs:
           mv $OUTPUT_PATH $OUTPUT_DIRECTORY/$IMAGE_NAME.iso
           mv $CHECKSUM_PATH $OUTPUT_DIRECTORY/$IMAGE_NAME.iso-CHECKSUM
 
-      - name: Sign checksum
-        id: Sign
-        shell: bash
-        run: |
-
       - name: Upload ISOs and Checksum to Job Artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
