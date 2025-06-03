@@ -85,7 +85,7 @@ jobs:
 
           echo "Signing the ISO"
           gpg --clearsign -u 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41 "$CHECKSUM_PATH"
-
+          mv "${CHECKSUM_PATH}.asc" "${CHECKSUM_PATH}"
 
           echo "Signed CHECKSUM contents"
           cat $CHECKSUM_PATH
