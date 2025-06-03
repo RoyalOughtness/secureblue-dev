@@ -93,8 +93,9 @@ jobs:
           # validate signature
 
           curl -O "https://repo.secureblue.dev/secureblue.gpg"
-          gpg --import secureblue.gpg
-          if ! gpgv --keyring ./secureblue.gpg "$CHECKSUM_PATH"; then
+          gpg --no-default-keyring --keyring ./secureblue-compiled.gpg --import secureblue.gpg
+
+          if ! gpgv --keyring ./secureblue-compiled.gpg "$CHECKSUM_PATH"; then
               echo "CHECKSUM signature verification FAILED! Exiting..."
               exit 1
           fi
