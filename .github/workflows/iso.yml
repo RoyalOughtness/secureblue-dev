@@ -107,9 +107,9 @@ jobs:
 
           # validate signature
           curl -O "https://repo.secureblue.dev/secureblue.gpg"
-          gpg --no-default-keyring --keyring ./secureblue-compiled.gpg --import secureblue.gpg
+          gpg --no-default-keyring --keyring ./secureblue-keyring.gpg --import secureblue.gpg
 
-          if ! gpgv --keyring ./secureblue-compiled.gpg "${IMAGE_NAME}.iso-CHECKSUM"; then
+          if ! gpgv --keyring ./secureblue-keyring.gpg "${IMAGE_NAME}.iso-CHECKSUM"; then
               echo "CHECKSUM signature verification FAILED! Exiting..."
               exit 1
           fi
@@ -119,6 +119,9 @@ jobs:
               exit 1
           fi
 
+          rm ./secureblue-keyring.gpg~
+          rm secureblue.gpg
+          
           cd -
 
       - name: Upload ISO and Checksum to Job Artifacts
