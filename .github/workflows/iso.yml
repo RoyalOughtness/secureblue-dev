@@ -84,7 +84,7 @@ jobs:
 
 
           echo "CHECKSUM contents"
-          cat $TARGET_CHECKSUM_PATH
+          cat "${IMAGE_NAME}.iso-CHECKSUM"
           echo
 
           echo "${{ secrets.ISO_SIGNING_KEY }}" | gpg --import
@@ -96,7 +96,7 @@ jobs:
           mv "${IMAGE_NAME}.iso-CHECKSUM.asc" "${IMAGE_NAME}.iso-CHECKSUM"
 
           echo "Signed CHECKSUM contents"
-          cat $TARGET_CHECKSUM_PATH
+          cat "${IMAGE_NAME}.iso-CHECKSUM"
           echo
 
           # validate signature
