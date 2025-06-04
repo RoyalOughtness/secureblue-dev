@@ -134,7 +134,7 @@ jobs:
           compression-level: 0
           overwrite: true
 
-      - name: Upload ISO and checksum to R2 to trivalent Bucket
+      - name: Upload ISO and checksum to R2 to ISOS Bucket
         shell: bash
         env:
           RCLONE_CONFIG_R2_TYPE: s3
