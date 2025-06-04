@@ -84,7 +84,7 @@ jobs:
 
 
           echo "CHECKSUM contents"
-          cat "${IMAGE_NAME}.iso-CHECKSUM"
+          cat $TARGET_CHECKSUM_PATH
           echo
 
           echo "${{ secrets.ISO_SIGNING_KEY }}" | gpg --import
