@@ -115,8 +115,7 @@ jobs:
 
           cd -
 
-
-      - name: Upload ISOs and Checksum to Job Artifacts
+      - name: Upload ISO and Checksum to Job Artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           path: ${{ steps.iso_build.outputs.output-directory }}
@@ -125,4 +124,17 @@ jobs:
           retention-days: 1
           compression-level: 0
           overwrite: true
+
+      - name: Upload ISO and checksum to R2 to trivalent Bucket
+        shell: bash
+        env:
+          RCLONE_CONFIG_R2_TYPE: s3
+          RCLONE_CONFIG_R2_PROVIDER: Cloudflare
+          RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.ISOS_ACCESS_KEY_ID }}
+          RCLONE_CONFIG_R2_SECRET_ACCESS_KEY: ${{ secrets.ISOS_SECRET_ACCESS_KEY }}
+          RCLONE_CONFIG_R2_REGION: auto
+          RCLONE_CONFIG_R2_ENDPOINT: ${{ secrets.ISOS_ENDPOINT }}
+          SOURCE_DIR: .
+        run: |
+          rclone copy "${{ steps.iso_build.outputs.output-directory }}" R2:/ 
       
