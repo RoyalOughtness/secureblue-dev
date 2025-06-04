@@ -145,5 +145,5 @@ jobs:
           RCLONE_CONFIG_R2_ENDPOINT: ${{ secrets.ISOS_ENDPOINT }}
           SOURCE_DIR: .
         run: |
-          rclone copy "${{ steps.iso_build.outputs.output-directory }}" R2:/ 
+          rclone copy "${{ steps.iso_build.outputs.output-directory }}" R2:isos 
       
