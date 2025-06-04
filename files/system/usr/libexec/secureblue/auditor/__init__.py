@@ -1,5 +1,17 @@
 #!/usr/bin/python3
 
+# Copyright 2025 The Secureblue Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed under the License is
+# distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
+
 """
 Framework for system auditing.
 """
@@ -74,13 +86,17 @@ class Report:
     def to_str(self, width: int = 80) -> str:
         """Represent the report as a string formatted to the given width."""
         status_tag = f" [ {self.status.to_str_in_color()} ]"
-        desc_width = width - len(self.status.name) - 5
         gray_start = "\x1b[38;5;241m"
+        desc_width = width - len(self.status.name) - 5 + len(gray_start)
         reset_color = "\x1b[39m"
         desc_with_sep = f"{self.description} {gray_start}".ljust(desc_width, "…") + reset_color
         report_str = desc_with_sep + status_tag
         for warning in self.warnings:
-            report_str += f"\n> {warning}"
+            warning_lines = [line.strip() for line in warning.split("\n") if line]
+            if warning_lines:
+                report_str += "\n> " + warning_lines[0]
+            for line in warning_lines[1:]:
+                report_str += "\n  " + line
         return report_str
 
 
