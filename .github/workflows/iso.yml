@@ -70,14 +70,14 @@ jobs:
 
       - name: Pull image
         shell: bash
-        run: sudo podman pull "ghcr.io/royaloughtness/${{ matrix.image }}:br-isogen-42"
+        run: sudo podman pull "ghcr.io/royaloughtness/${{ matrix.image }}:latest"
 
       - name: Build ISO
         id: iso_build
         uses: osbuild/bootc-image-builder-action@019bb59c5100ecec4e78c9e94e18a840110f7a0b # v0.0.2
         with:
           config-file: ./.github/workflows/config/iso.toml
-          image: "ghcr.io/royaloughtness/${{ matrix.image }}:br-isogen-42"
+          image: "ghcr.io/royaloughtness/${{ matrix.image }}:latest"
 
       - name: Rename ISO and sign CHECKSUM
         id: rename
