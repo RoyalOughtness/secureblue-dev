@@ -28,6 +28,7 @@ install:
   - nvme-cli
   - hdparm
   - wireguard-tools
+  - anaconda
   
   # signing deps 
   - sbsigntools

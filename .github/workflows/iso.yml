@@ -1,4 +1,15 @@
----
+# Copyright 2025 The Secureblue Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed under the License is
+# distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
+
 name: Build ISOs
 
 on:
@@ -59,11 +70,10 @@ jobs:
 
       - name: Build ISO
         id: iso_build
-        uses: secureblue/bootc-image-builder-action@b98784c42327746e107a6a753b64f44823bdbf2f # main
+        uses: osbuild/bootc-image-builder-action@019bb59c5100ecec4e78c9e94e18a840110f7a0b # v0.0.2
         with:
-          use-librepo: true
           config-file: ./.github/workflows/config/iso.toml
-          image: "ghcr.io/secureblue/${{ matrix.image }}:latest"
+          image: "ghcr.io/royaloughtness/${{ matrix.image }}:br-isogen-42"
 
       - name: Rename ISO and sign CHECKSUM
         id: rename
