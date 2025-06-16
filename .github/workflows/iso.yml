@@ -79,7 +79,7 @@ jobs:
           config-file: ./.github/workflows/config/iso.toml
           image: "ghcr.io/royaloughtness/${{ matrix.image }}:latest"
           rootfs: btrfs          
-          types: anaconda-iso
+          types: iso
           additional-args: --use-librepo=True
 
 
