@@ -14,10 +14,10 @@ type: script
 scripts:
   - authselect.sh
   - setfilepermissions.sh
-  - disablesealertpopups.sh
   - httpsmirrors.sh
   - createmissingdirectories.sh
   - disablegeoclue.sh
   - enablesecurebluefirstrun.sh
   - createjustcompletions.sh
   - enablekeyverification.sh
+  - removefedoraflatpakremoteservice.sh

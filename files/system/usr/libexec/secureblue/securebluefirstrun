@@ -18,4 +18,3 @@ set -euo pipefail
 
 # Install required brew packages
 /home/linuxbrew/.linuxbrew/bin/brew install fzf gum glow
-

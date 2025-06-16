@@ -12,6 +12,7 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 
-set -oue pipefail
+set -euo pipefail
 
-echo "X-GNOME-Autostart-enabled=false" >> /etc/xdg/autostart/sealertauto.desktop
+flatpak remote-add --if-not-exists --user --subset=verified flathub-verified https://flathub.org/repo/flathub.flatpakrepo
+ujust harden-flatpak
