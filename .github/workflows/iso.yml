@@ -68,6 +68,10 @@ jobs:
         shell: bash
         run: sed -i 's/TARGETIMAGE/${{ matrix.image }}/g' ./.github/workflows/config/iso.toml
 
+      - name: Pull image
+        shell: bash
+        run: sudo podman pull "ghcr.io/royaloughtness/${{ matrix.image }}:br-isogen-42"
+
       - name: Build ISO
         id: iso_build
         uses: osbuild/bootc-image-builder-action@019bb59c5100ecec4e78c9e94e18a840110f7a0b # v0.0.2
