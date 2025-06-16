@@ -78,7 +78,7 @@ jobs:
         with:
           config-file: ./.github/workflows/config/iso.toml
           image: "ghcr.io/royaloughtness/${{ matrix.image }}:latest"
-          rootfs: brtfs
+          rootfs: btrfs
 
       - name: Rename ISO and sign CHECKSUM
         id: rename
@@ -145,7 +145,7 @@ jobs:
           path: ${{ steps.iso_build.outputs.output-directory }}
           name: ${{ matrix.image }}
           if-no-files-found: error
-          retention-days: 1
+          retention-days: 20
           compression-level: 0
           overwrite: true
 
