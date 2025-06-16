@@ -78,6 +78,7 @@ jobs:
         with:
           config-file: ./.github/workflows/config/iso.toml
           image: "ghcr.io/royaloughtness/${{ matrix.image }}:latest"
+          rootfs: brtfs
 
       - name: Rename ISO and sign CHECKSUM
         id: rename
