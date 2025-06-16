@@ -78,7 +78,10 @@ jobs:
         with:
           config-file: ./.github/workflows/config/iso.toml
           image: "ghcr.io/royaloughtness/${{ matrix.image }}:latest"
-          rootfs: btrfs
+          rootfs: btrfs          
+          types: anaconda-iso
+          additional-args: --use-librepo=True
+
 
       - name: Rename ISO and sign CHECKSUM
         id: rename
