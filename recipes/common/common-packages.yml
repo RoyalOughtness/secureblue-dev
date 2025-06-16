@@ -25,6 +25,7 @@ install:
   - podman
   - nvme-cli
   - hdparm
+  - anaconda
   
   # signing deps 
   - sbsigntools
