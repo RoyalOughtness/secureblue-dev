@@ -92,6 +92,13 @@ jobs:
           CHECKSUM_PATH: ${{ steps.iso_build.outputs.checksum-path }}
           IMAGE_NAME: ${{ matrix.image }}
         run: |
+          echo "OUTPUT PATH"
+          echo $OUTPUT_PATH
+          echo "OUTPUT_DIRECTORY"
+          echo $OUTPUT_DIRECTORY
+          echo "CHECKSUM PATH"
+          echo $CHECKSUM_PATH
+          
           TARGET_OUTPUT_PATH="$OUTPUT_DIRECTORY/$IMAGE_NAME.iso"
           TARGET_CHECKSUM_PATH="$OUTPUT_DIRECTORY/$IMAGE_NAME.iso-CHECKSUM"
 
