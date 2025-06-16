@@ -87,23 +87,23 @@ jobs:
         id: rename
         shell: bash
         env:
-          OUTPUT_PATH: ${{ steps.iso_build.outputs.output-path }}
+          OUTPUT_PATH: ${{ steps.iso_build.outputs.output-paths.iso.path }}
           OUTPUT_DIRECTORY: ${{ steps.iso_build.outputs.output-directory }}
-          CHECKSUM_PATH: ${{ steps.iso_build.outputs.checksum-path }}
+          CHECKSUM: ${{ steps.iso_build.outputs.checksum-paths.iso.checksum }}
           IMAGE_NAME: ${{ matrix.image }}
         run: |
           echo "OUTPUT PATH"
           echo $OUTPUT_PATH
           echo "OUTPUT_DIRECTORY"
           echo $OUTPUT_DIRECTORY
-          echo "CHECKSUM PATH"
-          echo $CHECKSUM_PATH
+          echo "CHECKSUM"
+          echo $CHECKSUM
           
           TARGET_OUTPUT_PATH="$OUTPUT_DIRECTORY/$IMAGE_NAME.iso"
           TARGET_CHECKSUM_PATH="$OUTPUT_DIRECTORY/$IMAGE_NAME.iso-CHECKSUM"
 
           mv $OUTPUT_PATH $TARGET_OUTPUT_PATH
-          mv $CHECKSUM_PATH $TARGET_CHECKSUM_PATH
+          echo "$CHECKSUM" > "$TARGET_CHECKSUM_PATH"
 
           HASH=$(cat $TARGET_CHECKSUM_PATH)
           ISO_SIZE=$(stat -c %s $TARGET_OUTPUT_PATH)
