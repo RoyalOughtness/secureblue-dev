@@ -87,7 +87,7 @@ jobs:
         uses: ublue-os/titanoboa@154e9332aeb79c52789e63eb941f73be99dbaf97 # v0.1
         with:
           image-ref: "ghcr.io/secureblue/${{ matrix.image }}:latest"
-          hook-post-rootfs: ${{ github.workspace }}/workflows/config/configure_iso_anaconda.sh
+          hook-post-rootfs: ${{ github.workspace }}/.github/workflows/config/configure_iso_anaconda.sh
           kargs: ${{ steps.set_kargs.outputs.image_kargs }}
           
       - name: Build ISO
