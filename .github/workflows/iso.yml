@@ -98,6 +98,8 @@ jobs:
           echo $OUTPUT_DIRECTORY
           echo "CHECKSUM"
           echo $CHECKSUM
+
+          sudo chown $(whoami) $OUTPUT_PATH $OUTPUT_DIRECTORY
           
           TARGET_OUTPUT_PATH="$OUTPUT_DIRECTORY/$IMAGE_NAME.iso"
           TARGET_CHECKSUM_PATH="$OUTPUT_DIRECTORY/$IMAGE_NAME.iso-CHECKSUM"
