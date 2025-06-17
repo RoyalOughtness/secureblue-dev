@@ -53,6 +53,8 @@ systemctl --global disable secureblue-flatpak-setup.timer
 systemctl --global disable secureblue-flatpak-setup.service
 systemctl --global disable secureblue-key-enrollment-verification.service
 systemctl --global disable secureblue-key-enrollment-verification.timer
+rm /etc/profile.d/ublue-firstboot.sh 
+rm /usr/share/ublue-os/firstboot/launcher/autostart.desktop
 
 # Configure Anaconda
 SPECS=(
@@ -62,6 +64,7 @@ SPECS=(
     "anaconda-live"
     "anaconda-webui"
 )
+dnf install -y "${SPECS[@]}"
 
 
 # Anaconda Profile Detection
