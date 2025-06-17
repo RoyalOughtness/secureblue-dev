@@ -89,16 +89,6 @@ jobs:
           image-ref: "ghcr.io/secureblue/${{ matrix.image }}:latest"
           hook-post-rootfs: ${{ github.workspace }}/.github/workflows/config/configure_iso_anaconda.sh
           kargs: ${{ steps.set_kargs.outputs.image_kargs }}
-          
-      - name: Build ISO
-        id: iso_build
-        uses: osbuild/bootc-image-builder-action@019bb59c5100ecec4e78c9e94e18a840110f7a0b # v0.0.2
-        with:
-          config-file: ./.github/workflows/config/iso.toml
-          image: "ghcr.io/royaloughtness/${{ matrix.image }}:latest"
-          rootfs: btrfs          
-          types: iso
-          additional-args: --use-librepo=True
 
       - name: Rename ISO and sign CHECKSUM
         id: rename

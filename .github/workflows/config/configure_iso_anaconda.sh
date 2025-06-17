@@ -120,6 +120,7 @@ ostreecontainer --url=$IMAGE_REF_TAG --transport=containers-storage --no-signatu
 EOF
 
 # Signed Images
+mkdir -p /usr/share/anaconda/post-scripts/
 tee /usr/share/anaconda/post-scripts/install-configure-upgrade.ks <<EOF
 %post --erroronfail
 bootc switch --mutate-in-place --enforce-container-sigpolicy --transport registry $IMAGE_REF_TAG
