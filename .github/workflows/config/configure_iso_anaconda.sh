@@ -55,6 +55,7 @@ systemctl --global disable secureblue-key-enrollment-verification.service
 systemctl --global disable secureblue-key-enrollment-verification.timer
 rm /etc/profile.d/ublue-firstboot.sh 
 rm /usr/share/ublue-os/firstboot/launcher/autostart.desktop
+rm /etc/systemd/user/org.gnome.Shell@wayland.service.d/override.conf
 
 # Configure Anaconda
 SPECS=(
@@ -64,6 +65,7 @@ SPECS=(
     "anaconda-live"
     "anaconda-webui"
 )
+
 dnf install -y "${SPECS[@]}"
 
 
@@ -105,7 +107,7 @@ EOF
 # Configure
 . /etc/os-release
 sed -i 's/ANACONDA_PRODUCTVERSION=.*/ANACONDA_PRODUCTVERSION=""/' /usr/{,s}bin/liveinst || true
-sed -i 's|^Icon=.*|Icon=/usr/share/pixmaps/fedora-logo-icon.png|' /usr/share/applications/liveinst.desktop || true
+sed -i 's|^Icon=.*|Icon=/usr/share/pixmaps/fedora-logo.png|' /usr/share/applications/liveinst.desktop || true
 sed -i 's| Fedora| secureblue|' /usr/share/anaconda/gnome/fedora-welcome || true
 
 # Interactive Kickstart
