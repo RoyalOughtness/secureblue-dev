@@ -54,7 +54,6 @@ systemctl disable rpm-ostreed-automatic.timer
 systemctl disable securebluefirstrun.service
 systemctl disable securebluecleanup.service
 systemctl --global disable podman-auto-update.timer
-systemctl --global disable ublue-user-setup.service
 systemctl --global disable secureblue-flatpak-setup.timer
 systemctl --global disable secureblue-flatpak-setup.service
 systemctl --global disable secureblue-key-enrollment-verification.service
@@ -71,8 +70,7 @@ SPECS=(
 
 
 # Anaconda Profile Detection
-
-# Bluefin
+mkdir -p /etc/anaconda/profile.d
 tee /etc/anaconda/profile.d/secureblue.conf <<'EOF'
 # Anaconda configuration file for secureblue
 
