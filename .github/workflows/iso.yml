@@ -87,9 +87,9 @@ jobs:
         id: rename
         shell: bash
         env:
-          OUTPUT_PATH: ${{ steps.iso_build.outputs.output-paths.iso.path }}
+          OUTPUT_PATH: ${{ steps.iso_build.outputs.anaconda-iso-output-path }}
           OUTPUT_DIRECTORY: ${{ steps.iso_build.outputs.output-directory }}
-          CHECKSUM: ${{ steps.iso_build.outputs.checksum-paths.iso.checksum }}
+          CHECKSUM: ${{ steps.iso_build.outputs.anaconda-iso-output-checksum }}
           IMAGE_NAME: ${{ matrix.image }}
         run: |
           echo "OUTPUT PATH"
