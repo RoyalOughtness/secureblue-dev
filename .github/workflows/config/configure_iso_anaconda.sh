@@ -17,11 +17,6 @@ set -eoux pipefail
 IMAGE_REF_TAG="%%REPLACE_IMAGE_REF_TAG%%"
 sbkey='https://github.com/secureblue/secureblue/raw/refs/heads/live/files/system/etc/pki/akmods/certs/akmods-secureblue.der'
 
-# Configure Live Environment
-
-# Remove packages from liveCD to save space
-dnf remove -y google-noto-fonts-all || true
-
 # Setup dock
 tee /usr/share/glib-2.0/schemas/zz1-secureblue.gschema.override <<EOF
 [org.gnome.shell]
