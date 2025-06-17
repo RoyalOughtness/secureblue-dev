@@ -106,8 +106,7 @@ jobs:
           
           cd "${OUTPUT_DIRECTORY}"
           mv "${OUTPUT_PATH}" "${IMAGE_NAME}.iso"
-          sha256sum "${IMAGE_NAME}.iso" | tee "${TARGET_CHECKSUM_PATH}"
-          
+          sha256sum "${IMAGE_NAME}.iso" | cut -d' ' -f1 | tee "${TARGET_CHECKSUM_PATH}"
 
           HASH=$(cat $TARGET_CHECKSUM_PATH)
           ISO_SIZE=$(stat -c %s $TARGET_OUTPUT_PATH)
