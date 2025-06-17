@@ -30,6 +30,8 @@ jobs:
   build:
     name: Build ISOs
     runs-on: ubuntu-24.04
+    env:
+      kargs: "init_on_alloc=1,init_on_free=1,slab_nomerge,page_alloc.shuffle=1,randomize_kstack_offset=on,vsyscall=none,lockdown=confidentiality,random.trust_cpu=off,random.trust_bootloader=off,iommu=force,intel_iommu=on,iommu.passthrough=0,iommu.strict=1,pti=on,module.sig_enforce=1,mitigations=auto,nosmt,spectre_v2=on,spec_store_bypass_disable=on,l1d_flush=on,l1tf=full,force,kvm-intel.vmentry_l1d_flush=always,loglevel=0"
     strategy:
       fail-fast: false      
       matrix:
@@ -64,14 +66,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Set target image
+      - name: set_kargs
         shell: bash
-        run: sed -i 's/TARGETIMAGE/${{ matrix.image }}/g' ./.github/workflows/config/iso.toml
+        id: set_kargs
+        run: |
+          IMAGE_KARGS="${{ env.kargs }}"
+          if [[ "${{ matrix.image }}" == *nvidia* ]]; then
+            IMAGE_KARGS="${IMAGE_KARGS},rd.driver.blacklist=nouveau,modprobe.blacklist=nouveau,nvidia-drm.modeset=1,nvidia-drm.fbdev=1"
+          fi
+          echo "image_kargs=$IMAGE_KARGS" >> $GITHUB_OUTPUT
 
-      - name: Pull image
+      - name: set_image_ref
         shell: bash
-        run: sudo podman pull "ghcr.io/royaloughtness/${{ matrix.image }}:latest"
+        id: set_image_ref
+        run: |
+          sed -i 's|%%REPLACE_IMAGE_REF_TAG%%|ghcr.io/secureblue/${{ matrix.image }}:latest|g' "${{ github.workspace }}/workflows/config/configure_iso_anaconda.sh"
 
+      - name: Build ISO
+        id: build
+        uses: ublue-os/titanoboa@154e9332aeb79c52789e63eb941f73be99dbaf97 # v0.1
+        with:
+          image-ref: "ghcr.io/secureblue/${{ matrix.image }}:latest"
+          hook-post-rootfs: ${{ github.workspace }}/workflows/config/configure_iso_anaconda.sh
+          kargs: ${{ steps.set_kargs.outputs.image_kargs }}
+          
       - name: Build ISO
         id: iso_build
         uses: osbuild/bootc-image-builder-action@019bb59c5100ecec4e78c9e94e18a840110f7a0b # v0.0.2
@@ -81,7 +99,6 @@ jobs:
           rootfs: btrfs          
           types: iso
           additional-args: --use-librepo=True
-
 
       - name: Rename ISO and sign CHECKSUM
         id: rename
