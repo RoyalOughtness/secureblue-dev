@@ -67,7 +67,43 @@ SPECS=(
 )
 
 dnf install -y "${SPECS[@]}"
+dnf reinstall -y polkit
 
+mkdir -p /usr/share/anaconda/pixmaps/silverblue
+tee /usr/share/anaconda/pixmaps/silverblue/fedora-silverblue.css << 'EOF'
+
+@define-color secureblue #f6fafe;
+
+.logo {
+    background-image: url("/usr/share/pixmaps/fedora-logo-sprite.png");
+    background-position: 50% 20px;
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+/* This is a placeholder to be filled by a product-specific logo. */
+.product-logo {
+    background-image: none;
+    background-color: transparent;
+}
+
+AnacondaSpokeWindow #nav-box {
+    background-color: @secureblue;
+    background-repeat: no-repeat;
+    color: white;
+}
+
+/* Remove the box-shadow from buttons in the nav-box because it adds a white stripe
+ * below the buttons and makes them look dumb */
+AnacondaSpokeWindow #nav-box GtkButton {
+    box-shadow: none;
+}
+
+/* Add the product logo at the top */
+.product-logo {
+    background-image: none;
+}
+EOF
 
 # Anaconda Profile Detection
 mkdir -p /etc/anaconda/profile.d
