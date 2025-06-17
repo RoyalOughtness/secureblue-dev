@@ -111,6 +111,7 @@ sed -i 's|^Icon=.*|Icon=/usr/share/pixmaps/fedora-logo-icon.png|' /usr/share/app
 sed -i 's| Fedora| secureblue|' /usr/share/anaconda/gnome/fedora-welcome || true
 
 # Interactive Kickstart
+mkdir -p /usr/share/anaconda/
 tee -a /usr/share/anaconda/interactive-defaults.ks <<EOF
 ostreecontainer --url=$IMAGE_REF_TAG --transport=containers-storage --no-signature-verification
 %include /usr/share/anaconda/post-scripts/install-configure-upgrade.ks
