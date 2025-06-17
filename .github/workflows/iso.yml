@@ -100,11 +100,16 @@ jobs:
           set -x
           mkdir -p output
           OUTPUT_DIRECTORY="$(realpath output)"
-          sha256sum "${OUTPUT_PATH}" | tee "${OUTPUT_DIRECTORY}/${IMAGE_NAME}.iso-CHECKSUM"
-          mv "${OUTPUT_PATH}" "${OUTPUT_DIRECTORY}/${IMAGE_NAME}.iso"
-          
           TARGET_OUTPUT_PATH="${OUTPUT_DIRECTORY}/${IMAGE_NAME}.iso"
           TARGET_CHECKSUM_PATH="${OUTPUT_DIRECTORY}/${IMAGE_NAME}.iso-CHECKSUM"
+
+          
+          cd "${OUTPUT_DIRECTORY}"
+          mv "${OUTPUT_PATH}" "${IMAGE_NAME}.iso"
+          sha256sum "${OUTPUT_PATH}" | tee "${TARGET_CHECKSUM_PATH}"
+          mv "${IMAGE_NAME}.iso" "${TARGET_OUTPUT_PATH}
+          cd ..
+          
 
           HASH=$(cat $TARGET_CHECKSUM_PATH)
           ISO_SIZE=$(stat -c %s $TARGET_OUTPUT_PATH)
