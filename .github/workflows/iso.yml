@@ -83,7 +83,7 @@ jobs:
           sed -i 's|%%REPLACE_IMAGE_REF_TAG%%|ghcr.io/secureblue/${{ matrix.image }}:latest|g' "${{ github.workspace }}/.github/workflows/config/configure_iso_anaconda.sh"
 
       - name: Build ISO
-        id: build
+        id: iso_build
         uses: ublue-os/titanoboa@154e9332aeb79c52789e63eb941f73be99dbaf97 # v0.1
         with:
           image-ref: "ghcr.io/secureblue/${{ matrix.image }}:latest"
@@ -94,25 +94,17 @@ jobs:
         id: rename
         shell: bash
         env:
-          OUTPUT_PATH: ${{ steps.iso_build.outputs.anaconda-iso-output-path }}
-          OUTPUT_DIRECTORY: ${{ steps.iso_build.outputs.output-directory }}
-          CHECKSUM: ${{ steps.iso_build.outputs.anaconda-iso-output-checksum }}
+          OUTPUT_PATH: ${{ steps.iso_build.outputs.iso-dest }}
           IMAGE_NAME: ${{ matrix.image }}
         run: |
-          echo "OUTPUT PATH"
-          echo $OUTPUT_PATH
-          echo "OUTPUT_DIRECTORY"
-          echo $OUTPUT_DIRECTORY
-          echo "CHECKSUM"
-          echo $CHECKSUM
-
-          sudo chown $(whoami) $OUTPUT_PATH $OUTPUT_DIRECTORY
+          set -x
+          mkdir -p output
+          OUTPUT_DIRECTORY="$(realpath output)"
+          sha256sum "${OUTPUT_PATH}" | tee "${OUTPUT_DIRECTORY}/${IMAGE_NAME}.iso-CHECKSUM"
+          mv "${OUTPUT_PATH}" "${OUTPUT_DIRECTORY}/${IMAGE_NAME}.iso"
           
-          TARGET_OUTPUT_PATH="$OUTPUT_DIRECTORY/$IMAGE_NAME.iso"
-          TARGET_CHECKSUM_PATH="$OUTPUT_DIRECTORY/$IMAGE_NAME.iso-CHECKSUM"
-
-          cp $OUTPUT_PATH $TARGET_OUTPUT_PATH
-          echo "$CHECKSUM" > "$TARGET_CHECKSUM_PATH"
+          TARGET_OUTPUT_PATH="${OUTPUT_DIRECTORY}/${IMAGE_NAME}.iso"
+          TARGET_CHECKSUM_PATH="${OUTPUT_DIRECTORY}/${IMAGE_NAME}.iso-CHECKSUM"
 
           HASH=$(cat $TARGET_CHECKSUM_PATH)
           ISO_SIZE=$(stat -c %s $TARGET_OUTPUT_PATH)
@@ -157,11 +149,12 @@ jobs:
           rm secureblue.gpg
           
           cd -
+          echo "output_directory=$OUTPUT_DIRECTORY" >> "${GITHUB_OUTPUT}"
 
       - name: Upload ISO and Checksum to Job Artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          path: ${{ steps.iso_build.outputs.output-directory }}
+          path: ${{ steps.rename.outputs.output-directory }}
           name: ${{ matrix.image }}
           if-no-files-found: error
           retention-days: 20
