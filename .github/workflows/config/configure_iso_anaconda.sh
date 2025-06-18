@@ -194,7 +194,7 @@ jq '.transports.docker |=
                 "type": "matchRepository"
             }
         }
-    ] } + .' "${POLICY_FILE}" > POLICY.tmp
+    ] } + .' /etc/containers/policy.json > POLICY.tmp
 cp POLICY.tmp /etc/containers/policy.json
 
 # Enroll Secureboot Key
