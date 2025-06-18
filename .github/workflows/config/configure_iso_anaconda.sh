@@ -147,8 +147,12 @@ EOF
 # Configure
 . /etc/os-release
 sed -i 's/ANACONDA_PRODUCTVERSION=.*/ANACONDA_PRODUCTVERSION=""/' /usr/{,s}bin/liveinst || true
-sed -i 's|^Icon=.*|Icon=/usr/share/pixmaps/fedora-logo.png|' /usr/share/applications/liveinst.desktop || true
+sed -i 's|^Icon=.*|Icon=/usr/share/pixmaps/fedora-logo-sprite.png|' /usr/share/applications/liveinst.desktop || true
 sed -i 's| Fedora| secureblue|' /usr/share/anaconda/gnome/fedora-welcome || true
+sed -i 's| in Activities.|.|' /usr/share/anaconda/gnome/fedora-welcome || true
+
+cp /usr/share/pixmaps/fedora-logo-sprite.png /usr/share/pixmaps/fedora-logo-icon.png
+chmod 755 /usr/share/pixmaps/fedora-logo-icon.png
 
 # Interactive Kickstart
 mkdir -p /usr/share/anaconda/
@@ -178,6 +182,20 @@ EOF
 curl --retry 15 -Lo /etc/sb_pubkey.der "$sbkey"
 
 cat <<< $(jq '.transports["containers-storage"][""] = [{"type": "insecureAcceptAnything"}]' /etc/containers/policy.json) > /etc/containers.policy.json
+
+
+
+jq '.transports.docker |= 
+    { ghcr.io/secureblue: [
+        {
+            "type": "sigstoreSigned",
+            "keyPath": ("/usr/etc/pki/containers/secureblue.pub"),
+            "signedIdentity": {
+                "type": "matchRepository"
+            }
+        }
+    ] } + .' "${POLICY_FILE}" > POLICY.tmp
+cp POLICY.tmp /etc/containers/policy.json
 
 # Enroll Secureboot Key
 tee /usr/share/anaconda/post-scripts/secureboot-enroll-key.ks <<'EOF'
