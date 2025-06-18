@@ -83,6 +83,8 @@ StartupWMClass=firefox
 NoDisplay=true
 EOF
 
+cp /usr/share/applications/firefox.desktop /usr/share/applications/firefox-x11.desktop
+
 mkdir -p /usr/share/anaconda/pixmaps/silverblue
 tee /usr/share/anaconda/pixmaps/silverblue/fedora-silverblue.css << 'EOF'
 
@@ -191,18 +193,7 @@ EOF
 # Fetch the Secureboot Public Key
 curl --retry 15 -Lo /etc/sb_pubkey.der "$sbkey"
 
-jq '.transports["containers-storage"] += {
-  "ghcr.io/secureblue": [
-    {
-      "type": "sigstoreSigned",
-      "keyPath": "/usr/etc/pki/containers/secureblue.pub",
-      "signedIdentity": {
-        "type": "matchRepository"
-      }
-    }
-  ]
-}' /etc/containers/policy.json > /etc/containers/policy.json.tmp 
-mv /etc/containers/policy.json.tmp /etc/containers/policy.json
+cat <<< $(jq '.transports["containers-storage"][""] = [{"type": "insecureAcceptAnything"}]' /etc/containers/policy.json) > /etc/containers.policy.json
 
 
 # Enroll Secureboot Key
