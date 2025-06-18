@@ -71,20 +71,6 @@ SPECS=(
 dnf install -y "${SPECS[@]}"
 dnf reinstall -y polkit
 
-rm -f /usr/share/applications/firefox-*.desktop
-
-tee /usr/share/applications/firefox.desktop <<'EOF'
-[Desktop Entry]
-Name=Installer
-Exec=firefox
-Icon=/usr/share/pixmaps/fedora-logo-sprite.png
-Type=Application
-StartupWMClass=firefox
-NoDisplay=true
-EOF
-
-cp /usr/share/applications/firefox.desktop /usr/share/applications/firefox-x11.desktop
-
 mkdir -p /usr/share/anaconda/pixmaps/silverblue
 tee /usr/share/anaconda/pixmaps/silverblue/fedora-silverblue.css << 'EOF'
 
