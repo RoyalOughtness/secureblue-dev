@@ -53,9 +53,11 @@ systemctl --global disable secureblue-flatpak-setup.timer
 systemctl --global disable secureblue-flatpak-setup.service
 systemctl --global disable secureblue-key-enrollment-verification.service
 systemctl --global disable secureblue-key-enrollment-verification.timer
-rm /etc/profile.d/ublue-firstboot.sh 
-rm /usr/share/ublue-os/firstboot/launcher/autostart.desktop
-rm /etc/systemd/user/org.gnome.Shell@wayland.service.d/override.conf
+rm -f /etc/profile.d/ublue-firstboot.sh 
+rm -f /usr/share/ublue-os/firstboot/launcher/autostart.desktop
+rm -f /etc/systemd/user/org.gnome.Shell@wayland.service.d/override.conf
+rm -f /etc/sway/config.d/99-noxwayland.conf
+rm -f /etc/systemd/user/plasma-kwin_wayland.service.d/override.conf
 
 # Configure Anaconda
 SPECS=(
@@ -68,6 +70,8 @@ SPECS=(
 
 dnf install -y "${SPECS[@]}"
 dnf reinstall -y polkit
+
+rm -f /usr/share/applications/firefox-*.desktop
 
 mkdir -p /usr/share/anaconda/pixmaps/silverblue
 tee /usr/share/anaconda/pixmaps/silverblue/fedora-silverblue.css << 'EOF'
