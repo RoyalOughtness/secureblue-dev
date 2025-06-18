@@ -177,6 +177,8 @@ EOF
 # Fetch the Secureboot Public Key
 curl --retry 15 -Lo /etc/sb_pubkey.der "$sbkey"
 
+cat <<< $(jq '.transports["containers-storage"][""] = [{"type": "insecureAcceptAnything"}]' /etc/containers/policy.json) > /etc/containers.policy.json
+
 # Enroll Secureboot Key
 tee /usr/share/anaconda/post-scripts/secureboot-enroll-key.ks <<'EOF'
 %post --erroronfail --nochroot
