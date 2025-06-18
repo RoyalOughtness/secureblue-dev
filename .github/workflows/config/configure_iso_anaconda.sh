@@ -71,6 +71,10 @@ SPECS=(
 dnf install -y "${SPECS[@]}"
 dnf reinstall -y polkit
 
+sed -i 's/PRETTY_NAME="secureblue (powered by Fedora Atomic)"/PRETTY_NAME="secureblue"/' /etc/os-release
+cp /etc/os-release /usr/lib/os-release
+
+
 mkdir -p /usr/share/anaconda/pixmaps/silverblue
 tee /usr/share/anaconda/pixmaps/silverblue/fedora-silverblue.css << 'EOF'
 
