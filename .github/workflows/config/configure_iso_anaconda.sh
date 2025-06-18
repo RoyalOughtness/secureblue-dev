@@ -186,7 +186,7 @@ cat <<< $(jq '.transports["containers-storage"][""] = [{"type": "insecureAcceptA
 
 
 jq '.transports.docker |= 
-    { ghcr.io/secureblue: [
+    { "ghcr.io/secureblue": [
         {
             "type": "sigstoreSigned",
             "keyPath": ("/usr/etc/pki/containers/secureblue.pub"),
