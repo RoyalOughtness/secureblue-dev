@@ -49,6 +49,8 @@ tee /usr/share/gnome-shell/search-providers/org.gnome.Software-search-provider.i
 DefaultDisabled=true
 EOF
 
+mkdir -p /etc/gdm/
+touch /etc/gdm/custom.conf
 tee /etc/gdm/custom.conf <<"EOF"
 [daemon]
 AutomaticLoginEnable=True
