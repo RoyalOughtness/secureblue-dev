@@ -137,6 +137,8 @@ rm -f /usr/share/applications/liveinst.desktop
 sed -i '/NoDisplay=.*/d' /usr/share/applications/com.fyralabs.Readymade.desktop
 cp -f /usr/share/applications/com.fyralabs.Readymade.desktop /etc/xdg/autostart
 
+mkdir -p /usr/share/readymade/postinstall.d/
+touch /usr/share/readymade/postinstall.d/99-mok.sh
 # Enroll Secureboot Key
 tee /usr/share/readymade/postinstall.d/99-mok.sh <<"EOF"
 #!/usr/bin/bash
