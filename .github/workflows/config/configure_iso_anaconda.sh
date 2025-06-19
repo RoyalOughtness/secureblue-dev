@@ -38,6 +38,19 @@ tee /usr/share/gnome-shell/search-providers/org.gnome.Software-search-provider.i
 DefaultDisabled=true
 EOF
 
+
+tee /usr/share/applications/firefox.desktop <<'EOF'
+[Desktop Entry]
+Name=Installer
+Exec=firefox
+Icon=/usr/share/pixmaps/fedora-logo-sprite.pngAdd commentMore actions
+Type=Application
+StartupWMClass=firefox
+NoDisplay=true
+EOF
+
+update-desktop-database
+
 glib-compile-schemas /usr/share/glib-2.0/schemas
 
 systemctl disable rpm-ostree-countme.service
