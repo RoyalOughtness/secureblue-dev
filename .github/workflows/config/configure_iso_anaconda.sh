@@ -71,9 +71,7 @@ rm -f /usr/share/ublue-os/firstboot/launcher/autostart.desktop
 rm -f /etc/systemd/user/org.gnome.Shell@wayland.service.d/override.conf
 rm -f /etc/sway/config.d/99-noxwayland.conf
 rm -f /etc/systemd/user/plasma-kwin_wayland.service.d/override.conf
-
-chmod u+s /usr/bin/mount
-chmod u+s /usr/bin/umount
+rm -f /etc/ld.so.preload
 
 # Configure Anaconda
 SPECS=(
@@ -85,7 +83,8 @@ SPECS=(
 )
 
 dnf install -y "${SPECS[@]}"
-dnf reinstall -y polkit
+dnf reinstall -y polkit grub2-tools-minimal util-linux-core pam util-linux sudo usermode open-vm-tools open-vm-tools-desktop shadow-utils nfs-utils fuse3 dbus-daemon plocate lockdev
+dnf remove -y hardened_malloc
 
 sed -i 's/PRETTY_NAME="secureblue (powered by Fedora Atomic)"/PRETTY_NAME="secureblue"/' /etc/os-release
 cp /etc/os-release /usr/lib/os-release
