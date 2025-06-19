@@ -80,7 +80,7 @@ jobs:
         shell: bash
         id: set_image_ref
         run: |
-          sed -i 's|%%REPLACE_IMAGE_REF_TAG%%|ghcr.io/secureblue/${{ matrix.image }}:latest|g' "${{ github.workspace }}/.github/workflows/config/configure_iso_anaconda.sh"
+          sed -i 's|%%REPLACE_IMAGE_REF_TAG%%|ghcr.io/secureblue/${{ matrix.image }}:latest|g' "${{ github.workspace }}/.github/workflows/config/configure_iso_readymade.sh"
 
       - name: Build ISO
         id: iso_build

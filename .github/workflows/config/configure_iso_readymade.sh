@@ -16,15 +16,12 @@ set -eoux pipefail
 
 IMAGE_REF_TAG="%%REPLACE_IMAGE_REF_TAG%%"
 KARGS=""
-if [ "$IMAGE_REF_TAG" =~ nvidia ] ; then
+if [[ "$IMAGE_REF_TAG" == *"nvidia"* ]]; then
   KARGS='bootc_kargs = ["rd.driver.blacklist=nouveau", "modprobe.blacklist=nouveau", "nvidia-drm.modeset=1", "nvidia-drm.fbdev=1"]'
 fi 
 
-dnf -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:staging install -y \
-  readymade-nightly
-
-dnf -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:packages install -y \
-  bluefin-readymade-config
+dnf copr enable ublue-os/staging -y 
+dnf install readymade-nightly -y
 
 # Setup dock
 tee /usr/share/glib-2.0/schemas/zz1-secureblue.gschema.override <<EOF
