@@ -157,7 +157,7 @@ jobs:
           path: ${{ steps.iso_build.outputs.output-directory }}
           name: ${{ matrix.image }}
           if-no-files-found: error
-          retention-days: 20
+          retention-days: 3
           compression-level: 0
           overwrite: true
 
