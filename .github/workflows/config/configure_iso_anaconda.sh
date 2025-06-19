@@ -43,7 +43,7 @@ tee /usr/share/applications/firefox.desktop <<'EOF'
 [Desktop Entry]
 Name=Installer
 Exec=firefox
-Icon=/usr/share/pixmaps/fedora-logo-sprite.pngAdd commentMore actions
+Icon=/usr/share/pixmaps/fedora-logo-sprite.png
 Type=Application
 StartupWMClass=firefox
 NoDisplay=true
