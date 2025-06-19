@@ -100,7 +100,7 @@ jobs:
           echo "CHECKSUM PATH"
           echo $TARGET_CHECKSUM_PATH
           
-          OUTPUT_DIRECTORY = $(basename $TARGET_OUTPUT_PATH)
+          OUTPUT_DIRECTORY=$(basename $TARGET_OUTPUT_PATH)
           HASH=$(cat $TARGET_CHECKSUM_PATH)
           ISO_SIZE=$(stat -c %s $TARGET_OUTPUT_PATH)
           ISO_FILE_NAME="${IMAGE_NAME}.iso"
