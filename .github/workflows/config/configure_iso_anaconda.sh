@@ -72,6 +72,9 @@ rm -f /etc/systemd/user/org.gnome.Shell@wayland.service.d/override.conf
 rm -f /etc/sway/config.d/99-noxwayland.conf
 rm -f /etc/systemd/user/plasma-kwin_wayland.service.d/override.conf
 
+chmod u+s /usr/bin/mount
+chmod u+s /usr/bin/umount
+
 # Configure Anaconda
 SPECS=(
     "libblockdev-btrfs"
