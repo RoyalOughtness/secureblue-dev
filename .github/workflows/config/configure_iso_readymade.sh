@@ -20,6 +20,12 @@ if [ "$IMAGE_FLAVOR" =~ nvidia ] ; then
   KARGS='bootc_kargs = ["rd.driver.blacklist=nouveau", "modprobe.blacklist=nouveau", "nvidia-drm.modeset=1", "nvidia-drm.fbdev=1"]'
 fi 
 
+dnf -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:staging install -y \
+  readymade-nightly
+
+dnf -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:packages install -y \
+  bluefin-readymade-config
+
 # Setup dock
 tee /usr/share/glib-2.0/schemas/zz1-secureblue.gschema.override <<EOF
 [org.gnome.shell]
