@@ -21,7 +21,8 @@ if [[ "$IMAGE_REF_TAG" == *"nvidia"* ]]; then
 fi 
 
 dnf copr enable ublue-os/staging -y 
-dnf install readymade-nightly -y
+dnf copr enable ublue-os/packages -y 
+dnf install readymade-nightly bluefin-readymade-config -y
 
 # Setup dock
 tee /usr/share/glib-2.0/schemas/zz1-secureblue.gschema.override <<EOF
