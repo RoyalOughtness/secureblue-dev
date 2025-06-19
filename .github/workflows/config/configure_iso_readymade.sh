@@ -16,7 +16,7 @@ set -eoux pipefail
 
 IMAGE_REF_TAG="%%REPLACE_IMAGE_REF_TAG%%"
 KARGS=""
-if [ "$IMAGE_FLAVOR" =~ nvidia ] ; then
+if [ "$IMAGE_REF_TAG" =~ nvidia ] ; then
   KARGS='bootc_kargs = ["rd.driver.blacklist=nouveau", "modprobe.blacklist=nouveau", "nvidia-drm.modeset=1", "nvidia-drm.fbdev=1"]'
 fi 
 
