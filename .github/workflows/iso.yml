@@ -94,6 +94,8 @@ jobs:
           OUTPUT_DIRECTORY: ${{ steps.iso_build.outputs.iso_path }}
           IMAGE_NAME: ${{ matrix.image }}
         run: |
+          sudo chown $(whoami) "${IMAGE_NAME}.iso" "${IMAGE_NAME}.iso-CHECKSUM"
+
           HASH=$(cat "${IMAGE_NAME}.iso-CHECKSUM")
           ISO_SIZE=$(stat -c %s "${IMAGE_NAME}.iso")
           ISO_FILE_NAME="${IMAGE_NAME}.iso"
@@ -102,13 +104,11 @@ jobs:
             echo "SHA256 ($ISO_FILE_NAME) = $HASH"
           } > "${IMAGE_NAME}.iso-CHECKSUM"
 
-
           echo "CHECKSUM contents"
           cat "${IMAGE_NAME}.iso-CHECKSUM"
           echo
 
           echo "${{ secrets.ISO_SIGNING_KEY }}" | gpg --import
-
 
           echo "Signing the ISO"
           gpg --clearsign -u 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41 "${IMAGE_NAME}.iso-CHECKSUM"
