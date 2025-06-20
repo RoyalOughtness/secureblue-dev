@@ -110,6 +110,7 @@ jobs:
           sudo chown $(whoami) "${IMAGE_NAME}.iso" "${IMAGE_NAME}.iso-CHECKSUM"
 
           TARGET_OUTPUT_DIRECTORY="$(pwd)/output"
+          mkdir "${TARGET_OUTPUT_DIRECTORY}"
           ISO_NAME="${IMAGE_NAME}.iso"
           CHECKSUM_NAME="${ISO_NAME}-CHECKSUM"
           mv "${ISO_NAME}" "$TARGET_OUTPUT_DIRECTORY"
