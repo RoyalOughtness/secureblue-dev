@@ -60,6 +60,8 @@ jobs:
       - name: Set variant
         shell: bash
         id: set_variant
+        env:
+          IMAGE_NAME: ${{ matrix.image }}
         run: |
           case "$IMAGE_NAME" in
             *silverblue*)
