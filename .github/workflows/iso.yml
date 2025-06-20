@@ -85,7 +85,7 @@ jobs:
           echo "VARIANT=${VARIANT}" >> ${GITHUB_OUTPUT}
 
       - name: Build ISO
-        uses: jasonn3/build-container-installer@d77e9563739921c2f93de778d4fbad854f52d389 # main
+        uses: secureblue/build-container-installer@af720cda46545d25c03a4e3adfe37d776dd557a5 # main
         id: iso_build
         env:
           IMAGE_NAME: ${{ matrix.image }}
