@@ -96,7 +96,7 @@ jobs:
         run: |
           sudo chown $(whoami) "${IMAGE_NAME}.iso" "${IMAGE_NAME}.iso-CHECKSUM"
 
-          HASH=$(cat "${IMAGE_NAME}.iso-CHECKSUM")
+          HASH=$(cat "${IMAGE_NAME}.iso-CHECKSUM" | cut -d ' ' -f1)
           ISO_SIZE=$(stat -c %s "${IMAGE_NAME}.iso")
           ISO_FILE_NAME="${IMAGE_NAME}.iso"
           {
