@@ -98,6 +98,9 @@ jobs:
           version: 42
           variant: ${{ env.VARIANT }}
           iso_name: ${{ env.IMAGE_NAME }}.iso
+          web_ui: true
+          enrollment_password: "secureblue"
+          secure_boot_key_url: "https://github.com/secureblue/secureblue/raw/refs/heads/live/files/system/etc/pki/akmods/certs/akmods-secureblue.der"
 
 
       - name: Rename ISO and sign CHECKSUM
