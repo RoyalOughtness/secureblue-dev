@@ -91,32 +91,24 @@ jobs:
         id: rename
         shell: bash
         env:
-          TARGET_OUTPUT_PATH: ${{ steps.iso_build.outputs.iso_path }}
-          TARGET_CHECKSUM_PATH: ${{ steps.iso_build.outputs.iso_path }}-CHECKSUM
+          OUTPUT_DIRECTORY: ${{ steps.iso_build.outputs.iso_path }}
           IMAGE_NAME: ${{ matrix.image }}
         run: |
-          echo "OUTPUT PATH"
-          echo $TARGET_OUTPUT_PATH
-          echo "CHECKSUM PATH"
-          echo $TARGET_CHECKSUM_PATH
-          
-          OUTPUT_DIRECTORY=$(basename $TARGET_OUTPUT_PATH)
-          HASH=$(cat $TARGET_CHECKSUM_PATH)
-          ISO_SIZE=$(stat -c %s $TARGET_OUTPUT_PATH)
+          HASH=$(cat "${IMAGE_NAME}.iso-CHECKSUM")
+          ISO_SIZE=$(stat -c %s "${IMAGE_NAME}.iso")
           ISO_FILE_NAME="${IMAGE_NAME}.iso"
           {
             echo "# $ISO_FILE_NAME: $ISO_SIZE bytes"
             echo "SHA256 ($ISO_FILE_NAME) = $HASH"
-          } > "$TARGET_CHECKSUM_PATH"
+          } > "${IMAGE_NAME}.iso-CHECKSUM"
 
 
           echo "CHECKSUM contents"
-          cat $TARGET_CHECKSUM_PATH
+          cat "${IMAGE_NAME}.iso-CHECKSUM"
           echo
 
           echo "${{ secrets.ISO_SIGNING_KEY }}" | gpg --import
 
-          cd $OUTPUT_DIRECTORY
 
           echo "Signing the ISO"
           gpg --clearsign -u 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41 "${IMAGE_NAME}.iso-CHECKSUM"
@@ -142,8 +134,6 @@ jobs:
 
           rm ./secureblue-keyring.gpg~
           rm secureblue.gpg
-          
-          cd -
 
           echo "output-directory=${OUTPUT_DIRECTORY}" >> ${GITHUB_OUTPUT}
 
