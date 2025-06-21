@@ -105,7 +105,7 @@ jobs:
           image_tag: latest
           version: 42
           variant: "Kinoite"
-          additional_templates: "/github/workspace/.github/workflows/config/lorax/remove_root_password_prompt.tmpl /github/workspace/.github/workflows/config/lorax/swap_branding.tmpl"
+          additional_templates: "/github/workspace/.github/workflows/config/lorax/remove_root_password_prompt.tmpl"
           iso_name: ${{ env.IMAGE_NAME }}.iso
           enrollment_password: "secureblue"
           secure_boot_key_url: "https://github.com/secureblue/secureblue/raw/refs/heads/live/files/system/etc/pki/akmods/certs/akmods-secureblue.der"
