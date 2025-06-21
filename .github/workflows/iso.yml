@@ -84,6 +84,14 @@ jobs:
 
           echo "VARIANT=${VARIANT}" >> ${GITHUB_OUTPUT}
 
+      - name: Setup Branding Repo
+        id: setup-branding-repo
+        shell: bash
+        env:
+          WORKSPACE: ${{ github.workspace }}
+        run: |
+          curl -Lo "${WORKSPACE}/secureblue.repo" "https://copr.fedorainfracloud.org/coprs/secureblue/branding/repo/fedora-42/secureblue-branding-fedora-42.repo"
+
       - name: Build ISO
         uses: jasonn3/build-container-installer@d77e9563739921c2f93de778d4fbad854f52d389 # main
         id: iso_build
@@ -97,10 +105,11 @@ jobs:
           image_tag: latest
           version: 42
           variant: "Kinoite"
-          additional_templates: "/github/workspace/.github/workflows/config/lorax/remove_root_password_prompt.tmpl"
+          additional_templates: "/github/workspace/.github/workflows/config/lorax/remove_root_password_prompt.tmpl /github/workspace/.github/workflows/config/lorax/swap_branding.tmpl"
           iso_name: ${{ env.IMAGE_NAME }}.iso
           enrollment_password: "secureblue"
           secure_boot_key_url: "https://github.com/secureblue/secureblue/raw/refs/heads/live/files/system/etc/pki/akmods/certs/akmods-secureblue.der"
+          repos: "/github/workspace/secureblue.repo"
 
 
       - name: Rename ISO and sign CHECKSUM
