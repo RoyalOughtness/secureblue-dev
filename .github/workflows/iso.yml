@@ -120,7 +120,9 @@ jobs:
 
           TARGET_OUTPUT_DIRECTORY="$(pwd)/output"
           mkdir "${TARGET_OUTPUT_DIRECTORY}"
-          ISO_NAME="${IMAGE_NAME}.iso"
+          PREFIX="secureblue"
+          DATE_SUFFIX="$(date +%Y%m%d)"
+          ISO_NAME="${PREFIX}-${IMAGE_NAME}-${DATE_SUFFIX}.iso"
           CHECKSUM_NAME="${ISO_NAME}-CHECKSUM"
           mv "${ISO_NAME}" "$TARGET_OUTPUT_DIRECTORY"
           mv "${CHECKSUM_NAME}" "$TARGET_OUTPUT_DIRECTORY"
