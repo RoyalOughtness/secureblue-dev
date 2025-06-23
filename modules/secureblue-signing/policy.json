@@ -106,7 +106,7 @@
       "containers-storage": {
           "": [
               {
-                  "type": "insecureAcceptAnything"
+                  "type": "reject"
               }
           ]
       },

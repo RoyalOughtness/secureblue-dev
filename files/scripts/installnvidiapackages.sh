@@ -15,7 +15,7 @@
 set -oue pipefail
 
 nvidia_packages_list=('nvidia-container-toolkit' 'nvidia-driver-cuda')
-cthen
+if [[ "$IMAGE_NAME" != *"securecore"* ]]; then
     nvidia_packages_list+=('libnvidia-fbc' 'libva-nvidia-driver' 'nvidia-driver' 'nvidia-modprobe' 'nvidia-persistenced' 'nvidia-settings')
 fi
 
