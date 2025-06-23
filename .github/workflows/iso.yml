@@ -129,6 +129,8 @@ jobs:
           DATE_SUFFIX="$(date +%Y%m%d)"
           ISO_NAME="${PREFIX}-${IMAGE_NAME}-${DATE_SUFFIX}.iso"
           CHECKSUM_NAME="${ISO_NAME}-CHECKSUM"
+          mv "${IMAGE_NAME}.iso" "${ISO_NAME}"
+          mv "${IMAGE_NAME}.iso-CHECKSUM" "${CHECKSUM_NAME}"
           mv "${ISO_NAME}" "$TARGET_OUTPUT_DIRECTORY"
           mv "${CHECKSUM_NAME}" "$TARGET_OUTPUT_DIRECTORY"
           cd "$TARGET_OUTPUT_DIRECTORY"
