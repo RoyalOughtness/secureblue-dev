@@ -36,9 +36,6 @@ jobs:
           - sericea-main-hardened 
           - sericea-nvidia-hardened 
           - sericea-nvidia-open-hardened 
-          - cosmic-main-hardened 
-          - cosmic-nvidia-hardened 
-          - cosmic-nvidia-open-hardened 
     permissions:
       contents: read
       packages: read
