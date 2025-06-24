@@ -105,7 +105,7 @@ jobs:
           image_name: ${{ env.IMAGE_NAME}}
           image_repo: ghcr.io/secureblue
           image_tag: latest
-          version: 42
+          version: 41
           variant: "Kinoite"
           additional_templates: "/github/workspace/.github/workflows/config/lorax/remove_root_password_prompt.tmpl"
           iso_name: ${{ env.IMAGE_NAME }}.iso
