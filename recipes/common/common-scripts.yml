@@ -15,7 +15,6 @@ scripts:
   - authselect.sh
   - setfilepermissions.sh
   - httpsmirrors.sh
-  - createmissingdirectories.sh
   - disablegeoclue.sh
   - enablesecurebluefirstrun.sh
   - createjustcompletions.sh
