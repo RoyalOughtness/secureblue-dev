@@ -14,6 +14,5 @@
 
 set -oue pipefail
 
-echo "Disabling sshd"
-systemctl disable sshd
-systemctl mask sshd
+echo "Enabling sshd"
+systemctl enable sshd

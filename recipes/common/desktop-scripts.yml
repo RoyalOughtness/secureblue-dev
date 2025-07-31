@@ -15,6 +15,7 @@ scripts:
   - removesudo.sh
   - installandroidudev.sh
   - disablecups.sh
+  - enablesshd.sh
   - disableavahidaemon.sh
   - disablealsastate.sh
   - disablemodemmanager.sh
