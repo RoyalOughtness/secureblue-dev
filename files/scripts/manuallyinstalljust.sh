@@ -5,6 +5,8 @@ set -oue pipefail
 # Copyright 2025 fiftydinar
 # Copyright 2025 The Secureblue Authors
 #
+# SPDX-License-Identifier: Apache-2.0
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
