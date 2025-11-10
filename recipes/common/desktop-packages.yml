@@ -49,7 +49,6 @@ install:
     - qemu-device-usb-redirect 
     - qemu-system-x86-core 
     - qemu-system-aarch64-core
-    - qemu-user-binfmt 
     - qemu-user-static
     - virt-manager
 remove:
