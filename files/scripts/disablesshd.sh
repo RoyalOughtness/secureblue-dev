@@ -13,17 +13,3 @@
 # See the License for the specific language governing permissions and limitations under the License.
 
 set -oue pipefail
-
-echo "Disabling sshd"
-
-systemctl disable sshd.service
-systemctl mask sshd.service
-
-systemctl disable sshd.socket
-systemctl mask sshd.socket
-
-systemctl disable sshd-unix-local.socket
-systemctl mask sshd-unix-local.socket
-
-systemctl disable sshd-keygen.target
-systemctl mask sshd-keygen.target

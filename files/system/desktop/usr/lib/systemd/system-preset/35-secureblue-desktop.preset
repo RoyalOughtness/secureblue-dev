@@ -18,12 +18,6 @@ disable rpcbind.service
 disable rpcbind.socket
 disable rpcbind.target
 
-# Disable sshd
-disable sshd.service
-disable sshd.socket
-disable sshd-unix-local.socket
-disable sshd-keygen.target
-
 # Disable unconfined rootful services
 disable low-memory-monitor.service
 disable thermald.service
