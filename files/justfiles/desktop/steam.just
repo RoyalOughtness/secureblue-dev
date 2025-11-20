@@ -36,7 +36,7 @@ install-steam:
     method_selection=""
     echo "Please select a method to install steam:"
     echo "    1) Flatpak - will install the steam flatpak from flathub-unverified"
-    echo "    2) Distrobox - will set up steam via the bazzite-arch distrobox image"
+    echo "    2) Layer - will layer steam from Negativo (Warning: this can occasionally cause temporary dependency resolution issues)"
     while [[ "$valid_input" == "0" ]]; do
         read -rp "Selection [1-2]: " method_selection
         if [[ "$method_selection" == [12]* ]]; then
@@ -66,22 +66,8 @@ install-steam:
             echo ""
             ;;
         2)
-            echo "Distrobox method selected."
-            if [[ "$(ujust check-container-userns-state)" == "disabled" ]]; then
-                echo "Distrobox requires container domain user namespaces to work, which are disabled by default for security reasons."
-                echo "You need to run 'ujust toggle-container-domain-userns-creation' to allow this."
-                container_userns_now=""
-                read -rp "Would you like to run 'ujust toggle-container-domain-userns-creation' now? [Y/n] " container_userns_now
-                container_userns_now=${container_userns_now:-y}
-                if [[ "$container_userns_now" == [Yy]* ]]; then
-                    echo "Running 'ujust toggle-container-domain-userns-creation'"
-                    ujust toggle-container-domain-userns-creation
-                fi
-            fi
-            echo "Creating bazzite-arch distrobox."
-            distrobox-create --unshare-netns --nvidia --image ghcr.io/ublue-os/bazzite-arch --name bazzite-arch -Y
-            echo "Exporting Steam from bazzite-arch distrobox."
-            distrobox-enter -n bazzite-arch -- distrobox-export --app steam
+            echo "Layering method selected."
+            rpm-ostree install steam
             ;;
     esac
 

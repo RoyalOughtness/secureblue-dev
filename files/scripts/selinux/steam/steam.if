@@ -1,0 +1,50 @@
+## <summary>steam</summary>
+
+# SPDX-FileCopyrightText 2025 The Secureblue Authors
+#
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+########################################
+## <summary>
+##	Execute steam in the steam domain.
+## </summary>
+## <param name="domain">
+## <summary>
+##	Domain allowed to transition.
+## </summary>
+## </param>
+#
+interface(`steam_domtrans',`
+	gen_require(`
+		type steam_t, steam_exec_t;
+	')
+
+	domtrans_pattern($1, steam_exec_t, steam_t)
+')
+
+
+########################################
+## <summary>
+##	Execute steam in the steam domain.
+## </summary>
+## <param name="domain">
+## <summary>
+##	Domain allowed to transition.
+## </summary>
+## </param>
+## <param name="role">
+##	<summary>
+##	Role allowed access.
+##	</summary>
+## </param>
+#
+interface(`steam_run',`
+	gen_require(`
+		type steam_t;
+        attribute_role steam_roles;
+	')
+
+	steam_domtrans($1)
+	roleattribute $2 steam_roles;
+')
