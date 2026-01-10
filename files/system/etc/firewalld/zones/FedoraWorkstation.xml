@@ -2,5 +2,4 @@
 <zone>
   <short>Fedora Workstation</short>
   <description>Overriden default config</description>
-  <forward/>
 </zone>
