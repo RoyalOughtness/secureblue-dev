@@ -37,7 +37,7 @@ jobs:
   #     actions: read # Needed to read actions and actions logs for provenance generation
   #     packages: write # Needed to publish images
   #     id-token: write # Needed for token generation for signing
-  #   uses: ./.github/workflows/build-one-recipe.yml
+  #   uses: ./.github/workflows/build-one-image.yml
   #   with:
   #     recipe: general/recipe-silverblue-main
   #     rechunk: true
@@ -54,7 +54,7 @@ jobs:
   #     actions: read # Needed to read actions and actions logs for provenance generation
   #     packages: write # Needed to publish images
   #     id-token: write # Needed for token generation for signing
-  #   uses: ./.github/workflows/build-one-recipe.yml
+  #   uses: ./.github/workflows/build-one-image.yml
   #   with:
   #     recipe: general/recipe-kinoite-main
   #     rechunk: true
@@ -71,7 +71,7 @@ jobs:
   #     actions: read # Needed to read actions and actions logs for provenance generation
   #     packages: write # Needed to publish images
   #     id-token: write # Needed for token generation for signing
-  #   uses: ./.github/workflows/build-one-recipe.yml
+  #   uses: ./.github/workflows/build-one-image.yml
   #   with:
   #     recipe: general/recipe-sericea-main
   #     rechunk: true
@@ -88,7 +88,7 @@ jobs:
   #     actions: read # Needed to read actions and actions logs for provenance generation
   #     packages: write # Needed to publish images
   #     id-token: write # Needed for token generation for signing
-  #   uses: ./.github/workflows/build-one-recipe.yml
+  #   uses: ./.github/workflows/build-one-image.yml
   #   with:
   #     recipe: general/recipe-cosmic-main
   #     rechunk: true
@@ -112,7 +112,7 @@ jobs:
   #       recipe:
   #         - general/recipe-silverblue-nvidia
   #         - general/recipe-silverblue-nvidia-open
-  #   uses: ./.github/workflows/build-one-recipe.yml
+  #   uses: ./.github/workflows/build-one-image.yml
   #   with:
   #     recipe: ${{ matrix.recipe }}
   #     rechunk: true
@@ -136,7 +136,7 @@ jobs:
   #       recipe:
   #         - general/recipe-kinoite-nvidia
   #         - general/recipe-kinoite-nvidia-open
-  #   uses: ./.github/workflows/build-one-recipe.yml
+  #   uses: ./.github/workflows/build-one-image.yml
   #   with:
   #     recipe: ${{ matrix.recipe }}
   #     rechunk: true
@@ -160,7 +160,7 @@ jobs:
   #       recipe:
   #         - general/recipe-sericea-nvidia
   #         - general/recipe-sericea-nvidia-open
-  #   uses: ./.github/workflows/build-one-recipe.yml
+  #   uses: ./.github/workflows/build-one-image.yml
   #   with:
   #     recipe: ${{ matrix.recipe }}
   #     rechunk: true
@@ -184,7 +184,7 @@ jobs:
   #       recipe:
   #         - general/recipe-cosmic-nvidia
   #         - general/recipe-cosmic-nvidia-open
-  #   uses: ./.github/workflows/build-one-recipe.yml
+  #   uses: ./.github/workflows/build-one-image.yml
   #   with:
   #     recipe: ${{ matrix.recipe }}
   #     rechunk: true
@@ -201,7 +201,7 @@ jobs:
   #     actions: read # Needed to read actions and actions logs for provenance generation
   #     packages: write # Needed to publish images
   #     id-token: write # Needed for token generation for signing
-  #   uses: ./.github/workflows/build-one-recipe.yml
+  #   uses: ./.github/workflows/build-one-image.yml
   #   with:
   #     recipe: securecore/recipe-securecore-main
   #     rechunk: true
@@ -225,7 +225,7 @@ jobs:
   #       recipe:
   #         - securecore/recipe-securecore-nvidia
   #         - securecore/recipe-securecore-nvidia-open
-  #   uses: ./.github/workflows/build-one-recipe.yml
+  #   uses: ./.github/workflows/build-one-image.yml
   #   with:
   #     recipe: ${{ matrix.recipe }}
   #     rechunk: true
@@ -243,7 +243,7 @@ jobs:
   #     actions: read # Needed to read actions and actions logs for provenance generation
   #     packages: write # Needed to publish images
   #     id-token: write # Needed for token generation for signing
-  #   uses: ./.github/workflows/build-one-recipe.yml
+  #   uses: ./.github/workflows/build-one-image.yml
   #   with:
   #     recipe: securecore/recipe-securecore-zfs-main
   #     rechunk: true
@@ -267,7 +267,7 @@ jobs:
   #       recipe:
   #         - securecore/recipe-securecore-zfs-nvidia
   #         - securecore/recipe-securecore-zfs-nvidia-open
-  #   uses: ./.github/workflows/build-one-recipe.yml
+  #   uses: ./.github/workflows/build-one-image.yml
   #   with:
   #     recipe: ${{ matrix.recipe }}
   #     rechunk: true
@@ -284,7 +284,7 @@ jobs:
       actions: read # Needed to read actions and actions logs for provenance generation
       packages: write # Needed to publish images
       id-token: write # Needed for token generation for signing
-    uses: ./.github/workflows/build-one-recipe.yml
+    uses: ./.github/workflows/build-one-image.yml
     with:
       recipe: iot/recipe-iot-main
       rechunk: true
@@ -308,7 +308,7 @@ jobs:
         recipe:
           - iot/recipe-iot-nvidia
           - iot/recipe-iot-nvidia-open
-    uses: ./.github/workflows/build-one-recipe.yml
+    uses: ./.github/workflows/build-one-image.yml
     with:
       recipe: ${{ matrix.recipe }}
       rechunk: true
@@ -326,7 +326,7 @@ jobs:
   #     actions: read # Needed to read actions and actions logs for provenance generation
   #     packages: write # Needed to publish images
   #     id-token: write # Needed for token generation for signing
-  #   uses: ./.github/workflows/build-one-recipe.yml
+  #   uses: ./.github/workflows/build-one-image.yml
   #   with:
   #     recipe: iot/recipe-iot-zfs-main
   #     rechunk: true
@@ -350,7 +350,7 @@ jobs:
   #       recipe:
   #         - iot/recipe-iot-zfs-nvidia
   #         - iot/recipe-iot-zfs-nvidia-open
-  #   uses: ./.github/workflows/build-one-recipe.yml
+  #   uses: ./.github/workflows/build-one-image.yml
   #   with:
   #     recipe: ${{ matrix.recipe }}
   #     rechunk: true
