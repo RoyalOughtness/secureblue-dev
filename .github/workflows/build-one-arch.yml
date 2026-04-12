@@ -29,7 +29,7 @@ on:
 
 jobs:
   bluebuild:
-    name: Build secureblue ${{ inputs.arch }}
+    name: Build ${{ inputs.recipe }} ${{ inputs.arch }}
     runs-on: ${{ inputs.arch == 'x86_64' && 'ubuntu-24.04' || 'ubuntu-24.04-arm' }}
     environment: Build
     outputs:
