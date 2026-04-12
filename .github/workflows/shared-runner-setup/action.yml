@@ -85,7 +85,7 @@ runs:
         fi
 
         curl -fLsS --retry 5 -o "/usr/local/bin/slsa-verifier" "https://github.com/slsa-framework/slsa-verifier/releases/download/v2.7.1/slsa-verifier-linux-${SLSA_ARCH}"
-
+        echo "/usr/local/bin" >> $GITHUB_PATH
         curl -fLsS --retry 5 \
           -o 'go-containerregistry.tar.gz' "https://github.com/google/go-containerregistry/releases/download/${CRANE_VERSION}/go-containerregistry_${CRANE_OS}_${CRANE_ARCH}.tar.gz" \
           -o 'provenance.intoto.jsonl' "https://github.com/google/go-containerregistry/releases/download/${CRANE_VERSION}/multiple.intoto.jsonl"
