@@ -27,10 +27,6 @@ on:
       KERNEL_PRIVKEY:
         required: true
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-${{ inputs.recipe }}
-  cancel-in-progress: true
-
 jobs:
   bluebuild:
     name: Build secureblue
