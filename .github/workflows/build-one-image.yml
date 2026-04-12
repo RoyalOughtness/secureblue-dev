@@ -30,6 +30,7 @@ concurrency:
 
 jobs:
   build-x86_64:
+    name: Build secureblue x86_64
     uses: ./.github/workflows/build-one-arch.yml
     permissions:
       contents: read # Needed to pull the repo for the build
@@ -46,6 +47,7 @@ jobs:
       KERNEL_PRIVKEY: ${{ secrets.KERNEL_PRIVKEY }}
 
   build-aarch64:
+    name: Build secureblue aarch64
     uses: ./.github/workflows/build-one-arch.yml
     permissions:
       contents: read # Needed to pull the repo for the build
