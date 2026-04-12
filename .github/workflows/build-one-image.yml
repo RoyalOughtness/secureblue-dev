@@ -1,0 +1,129 @@
+# SPDX-FileCopyrightText: Copyright 2025-2026 The Secureblue Authors
+#
+# SPDX-License-Identifier: Apache-2.0
+
+name: build-one-image
+permissions: {}
+on:
+  workflow_call:
+    inputs:
+      recipe:
+        type: string
+        required: true
+      rechunk:
+        type: boolean
+        required: false
+        default: false
+      clear-plan:
+        type: boolean
+        required: false
+        default: false
+    secrets:
+      SIGNING_SECRET:
+        required: true
+      KERNEL_PRIVKEY:
+        required: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-${{ inputs.recipe }}
+  cancel-in-progress: true
+
+jobs:
+  build-x86_64:
+    uses: ./.github/workflows/build-arch.yml
+    permissions:
+      contents: read # Needed to pull the repo for the build
+      actions: read # Needed to read actions and actions logs for provenance generation
+      packages: write # Needed to publish images
+      id-token: write # Needed for token generation for signing
+    with:
+      recipe:     ${{ inputs.recipe }}
+      arch:       x86_64
+      rechunk:    ${{ inputs.rechunk }}
+      clear-plan: ${{ inputs.clear-plan }}
+    secrets:
+      SIGNING_SECRET: ${{ secrets.SIGNING_SECRET }}
+      KERNEL_PRIVKEY: ${{ secrets.KERNEL_PRIVKEY }}
+
+  build-aarch64:
+    uses: ./.github/workflows/build-arch.yml
+    permissions:
+      contents: read # Needed to pull the repo for the build
+      actions: read # Needed to read actions and actions logs for provenance generation
+      packages: write # Needed to publish images
+      id-token: write # Needed for token generation for signing
+    with:
+      recipe:     ${{ inputs.recipe }}
+      arch:       aarch64
+      rechunk:    ${{ inputs.rechunk }}
+      clear-plan: ${{ inputs.clear-plan }}
+    secrets:
+      SIGNING_SECRET: ${{ secrets.SIGNING_SECRET }}
+      KERNEL_PRIVKEY: ${{ secrets.KERNEL_PRIVKEY }}
+
+  build-multiarch:
+    name: Build multiarch image
+    needs: [build-amd64, build-arm64]
+    runs-on: ubuntu-24.04
+    environment: Build
+    permissions:
+      contents: read # Needed to pull the repo for the build
+      actions: read # Needed to read actions and actions logs for provenance generation
+      packages: write # Needed to publish images
+      id-token: write # Needed for token generation for signing
+    outputs:
+      FULL_IMAGE_REF: ${{ steps.multiarch.outputs.FULL_IMAGE_REF }}
+      IMAGE_DIGEST:   ${{ steps.multiarch.outputs.IMAGE_DIGEST }}
+    steps:
+      - name: Enable egress auditing
+        uses: step-security/harden-runner@fe104658747b27e96e4f7e80cd0a94068e53901d # v2.16.1
+        with:
+          egress-policy: audit
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install regctl
+        uses: regclient/actions/regctl-installer@1b705e32d40851370799ea5814e83d0a5f6a70dc # v0.1.0
+
+      - name: Create multiarch image
+        id: multiarch
+        shell: bash
+        env:
+          REF_AMD64: ${{ needs.build-amd64.outputs.FULL_IMAGE_REF }}
+          REF_ARM64:  ${{ needs.build-arm64.outputs.FULL_IMAGE_REF }}
+          IMAGE_NAME:  ${{ inputs.recipe }}
+        run: |
+          BASE_IMAGE="ghcr.io/secureblue/${IMAGE_NAME}"
+          DATESTAMP=$(date -u '+%Y%m%d')
+
+          LATEST_IMAGE="${BASE_IMAGE}:latest"
+          DATESTAMP_IMAGE="${BASE_IMAGE}:${TIMESTAMP}"
+
+          regctl index create "${LATEST_IMAGE}" --ref "${REF_AMD64}" --platform linux/amd64 --ref "${REF_ARM64}" --platform linux/arm64
+          regctl index create "${DATESTAMP_IMAGE}" --ref "${REF_AMD64}" --platform linux/amd64  --ref "${REF_ARM64}" --platform linux/arm64
+
+          IMAGE_DIGEST=$(regctl image digest "${LATEST_IMAGE}")
+
+          echo "FULL_IMAGE_REF=${LATEST_IMAGE}" >> "${GITHUB_OUTPUT}"
+          echo "IMAGE_DIGEST=${IMAGE_DIGEST}" >> "${GITHUB_OUTPUT}"
+
+  provenance:
+    needs: [build-multiarch]
+    permissions:
+      actions: read # for detecting the Github Actions environment.
+      id-token: write # for creating OIDC tokens for signing.
+      packages: write # for uploading attestations.
+    # Currently this must be referenced by tag, not by hash:
+    # https://github.com/slsa-framework/slsa-github-generator?tab=readme-ov-file#referencing-slsa-builders-and-generators
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v2.1.0
+    with:
+      image: ${{ needs.build-multiarch.outputs.FULL_IMAGE_REF }}
+      digest: ${{ needs.build-multiarch.outputs.IMAGE_DIGEST }}
+      registry-username: ${{ github.actor }}
+    secrets:
+      registry-password: ${{ secrets.GITHUB_TOKEN }}

@@ -2,12 +2,15 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-name: build-secureblue
+name: build-one-arch
 permissions: {}
 on:
   workflow_call:
     inputs:
       recipe:
+        type: string
+        required: true
+      arch:
         type: string
         required: true
       rechunk:
@@ -31,7 +34,7 @@ concurrency:
 jobs:
   bluebuild:
     name: Build secureblue
-    runs-on: ubuntu-24.04
+    runs-on: ${{ inputs.arch == 'x86_64' && 'ubuntu-24.04' || 'ubuntu-24.04-arm' }}
     environment: Build
     outputs:
       FULL_IMAGE_REF: ${{ steps.runner_setup.outputs.FULL_IMAGE_REF }}
@@ -183,11 +186,21 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Get recipe path
+        id: recipe_path
+        shell: bash
+        run: |
+          if [[ "${{ inputs.arch }}" == 'x86_64' ]]; then
+            echo "recipe_path=${{ inputs.recipe }}-amd64.yml" >> "${GITHUB_OUTPUT}"
+          else
+            echo "recipe_path=${{ inputs.recipe }}-aarch64.yml" >> "${GITHUB_OUTPUT}"
+          fi
+
       - name: Runner setup
         id: runner_setup
         uses: ./.github/workflows/shared-runner-setup
         with:
-          recipe: ${{ inputs.recipe }}
+          recipe: ${{ steps.recipe_path.outputs.recipe_path }}
 
       - name: Decide whether to clear previous layer plan
         id: clear_plan
@@ -219,7 +232,7 @@ jobs:
           KERNEL_PRIVKEY: ${{ secrets.KERNEL_PRIVKEY }}
         with:
           cli_version: v0.9.33
-          recipe: ${{ inputs.recipe }}
+          recipe: ${{ steps.recipe_path.outputs.recipe_path }}
           cosign_private_key: ${{ secrets.SIGNING_SECRET }}
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
@@ -244,19 +257,3 @@ jobs:
         run: |
           IMAGE_DIGEST=$(regctl image digest "${FULL_IMAGE_REF}")
           echo "IMAGE_DIGEST=${IMAGE_DIGEST}" >> "${GITHUB_OUTPUT}"
-
-  provenance:
-    needs: [bluebuild]
-    permissions:
-      actions: read # for detecting the Github Actions environment.
-      id-token: write # for creating OIDC tokens for signing.
-      packages: write # for uploading attestations.
-    # Currently this must be referenced by tag, not by hash:
-    # https://github.com/slsa-framework/slsa-github-generator?tab=readme-ov-file#referencing-slsa-builders-and-generators
-    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v2.1.0
-    with:
-      image: ${{ needs.bluebuild.outputs.FULL_IMAGE_REF }}
-      digest: ${{ needs.bluebuild.outputs.IMAGE_DIGEST }}
-      registry-username: ${{ github.actor }}
-    secrets:
-      registry-password: ${{ secrets.GITHUB_TOKEN }}
