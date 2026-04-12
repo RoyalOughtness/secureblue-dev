@@ -10,6 +10,9 @@ inputs:
   recipe:
     type: string
     required: true
+  arch:
+    type: string
+    required: true
 
 outputs:
   FULL_IMAGE_REF:
@@ -71,12 +74,25 @@ runs:
         BASE_IMAGE: ${{ steps.image_data.outputs.BASE_IMAGE }}
       run: |
         # Install crane
-        CRANE_VERSION=v0.20.7
+        CRANE_VERSION=v0.21.5
         CRANE_OS=Linux
-        CRANE_ARCH=x86_64
-          curl -fLsS --retry 5 \
-            -o 'go-containerregistry.tar.gz' "https://github.com/google/go-containerregistry/releases/download/${CRANE_VERSION}/go-containerregistry_${CRANE_OS}_${CRANE_ARCH}.tar.gz" \
-            -o 'provenance.intoto.jsonl' "https://github.com/google/go-containerregistry/releases/download/${CRANE_VERSION}/multiple.intoto.jsonl"
+        if [[ "${{ inputs.arch }}" == 'x86_64' ]]; then
+          CRANE_ARCH=x86_64
+        else
+          CRANE_ARCH=arm64
+        fi
+
+        if [[ "${{ inputs.arch }}" == 'x86_64' ]]; then
+          SLSA_ARCH=amd64
+        else
+          SLSA_ARCH=arm64
+        fi
+
+        curl -fLsS --retry 5 -o "/usr/local/bin/slsa-verifier" "https://github.com/slsa-framework/slsa-verifier/releases/download/v2.7.1/slsa-verifier-linux-${SLSA_ARCH}"
+
+        curl -fLsS --retry 5 \
+          -o 'go-containerregistry.tar.gz' "https://github.com/google/go-containerregistry/releases/download/${CRANE_VERSION}/go-containerregistry_${CRANE_OS}_${CRANE_ARCH}.tar.gz" \
+          -o 'provenance.intoto.jsonl' "https://github.com/google/go-containerregistry/releases/download/${CRANE_VERSION}/multiple.intoto.jsonl"
         slsa-verifier verify-artifact go-containerregistry.tar.gz --provenance-path provenance.intoto.jsonl --source-uri github.com/google/go-containerregistry --source-tag "${CRANE_VERSION}"
         tar -zxvf go-containerregistry.tar.gz -C /usr/local/bin/ crane
 
